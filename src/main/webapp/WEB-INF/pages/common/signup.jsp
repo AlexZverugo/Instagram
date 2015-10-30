@@ -1,0 +1,63 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html lang="en">
+<head>
+    <title>Add user</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
+
+    <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="<c:url value="/resources/css/signin.css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/signup.css"/>" type="text/css"/>
+
+</head>
+<body>
+<div class="container" align="center">
+    <%@ include file="toolkit/language.jsp" %>
+    <h2><spring:message code="signup.label.input_inf"/></h2>
+    <form:form action="/registration/registerUser" method="post" commandName="userForm" class="form-horizontal"
+               role="form">
+        <form:errors path="login" cssClass="error" cssStyle="color:red"/>
+        <div class="form-group">
+            <div class="my-col-sm-10 col-sm-10">
+                <spring:message code="signup.placeholder.login" var="Login"/>
+                <form:input path="login" class="form-control" type="text" placeholder="${Login}"/>
+            </div>
+        </div>
+
+        <form:errors path="password" cssClass="error" cssStyle="color:red"/>
+        <div class="form-group">
+            <div class="my-col-sm-10 col-sm-10">
+                <spring:message code="signup.placeholder.password" var="Password"/>
+                <form:input path="password" class="form-control" type="password" placeholder="${Password}"
+                            disabled="false"/>
+            </div>
+        </div>
+
+        <form:errors path="repeatedPassword" cssClass="error" cssStyle="color:red"/>
+        <div class="form-group">
+            <div class="my-col-sm-10 col-sm-10">
+                <spring:message code="signup.placeholder.repeatedlpassword" var="RepeatedPassword"/>
+                <form:input path="repeatedPassword" class="form-control" type="password" placeholder="${RepeatedPassword}"
+                            disabled="false"/>
+            </div>
+        </div>
+
+        <form:errors path="email" cssClass="error" cssStyle="color:red"/>
+        <div class="form-group">
+            <div class="my-col-sm-10 col-sm-10">
+                <form:input path="email" class="form-control" type="email" placeholder="Email" disabled="false"/>
+            </div>
+        </div>
+
+        <spring:message code="signup.button.signup" var="SignUpButton"/>
+        <input type="submit" class="my-btn btn btn-info" value="${SignUpButton}"/>
+    </form:form>
+</div>
+
+</body>
+</html>
