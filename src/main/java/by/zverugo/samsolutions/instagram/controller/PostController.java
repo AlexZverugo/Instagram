@@ -2,13 +2,13 @@ package by.zverugo.samsolutions.instagram.controller;
 
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
+import by.zverugo.samsolutions.instagram.service.post.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import by.zverugo.samsolutions.instagram.service.post.PostService;
 
 import java.util.Map;
 
@@ -39,6 +39,6 @@ public class PostController {
         post.setOwner(Long.valueOf(id));
 
         postService.savePost(post);
-        return "redirect:../users/user";
+        return "redirect:../users/user/" + id;
     }
 }

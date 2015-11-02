@@ -10,22 +10,22 @@
 
     <!--<global-method-security secured-annotations="enabled" /> -->
 
-    <http auto-config="true"  use-expressions="true">
-        <intercept-url pattern="/users/**" access="hasRole('USER')" />
-        <intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+    <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/users/**" access="hasRole('USER')"/>
+        <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
         <intercept-url pattern="/login" access="!isAuthenticated()"/>
         <intercept-url pattern="/" access="!isAuthenticated()"/>
         <intercept-url pattern="/registration" access="!isAuthenticated()"/>
 
-        <access-denied-handler error-page="/login/403page"  />
+        <access-denied-handler error-page="/login/403page"/>
         <form-login
                 always-use-default-target="false"
                 login-page="/login"
                 default-target-url="/users/user"
                 authentication-failure-url="/login?fail"
                 username-parameter="username"
-                password-parameter="password" />
-        <logout logout-success-url="/login" />
+                password-parameter="password"/>
+        <logout logout-success-url="/login"/>
     </http>
 
     <authentication-manager alias="authenticationManager">

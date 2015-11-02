@@ -47,7 +47,7 @@ public class RegistrationController {
         }
         userDTO.setRole(UserRoleEnum.USER);
         String password = userDTO.getPassword();
-        userDTO.setPassword(passwordEncoder.encodePassword(password, null));
+        userDTO.setPassword(passwordEncoder.encode(password));
         userService.saveUser(userDTO);
         authorizationService.login(userDTO.getLogin(), password);
 

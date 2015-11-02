@@ -50,13 +50,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public PostDTO getPost(long id) {
         return postToPostDTOConverter.convert(postDao.getPost(id));
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<PostDTO> getListOfPosts() {
         List<Post> posts = postDao.getListOfPosts();
         List<PostDTO> postDTOList = new ArrayList();
@@ -64,6 +64,19 @@ public class PostServiceImpl implements PostService {
         for (Post post : posts) {
             postDTOList.add(postToPostDTOConverter.convert(post));
         }
+        return postDTOList;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PostDTO> getListOfPostsByIdOfOwner(long id) {
+        List<Post> posts = postDao.getListOfPostsByIdOfOwner(id);
+        List<PostDTO> postDTOList = new ArrayList();
+
+        for (Post post : posts) {
+            postDTOList.add(postToPostDTOConverter.convert(post));
+        }
+
         return postDTOList;
     }
 }

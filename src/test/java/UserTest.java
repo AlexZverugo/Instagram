@@ -31,7 +31,7 @@ public class UserTest {
         user = new UserDTO();
         user.setId((long) 22);
         user.setLogin("user3");
-        user.setPassword(passwordHashEncoder.encodePassword("123456",new Object()));
+        user.setPassword(passwordHashEncoder.encode("123456"));
         user.setEmail("user@gmail.com");
         user.setRole(UserRoleEnum.USER);
     }

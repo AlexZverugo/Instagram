@@ -13,4 +13,5 @@ public interface PostDao {
     public void updatePost(Post post);
     public Post getPost(long id);
     public List<Post> getListOfPosts();
+    public List<Post> getListOfPostsByIdOfOwner(long id);
 }

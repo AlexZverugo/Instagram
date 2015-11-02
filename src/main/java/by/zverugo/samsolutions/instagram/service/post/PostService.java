@@ -13,4 +13,5 @@ public interface PostService {
     public void updatePost(PostDTO postDTO);
     public PostDTO getPost(long id);
     public List<PostDTO> getListOfPosts();
+    public List<PostDTO> getListOfPostsByIdOfOwner(long id);
 }

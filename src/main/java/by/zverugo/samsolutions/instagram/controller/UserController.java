@@ -1,8 +1,9 @@
 package by.zverugo.samsolutions.instagram.controller;
 
+import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
+import by.zverugo.samsolutions.instagram.service.post.PostService;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,15 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/users")
 public class UserController {
 
-    private final Logger logger = Logger.getLogger(getClass());
-
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PostService postService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String checkUser(HttpSession httpSession) {
@@ -40,7 +44,11 @@ public class UserController {
             return "redirect:/users/user";
         }
 
-        model.addAttribute("id", id);
+        List<PostDTO> posts = postService.getListOfPostsByIdOfOwner(id);
+        Collections.reverse(posts);
+
+        model.addAttribute("posts", posts);
+        model.addAttribute("username", user.getLogin());
         return "user/user";
     }
 

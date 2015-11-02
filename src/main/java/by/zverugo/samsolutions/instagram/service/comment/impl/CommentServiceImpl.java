@@ -50,13 +50,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public CommentDTO getComment(long id) {
         return commentToCommentDTOConverter.convert(commentDao.getComment(id));
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<CommentDTO> getListOfComments() {
         List<Comment> comments = commentDao.getListOfComments();
         List<CommentDTO> commentDTOList = new ArrayList();

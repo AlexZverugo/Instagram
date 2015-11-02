@@ -28,8 +28,6 @@
         </form:form>
     </c:forEach>
 
-    <c:url value="/j_spring_security_logout" var="logoutUrl"/>
-    <h2><a href="${logoutUrl}"><spring:message code="admin.button.logout"/></a></h2>
 </div>
 </body>
 </html>
