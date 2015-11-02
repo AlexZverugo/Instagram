@@ -4,6 +4,7 @@ import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.service.post.PostService;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
+import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,7 +41,7 @@ public class UserController {
     public String userPage(@PathVariable("id") long id, Model model) {
         UserDTO user = userService.getUserById(id);
 
-        if (user == null || user.getRole().getRole().equals("ADMIN")) {
+        if (user == null || UserRoleEnum.ADMIN.getRole().equals(user.getRole().getRole())) {
             return "redirect:/users/user";
         }
 
@@ -53,7 +54,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/addPost", method = RequestMethod.POST)
-    public String addPost(@RequestParam(required = true) String id, HttpSession httpSession) {
+    public String addPost(@RequestParam(required = true) long id, HttpSession httpSession) {
         httpSession.setAttribute("postOwnerId", id);
         return "redirect:/post";
     }

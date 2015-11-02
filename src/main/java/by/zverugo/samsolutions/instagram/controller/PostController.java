@@ -29,14 +29,14 @@ public class PostController {
 
     @RequestMapping(value = "addPost", method = RequestMethod.POST)
     public String addPost(@ModelAttribute("postForm") PostDTO post,
-                          @ModelAttribute("postOwnerId") String id,
+                          @ModelAttribute("postOwnerId") long id,
                           @ModelAttribute("authorizedUser") UserDTO authUser) {
         //Temp!! Will be removed later
         post.setLike(0);
         post.setDislike(0);
 
         post.setSender(authUser.getId());
-        post.setOwner(Long.valueOf(id));
+        post.setOwner(id);
 
         postService.savePost(post);
         return "redirect:../users/user/" + id;

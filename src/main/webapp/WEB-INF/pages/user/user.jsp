@@ -2,20 +2,16 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags"%>
+
 <html>
 <head>
-    <title>User page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
-
-    <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet">
+    <toolkit:header title="Instagram user page"/>
     <link rel="stylesheet" href="<c:url value="/resources/css/user.css"/>" type="text/css"/>
 </head>
 <body>
 <div class="container" align="center">
-    <%@ include file="../common/toolkit/navbar.jsp" %>
+    <toolkit:navbar/>
     <h2 style="color:blue">${username}</h2>
 
     <form action="/users/addPost?id=${id}" method="post" class="form-horizontal" role="form">

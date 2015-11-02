@@ -1,22 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>--%>
+<%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags"%>
 
 <html>
 <head>
-    <title>Add user</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
-
+    <toolkit:header title="Instagram login page"/>
     <link rel="stylesheet" href="<c:url value="/resources/css/signin.css"/>" type="text/css"/>
-    <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet">
 </head>
 <body>
 <div class="container" align="center">
-    <%@ include file="toolkit/language.jsp" %>
+    <toolkit:langnav/>
     <h2><spring:message code="login.label.signin"/></h2>
     <h6 class="exc-col">${message}</h6>
     <c:url value="/j_spring_security_check" var="loginUrl"/>

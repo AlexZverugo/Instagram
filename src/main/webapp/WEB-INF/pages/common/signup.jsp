@@ -2,22 +2,16 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags"%>
 <html lang="en">
 <head>
-    <title>Add user</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
-
-    <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet">
+    <toolkit:header title="Instagram registration page"/>
     <link rel="stylesheet" href="<c:url value="/resources/css/signin.css"/>" type="text/css"/>
-    <link rel="stylesheet" href="<c:url value="/resources/css/signup.css"/>" type="text/css"/>
 
 </head>
 <body>
 <div class="container" align="center">
-    <%@ include file="toolkit/language.jsp" %>
+    <toolkit:langnav/>
     <h2><spring:message code="signup.label.input_inf"/></h2>
     <form:form action="/registration/registerUser" method="post" commandName="userForm" class="form-horizontal"
                role="form">

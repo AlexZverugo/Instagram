@@ -21,10 +21,10 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
         logger.info("AccessInterceptor.preHandle start  " + o);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         GrantedAuthority roleAuthority = (GrantedAuthority) authentication.getAuthorities().toArray()[0];
-        if (roleAuthority.getAuthority().equals(UserRoleEnum.ADMIN.getRole())) {
+        if (UserRoleEnum.ADMIN.getRole().equals(roleAuthority.getAuthority())) {
             httpServletResponse.sendRedirect("/admin");
             return false;
-        } else if (roleAuthority.getAuthority().equals(UserRoleEnum.USER.getRole())) {
+        } else if (UserRoleEnum.USER.getRole().equals(roleAuthority.getAuthority())) {
             httpServletResponse.sendRedirect("/users/user");
             return false;
         }

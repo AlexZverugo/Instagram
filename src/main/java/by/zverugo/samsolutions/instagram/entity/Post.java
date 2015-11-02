@@ -39,7 +39,7 @@ public class Post {
     @JoinColumn(name = "sender")
     private User sender;
 
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
     private List<Comment> postsComment;
 
     public User getOwner() {

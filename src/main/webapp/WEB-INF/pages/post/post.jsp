@@ -2,18 +2,14 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags"%>
 <html>
 <head>
-    <title>Post</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
-
-    <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet">
+    <toolkit:header title="Post adder page"/>
 </head>
 <body>
 <div class="container" align="center">
-    <%@ include file="../common/toolkit/language.jsp" %>
+    <toolkit:navbar/>
     <form:form action="/post/addPost" method="post" commandName="postForm">
 
         <div class="form-group">
