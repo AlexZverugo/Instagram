@@ -1,0 +1,19 @@
+.welcome-bg {
+    background: #b9b9b9 url(/resources/foto/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+
+#cont {
+    position: absolute;
+    top: 15%;
+    left: 60%;
+    width: 300px;
+    background: lavender;
+    border: 3px solid #fff;
+    border-radius: 10px;
+}
+.my-btn {
+    width: 200px;
+    background: gray;
+    border: gray;
+}

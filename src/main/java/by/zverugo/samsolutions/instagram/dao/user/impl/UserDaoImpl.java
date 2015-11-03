@@ -61,15 +61,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUserById(long id) {
-        String userhql = "FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE U.id = :id";
+        String userhql = "delete FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE U.id = :id";
         Query query = sessionFactory.getCurrentSession().createQuery(userhql);
         query.setParameter("id", id);
-        logger.info("INFO: search by id result: " + query.list());
-        List<User> users = query.list();
-        if (users.size() > 0) {
-            sessionFactory.getCurrentSession().delete(users.get(0));
-        } else {
-            return;
-        }
+        query.executeUpdate();
+        logger.info("search by id result: " + query.list());
     }
 }

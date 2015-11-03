@@ -5,13 +5,18 @@
 <html>
 <head>
     <toolkit:header title="Instagram"/>
+    <link href="<c:url value="/resources/css/welcome.css"/>" type="text/css" rel="stylesheet">
 </head>
-<body>
-<div class="container" align="center">
-    <toolkit:langnav/>
-    <h2><a href="/login"><spring:message code="welcome.label.signin"/></a></h2>
-
-    <h2><a href="/registration"><spring:message code="welcome.label.signup"/></a></h2>
+<body class="welcome-bg">
+<toolkit:langnav/>
+<div class="container my-container" align="center">
+    <div id="cont">
+        <img src="<c:url value="/resources/foto/insta.png"/>"><br><br>
+        <a href="/login" class="btn btn-info btn-lg my-btn">
+            <spring:message code="welcome.label.signin"/></a><br><br>
+        <a href="/registration" class="btn btn-info btn-lg my-btn">
+            <spring:message code="welcome.label.signup"/></a><br><br>
+    </div>
 </div>
 </body>
 </html>

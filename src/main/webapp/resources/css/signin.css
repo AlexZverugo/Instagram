@@ -1,6 +1,6 @@
 .my-col-sm-10 {
     width: 200px !important;
-    left: 41.5% !important;
+    left: 47px !important;
 }
 
 .my-btn {
@@ -11,8 +11,23 @@
     color: red;
 }
 
-/*.my-col-sm-2 {*/
-    /*left: 30%;*/
-/*}*/
+#main-label {
+    color: gray;
+}
 
-/*.container.form-group.col-sm-10*/
+
+
+.cont {
+    position: absolute;
+    top: 400px;
+    left: 1030px;
+    width: 300px;
+    background: lavender;
+    border: 3px solid #fff;
+    border-radius: 10px;
+}
+
+body {
+    /*background: url(/resources/foto/melon.jpg);*/
+    /*height: 100%;*/
+}

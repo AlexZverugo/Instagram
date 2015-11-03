@@ -3,11 +3,20 @@ package by.zverugo.samsolutions.instagram.dto;
 public class PostDTO {
     private Long id;
     private String postContent;
+    private String imgUrl;
     private Integer like;
     private Integer dislike;
     private Long sender;
     private Long owner;
 
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 
     public Integer getDislike() {
         return dislike;

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import by.zverugo.samsolutions.instagram.service.post.PostService;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service("postService")
@@ -76,6 +77,21 @@ public class PostServiceImpl implements PostService {
         for (Post post : posts) {
             postDTOList.add(postToPostDTOConverter.convert(post));
         }
+
+        return postDTOList;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<PostDTO> getReversedListOfPostsByIdOfOwner(long id) {
+        List<Post> posts = postDao.getListOfPostsByIdOfOwner(id);
+        List<PostDTO> postDTOList = new ArrayList();
+
+        for (Post post : posts) {
+            postDTOList.add(postToPostDTOConverter.convert(post));
+        }
+
+        Collections.reverse(postDTOList);
 
         return postDTOList;
     }

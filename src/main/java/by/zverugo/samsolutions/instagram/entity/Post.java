@@ -25,6 +25,9 @@ public class Post {
     @Column(name = "post_content")
     private String postContent;
 
+    @Column(name = "img_url")
+    private String imgUrl;
+
     @Column(name = "likes")
     private Integer like;
 
@@ -41,6 +44,15 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
     private List<Comment> postsComment;
+
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 
     public User getOwner() {
         return owner;

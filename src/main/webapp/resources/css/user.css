@@ -10,3 +10,30 @@
     width: 150px;
     height: 50px;
 }
+
+.layer {
+    overflow: auto;
+    height: 100%;
+    border: 3px hidden #ffffff;
+    border-radius: 10px;
+}
+
+.label-fixed {
+    position: fixed;
+    color: gray;
+    top: 8%;
+    left: 6.5%;
+}
+
+.btn-fixed {
+    position: fixed;
+    background: gray;
+    border: gray;
+    top: 15%;
+    left: 4%;
+}
+
+.post-scroll {
+    overflow: auto;
+    height: 10%;
+}

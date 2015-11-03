@@ -1,6 +1,7 @@
 package by.zverugo.samsolutions.instagram.service.post;
 
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
+import by.zverugo.samsolutions.instagram.entity.Post;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface PostService {
     public PostDTO getPost(long id);
     public List<PostDTO> getListOfPosts();
     public List<PostDTO> getListOfPostsByIdOfOwner(long id);
+    public List<PostDTO> getReversedListOfPostsByIdOfOwner(long id);
+
 }

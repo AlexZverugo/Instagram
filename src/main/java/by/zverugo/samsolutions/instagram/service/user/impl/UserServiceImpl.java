@@ -3,6 +3,7 @@ package by.zverugo.samsolutions.instagram.service.user.impl;
 import by.zverugo.samsolutions.instagram.converter.user.UserDTOToUserConverter;
 import by.zverugo.samsolutions.instagram.converter.user.UserToUserDTOConverter;
 import by.zverugo.samsolutions.instagram.dao.user.UserDao;
+import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.entity.User;
 import org.apache.log4j.Logger;
@@ -12,11 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * Created by alzv on 12.10.2015.
- */
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
@@ -79,5 +79,17 @@ public class UserServiceImpl implements UserService {
             userDTOList.add(userToUserDTOConverter.convert(user));
         }
         return userDTOList;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Map<Long,String> getPostSendersUsernames(List<PostDTO> posts) {
+        Map<Long,String> usernames = new HashMap<>();
+
+        for (PostDTO post : posts) {
+            usernames.put(post.getSender(),getUserById(post.getSender()).getLogin());
+        }
+
+        return usernames;
     }
 }

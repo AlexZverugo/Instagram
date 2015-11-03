@@ -1,0 +1,13 @@
+.bg-nav {
+    background: #929292;
+    border: 2px solid lavender;
+}
+
+.nav-comp {
+    color: #ffffff;
+}
+
+.my-btn {
+    background: gray;
+    border: gray;
+}

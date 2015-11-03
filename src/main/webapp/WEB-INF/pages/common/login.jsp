@@ -8,10 +8,10 @@
     <toolkit:header title="Instagram login page"/>
     <link rel="stylesheet" href="<c:url value="/resources/css/signin.css"/>" type="text/css"/>
 </head>
-<body>
-<div class="container" align="center">
-    <toolkit:langnav/>
-    <h2><spring:message code="login.label.signin"/></h2>
+<body class="bg-common">
+<toolkit:langnav/>
+<div class="container cont" align="center">
+    <h2><span id="main-label"><spring:message code="login.label.signin"/></span></h2>
     <h6 class="exc-col">${message}</h6>
     <c:url value="/j_spring_security_check" var="loginUrl"/>
     <form action="${loginUrl}" method="post" class="form-horizontal">

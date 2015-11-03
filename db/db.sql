@@ -6,14 +6,12 @@ email varchar(255) NOT NULL,
 user_role varchar(255) NOT NULL
 );
 
-
-
-
 CREATE TABLE  post (
 post_id serial PRIMARY KEY,
 user_id int references users(id),
 sender int references users(id),
 post_content varchar,
+img_url varchar,
 likes int DEFAULT 0,
 dislikes int  DEFAULT 0
 );

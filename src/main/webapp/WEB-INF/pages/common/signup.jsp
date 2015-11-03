@@ -6,13 +6,13 @@
 <html lang="en">
 <head>
     <toolkit:header title="Instagram registration page"/>
-    <link rel="stylesheet" href="<c:url value="/resources/css/signin.css"/>" type="text/css"/>
+    <link rel="stylesheet" href="<c:url value="/resources/css/signup.css"/>" type="text/css"/>
 
 </head>
-<body>
-<div class="container" align="center">
-    <toolkit:langnav/>
-    <h2><spring:message code="signup.label.input_inf"/></h2>
+<body class="bg-common">
+<toolkit:langnav/>
+<div class="container cont" align="center">
+    <h2><span id="main-label"><spring:message code="signup.label.input_inf"/></span></h2>
     <form:form action="/registration/registerUser" method="post" commandName="userForm" class="form-horizontal"
                role="form">
         <form:errors path="login" cssClass="error" cssStyle="color:red"/>

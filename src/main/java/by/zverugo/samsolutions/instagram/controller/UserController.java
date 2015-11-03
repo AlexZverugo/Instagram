@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/users")
@@ -45,9 +45,9 @@ public class UserController {
             return "redirect:/users/user";
         }
 
-        List<PostDTO> posts = postService.getListOfPostsByIdOfOwner(id);
-        Collections.reverse(posts);
-
+        List<PostDTO> posts = postService.getReversedListOfPostsByIdOfOwner(id);
+        Map<Long, String> usernames = userService.getPostSendersUsernames(posts);
+        model.addAttribute("usernames", usernames);
         model.addAttribute("posts", posts);
         model.addAttribute("username", user.getLogin());
         return "user/user";
