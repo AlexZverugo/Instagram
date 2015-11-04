@@ -1,5 +1,5 @@
 .bg-common {
-    background: #b9b9b9 url(/resources/foto/melon.jpg) no-repeat;
+    background: #b9b9b9 url(/resources/foto/melon.jpg) no-repeat fixed;
     background-size: 100% 100%;
 }
 

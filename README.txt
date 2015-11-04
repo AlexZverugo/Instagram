@@ -2,4 +2,7 @@
 Запустите admin.sql чтоб создать админа.
 
 Логин и пароль админа:
-логин: admin пароль:adminpassword 
+логин: admin пароль:adminpassword
+
+Создайте папку, где будут храниться фотографии
+Занесите путь папки в свойство post.resource.dir в файле path_en.properties 

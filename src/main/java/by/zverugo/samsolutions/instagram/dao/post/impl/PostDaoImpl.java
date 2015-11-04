@@ -3,6 +3,7 @@ package by.zverugo.samsolutions.instagram.dao.post.impl;
 import by.zverugo.samsolutions.instagram.dao.post.PostDao;
 import by.zverugo.samsolutions.instagram.entity.Post;
 import by.zverugo.samsolutions.instagram.entity.User;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,16 @@ import java.util.List;
 @Repository("postDao")
 public class PostDaoImpl implements PostDao {
 
+    private final Logger LOGGER = Logger.getLogger(getClass());
+
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public void savePost(Post post) {
+    public long savePost(Post post) {
         sessionFactory.getCurrentSession().save(post);
+        LOGGER.info("save post with id" + post.getPostId());
+        return post.getPostId();
     }
 
     @Override

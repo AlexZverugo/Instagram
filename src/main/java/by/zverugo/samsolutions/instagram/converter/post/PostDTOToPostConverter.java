@@ -24,7 +24,7 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post>{
         post.setDislike(postDTO.getDislike());
         post.setLike(postDTO.getLike());
         post.setPostContent(postDTO.getPostContent());
-        post.setImgUrl(postDTO.getImgUrl());
+        post.setImgUrl(postDTO.getPicturePath());
         post.setOwner(userDTOToUserConverter.convert(userService.getUserById(postDTO.getOwner())));
         post.setSender(userDTOToUserConverter.convert(userService.getUserById(postDTO.getSender())));
 

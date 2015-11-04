@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -35,29 +36,15 @@ public class PostController {
     public String addPost(@ModelAttribute("postForm") PostDTO post,
                           @ModelAttribute("postOwnerId") long id,
                           @ModelAttribute("authorizedUser") UserDTO authUser) {
-        //Temp!! Will be removed later
         post.setLike(0);
         post.setDislike(0);
-
         post.setSender(authUser.getId());
         post.setOwner(id);
+        post.setId(postService.savePost(post));
+        postService.saveFileResourceDir(post);
+        postService.updatePost(post);
 
-        postService.savePost(post);
         return "redirect:../users/user/" + id;
     }
 
-
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String handleFileUpload(@ModelAttribute("photoForm") ImageDTO imageDTO) {
-
-        System.getProperty("java.io.tmpdir");
-
-        if (imageDTO.getPhoto() != null) {
-            logger.info("File name: " + imageDTO.getPhoto().getOriginalFilename());
-            logger.info("File content: " + imageDTO.getPhoto());
-        } else {
-            logger.info("No one file is upload!!!");
-        }
-        return "redirect:/post";
-    }
 }

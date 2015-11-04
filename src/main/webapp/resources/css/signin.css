@@ -19,15 +19,10 @@
 
 .cont {
     position: absolute;
-    top: 400px;
-    left: 1030px;
+    top: 40%;
+    left: 54%;
     width: 300px;
     background: lavender;
     border: 3px solid #fff;
     border-radius: 10px;
-}
-
-body {
-    /*background: url(/resources/foto/melon.jpg);*/
-    /*height: 100%;*/
 }

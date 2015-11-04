@@ -5,17 +5,28 @@ import by.zverugo.samsolutions.instagram.converter.post.PostToPostDTOConverter;
 import by.zverugo.samsolutions.instagram.dao.post.PostDao;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.entity.Post;
+import by.zverugo.samsolutions.instagram.service.post.PostService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import by.zverugo.samsolutions.instagram.service.post.PostService;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 @Service("postService")
 public class PostServiceImpl implements PostService {
+
+    private final Logger LOGGER = Logger.getLogger(getClass());
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Autowired
     private PostDao postDao;
@@ -28,10 +39,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void savePost(PostDTO postDTO) {
+    public long savePost(PostDTO postDTO) {
         Post post;
         post = postDTOToPostConverter.convert(postDTO);
-        postDao.savePost(post);
+        return postDao.savePost(post);
     }
 
     @Override
@@ -95,4 +106,33 @@ public class PostServiceImpl implements PostService {
 
         return postDTOList;
     }
+
+    @Override
+    public void saveFileResourceDir(PostDTO postDTO) {
+        StringBuilder loggerInf = new StringBuilder();
+
+        String imageName = postDTO.getPicture().getOriginalFilename();
+        StringBuilder imageUrl = new StringBuilder();
+        imageUrl.append(postDTO.getOwner()).append("/").append(postDTO.getId());
+
+        StringBuilder dirPath = new StringBuilder();
+        dirPath.append(messageSource.getMessage("post.resource.dir", null, Locale.ENGLISH)).append(imageUrl);
+        File dir = new File(dirPath.toString());
+        dir.mkdirs();
+
+        StringBuilder picturePath = new StringBuilder();
+        picturePath.append(dirPath).append("/").append(imageName);
+        File picture = new File(picturePath.toString());
+
+        try {
+            postDTO.getPicture().transferTo(picture);
+            postDTO.setPicturePath(imageUrl + "/" + imageName);
+            LOGGER.info(loggerInf.append("Successful saving file:")
+                    .append(imageName).append("; at folder:").append(dirPath));
+        } catch (IOException e) {
+            LOGGER.warn(loggerInf.append("Cannot save file:").append(imageName)
+                    .append("; at folder:").append(dirPath));
+        }
+    }
+
 }

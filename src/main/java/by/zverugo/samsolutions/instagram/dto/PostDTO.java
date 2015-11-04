@@ -1,21 +1,32 @@
 package by.zverugo.samsolutions.instagram.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PostDTO {
     private Long id;
     private String postContent;
-    private String imgUrl;
+    private MultipartFile picture;
+    private String picturePath;
     private Integer like;
     private Integer dislike;
     private Long sender;
     private Long owner;
 
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getPicturePath() {
+        return picturePath;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
+    }
+
+    public MultipartFile getPicture() {
+        return picture;
+    }
+
+    public void setPicture(MultipartFile picture) {
+        this.picture = picture;
     }
 
     public Integer getDislike() {

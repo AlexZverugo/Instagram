@@ -13,7 +13,7 @@
 <div class="container" align="center">
     <br><br>
     <br><br>
-    <form:form action="/post/addPost" method="post" commandName="postForm">
+    <form:form action="/post/addPost" method="post" commandName="postForm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="comment"><span style="color:#31b0d5"><spring:message
                     code="post.label.inputpost"/>:</span></label>
@@ -23,17 +23,14 @@
             </div>
         </div>
 
+        <span class="btn btn-primary btn-file">
+           <form:input path="picture" type="file" name="photo" accept="image/*"/>
+        </span>
+        <br><br>
+
         <p><input type="submit" class="btn btn-primary" value="<spring:message code="post.button.send"/>"></p>
     </form:form>
 
-    <form:form enctype="multipart/form-data" method="post" action="post/upload" commandName="photoForm">
-        <span class="btn btn-primary btn-file">
-           <form:input path="photo" type="file" name="photo" accept="image/*"/>
-        </span>
-        <br><br>
-        <spring:message code="post.button.upload" var="UploadButton"/>
-        <input type="submit" class="btn btn-primary" value="${UploadButton}">
-    </form:form>
 
 </div>
 </body>

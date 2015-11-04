@@ -11,7 +11,6 @@
             http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-
     <context:component-scan base-package="by.zverugo.samsolutions.instagram.controller"/>
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="/resources"/>
@@ -28,17 +27,6 @@
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basenames">
-            <list>
-                <value>classpath:messages</value>
-                <value>classpath:errors</value>
-            </list>
-        </property>
-        <property name="defaultEncoding" value="UTF-8"/>
-    </bean>
-
     <bean id="localeResolver"
           class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
         <property name="defaultLocale" value="en"/>
@@ -53,7 +41,6 @@
             <bean class="by.zverugo.samsolutions.instagram.interceptor.AccessInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
-
 
 </beans>
 
