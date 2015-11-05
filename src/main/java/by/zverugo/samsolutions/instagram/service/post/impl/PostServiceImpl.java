@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,24 +40,21 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public long savePost(PostDTO postDTO) {
-        Post post;
-        post = postDTOToPostConverter.convert(postDTO);
+        Post post = postDTOToPostConverter.convert(postDTO);
         return postDao.savePost(post);
     }
 
     @Override
     @Transactional
     public void deletePost(PostDTO postDTO) {
-        Post post;
-        post = postDTOToPostConverter.convert(postDTO);
+        Post post = postDTOToPostConverter.convert(postDTO);
         postDao.deletePost(post);
     }
 
     @Override
     @Transactional
     public void updatePost(PostDTO postDTO) {
-        Post post;
-        post = postDTOToPostConverter.convert(postDTO);
+        Post post = postDTOToPostConverter.convert(postDTO);
         postDao.updatePost(post);
     }
 
@@ -134,5 +131,20 @@ public class PostServiceImpl implements PostService {
                     .append("; at folder:").append(dirPath));
         }
     }
+
+    @Override
+    public byte[] getByteOfPicture(String imageUrl) throws IOException {
+        if (imageUrl.charAt(imageUrl.length() - 1) == '/') {
+            return null;
+        }
+
+        StringBuilder fullPath = new StringBuilder();
+        fullPath.append(messageSource.getMessage("post.resource.dir", null, Locale.ENGLISH)).append(imageUrl);
+        File imageFile = new File(fullPath.toString());
+        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+
+        return imageBytes;
+    }
+
 
 }

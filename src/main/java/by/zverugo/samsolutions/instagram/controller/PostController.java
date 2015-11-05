@@ -1,6 +1,5 @@
 package by.zverugo.samsolutions.instagram.controller;
 
-import by.zverugo.samsolutions.instagram.dto.ImageDTO;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.service.post.PostService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -28,7 +26,6 @@ public class PostController {
     @RequestMapping(method = RequestMethod.GET)
     public String postPage(Map<String, Object> model) {
         model.put("postForm", new PostDTO());
-        model.put("photoForm", new ImageDTO());
         return "post/post";
     }
 

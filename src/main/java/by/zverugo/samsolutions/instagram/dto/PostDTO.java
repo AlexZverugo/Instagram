@@ -6,12 +6,20 @@ public class PostDTO {
     private Long id;
     private String postContent;
     private MultipartFile picture;
+    private byte[] imageByte;
     private String picturePath;
     private Integer like;
     private Integer dislike;
     private Long sender;
     private Long owner;
 
+    public byte[] getImageByte() {
+        return imageByte;
+    }
+
+    public void setImageByte(byte[] imageByte) {
+        this.imageByte = imageByte;
+    }
 
     public String getPicturePath() {
         return picturePath;

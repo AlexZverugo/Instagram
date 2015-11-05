@@ -2,6 +2,7 @@ package by.zverugo.samsolutions.instagram.service.post;
 
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -16,5 +17,5 @@ public interface PostService {
     public List<PostDTO> getListOfPostsByIdOfOwner(long id);
     public List<PostDTO> getReversedListOfPostsByIdOfOwner(long id);
     public void saveFileResourceDir(PostDTO postDTO);
-
+    public byte[] getByteOfPicture(String imageUrl) throws IOException;
 }

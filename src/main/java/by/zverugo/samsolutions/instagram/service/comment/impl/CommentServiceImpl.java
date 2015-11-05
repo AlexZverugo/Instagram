@@ -36,8 +36,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void deleteComment(CommentDTO commentDTO) {
-        Comment comment;
-        comment = commentDTOToCommentConverter.convert(getComment(commentDTO.getId()));
+        Comment comment = commentDTOToCommentConverter.convert(getComment(commentDTO.getId()));
         commentDao.deleteComment(comment);
     }
 
