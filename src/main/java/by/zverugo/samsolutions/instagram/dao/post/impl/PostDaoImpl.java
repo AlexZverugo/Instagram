@@ -2,14 +2,15 @@ package by.zverugo.samsolutions.instagram.dao.post.impl;
 
 import by.zverugo.samsolutions.instagram.dao.post.PostDao;
 import by.zverugo.samsolutions.instagram.entity.Post;
-import by.zverugo.samsolutions.instagram.entity.User;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Locale;
 
 @Repository("postDao")
 public class PostDaoImpl implements PostDao {
@@ -17,29 +18,38 @@ public class PostDaoImpl implements PostDao {
     private final Logger LOGGER = Logger.getLogger(getClass());
 
     @Autowired
+    private MessageSource messageSource;
+    ;
+
+    @Autowired
     private SessionFactory sessionFactory;
 
     @Override
     public long savePost(Post post) {
         sessionFactory.getCurrentSession().save(post);
-        LOGGER.info("save post with id" + post.getPostId());
+        LOGGER.info(messageSource.getMessage("dao.post.save", new Object[]{post}, Locale.ENGLISH));
+
         return post.getPostId();
     }
 
     @Override
     public void deletePost(Post post) {
         sessionFactory.getCurrentSession().delete(post);
+        LOGGER.info(messageSource.getMessage("dao.post.delete", new Object[]{post}, Locale.ENGLISH));
     }
 
     @Override
     public void updatePost(Post post) {
         sessionFactory.getCurrentSession().update(post);
+        LOGGER.info(messageSource.getMessage("dao.post.update", new Object[]{post}, Locale.ENGLISH));
     }
 
     @Override
     public Post getPost(long id) {
         Post post;
-        post = sessionFactory.getCurrentSession().get(Post.class,id);
+        post = sessionFactory.getCurrentSession().get(Post.class, id);
+        LOGGER.info(messageSource.getMessage("dao.post.getById", new Object[]{id}, Locale.ENGLISH));
+
         return post;
     }
 
@@ -47,6 +57,8 @@ public class PostDaoImpl implements PostDao {
     public List<Post> getListOfPosts() {
         List<Post> posts;
         posts = sessionFactory.getCurrentSession().createCriteria(Post.class).list();
+        LOGGER.info(messageSource.getMessage("dao.post.getList", new Object[]{posts}, Locale.ENGLISH));
+
         return posts;
     }
 
@@ -56,6 +68,8 @@ public class PostDaoImpl implements PostDao {
         Query query = sessionFactory.getCurrentSession().createQuery(posthql);
         query.setParameter("id", id);
         List<Post> posts = query.list();
+        LOGGER.info(messageSource.getMessage("dao.post.getListByOwnerId", new Object[]{id, posts}, Locale.ENGLISH));
+
         return posts;
     }
 }

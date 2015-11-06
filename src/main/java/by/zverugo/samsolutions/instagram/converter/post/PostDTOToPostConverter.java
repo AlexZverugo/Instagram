@@ -1,21 +1,23 @@
 package by.zverugo.samsolutions.instagram.converter.post;
 
-import by.zverugo.samsolutions.instagram.converter.user.UserDTOToUserConverter;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.entity.Post;
+import by.zverugo.samsolutions.instagram.entity.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import by.zverugo.samsolutions.instagram.service.user.UserService;
+
+import java.util.Locale;
 
 @Component
-public class PostDTOToPostConverter implements Converter<PostDTO, Post>{
+public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
+
+    private final Logger LOGGER = Logger.getLogger(getClass());
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserDTOToUserConverter userDTOToUserConverter;
+    private MessageSource messageSource;
 
     @Override
     public Post convert(PostDTO postDTO) {
@@ -24,10 +26,25 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post>{
         post.setDislike(postDTO.getDislike());
         post.setLike(postDTO.getLike());
         post.setPostContent(postDTO.getPostContent());
-        post.setImgUrl(postDTO.getPicturePath());
-        post.setOwner(userDTOToUserConverter.convert(userService.getUserById(postDTO.getOwner())));
-        post.setSender(userDTOToUserConverter.convert(userService.getUserById(postDTO.getSender())));
+
+        if (postDTO.getImageByte().length > 0) {
+            post.setImageBytes(postDTO.getImageByte());
+        } else {
+            post.setImageBytes(null);
+        }
+
+        User owner = new User();
+        owner.setId(postDTO.getId());
+        User sender = new User();
+        sender.setId(postDTO.getId());
+        post.setOwner(owner);
+        post.setSender(sender);
+
+        LOGGER.info(messageSource.getMessage("converter.convert",
+                new Object[]{"PostDTO", "Post", postDTO, post}, Locale.ENGLISH));
 
         return post;
     }
+
+
 }

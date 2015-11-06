@@ -8,15 +8,12 @@ import org.hibernate.exception.ConstraintViolationException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by alzv on 13.10.2015.
- */
 public interface UserService {
     public void saveUser(UserDTO userDTO) throws ConstraintViolationException;
     public void deleteUser(UserDTO userDTO);
     public void updateUser(UserDTO userDTO);
     public UserDTO getUserByLogin(String login);
-    public UserDTO getUserById(long id);
+    public UserDTO getUserDTOById(long id);
     public List<UserDTO> getListOfUsers();
     public Map<Long,String> getPostSendersUsernames(List<PostDTO> posts);
 

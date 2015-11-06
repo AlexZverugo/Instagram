@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -32,14 +33,13 @@ public class PostController {
     @RequestMapping(value = "addPost", method = RequestMethod.POST)
     public String addPost(@ModelAttribute("postForm") PostDTO post,
                           @ModelAttribute("postOwnerId") long id,
-                          @ModelAttribute("authorizedUser") UserDTO authUser) {
+                          @ModelAttribute("authorizedUser") UserDTO authUser) throws IOException{
         post.setLike(0);
         post.setDislike(0);
         post.setSender(authUser.getId());
         post.setOwner(id);
+        post.setImageByte(post.getPicture().getBytes());
         post.setId(postService.savePost(post));
-        postService.saveFileResourceDir(post);
-        postService.updatePost(post);
 
         return "redirect:../users/user/" + id;
     }

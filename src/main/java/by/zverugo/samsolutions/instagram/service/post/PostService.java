@@ -1,8 +1,8 @@
 package by.zverugo.samsolutions.instagram.service.post;
 
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
+import by.zverugo.samsolutions.instagram.entity.Post;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -12,10 +12,8 @@ public interface PostService {
     public long savePost(PostDTO postDTO);
     public void deletePost(PostDTO postDTO);
     public void updatePost(PostDTO postDTO);
-    public PostDTO getPost(long id);
+    public PostDTO getPostDTO(long id);
     public List<PostDTO> getListOfPosts();
     public List<PostDTO> getListOfPostsByIdOfOwner(long id);
     public List<PostDTO> getReversedListOfPostsByIdOfOwner(long id);
-    public void saveFileResourceDir(PostDTO postDTO);
-    public byte[] getByteOfPicture(String imageUrl) throws IOException;
 }

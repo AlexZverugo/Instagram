@@ -6,14 +6,19 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Locale;
 
 @Repository("userDao")
 public class UserDaoImpl implements UserDao {
 
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger LOGGER = Logger.getLogger(getClass());
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -21,23 +26,28 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void saveUser(User user) {
         sessionFactory.getCurrentSession().save(user);
+        LOGGER.info(messageSource.getMessage("dao.user.save", new Object[]{user}, Locale.ENGLISH));
     }
 
     @Override
     public void deleteUser(User user) {
         sessionFactory.getCurrentSession().delete(user);
+        LOGGER.info(messageSource.getMessage("dao.user.delete", new Object[]{user}, Locale.ENGLISH));
     }
 
 
     @Override
     public void updateUser(User user) {
         sessionFactory.getCurrentSession().update(user);
+        LOGGER.info(messageSource.getMessage("dao.user.update", new Object[]{user}, Locale.ENGLISH));
     }
 
     @Override
     public User getUser(long id) {
         User user;
         user = sessionFactory.getCurrentSession().get(User.class, id);
+        LOGGER.info(messageSource.getMessage("dao.user.getById", new Object[]{id, user}, Locale.ENGLISH));
+
         return user;
     }
 
@@ -46,8 +56,8 @@ public class UserDaoImpl implements UserDao {
         String userhql = "FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE U.login = :login";
         Query query = sessionFactory.getCurrentSession().createQuery(userhql);
         query.setParameter("login", login);
-        logger.info("search result: " + query.uniqueResult());
         User user = (User) query.uniqueResult();
+        LOGGER.info(messageSource.getMessage("dao.user.getUserByName", new Object[]{login, user}, Locale.ENGLISH));
 
         return user;
     }
@@ -56,6 +66,8 @@ public class UserDaoImpl implements UserDao {
     public List<User> getListOfUsers() {
         List<User> users;
         users = sessionFactory.getCurrentSession().createCriteria(User.class).list();
+        LOGGER.info(messageSource.getMessage("dao.user.getList", new Object[]{users}, Locale.ENGLISH));
+
         return users;
     }
 
@@ -65,6 +77,6 @@ public class UserDaoImpl implements UserDao {
         Query query = sessionFactory.getCurrentSession().createQuery(userhql);
         query.setParameter("id", id);
         query.executeUpdate();
-        logger.info("search by id result: " + query.list());
+        LOGGER.info(messageSource.getMessage("dao.user.deleteUserById", new Object[]{id}, Locale.ENGLISH));
     }
 }

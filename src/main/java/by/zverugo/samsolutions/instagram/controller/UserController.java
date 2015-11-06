@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,7 +40,7 @@ public class UserController {
 
     @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
     public String userPage(@PathVariable("id") long id, Model model) throws UnsupportedEncodingException {
-        UserDTO user = userService.getUserById(id);
+        UserDTO user = userService.getUserDTOById(id);
 
         if (user == null || UserRoleEnum.ADMIN.getRole().equals(user.getRole().getRole())) {
             return "redirect:/users/user";
@@ -53,9 +52,6 @@ public class UserController {
         model.addAttribute("posts", posts);
         model.addAttribute("username", user.getLogin());
 
-//        String base64Encoded  = Base64.encodeBase64String(postService.getByteOfPicture("26/21/melon.jpg"));
-
-//        model.addAttribute("img",postService.getByteOfPicture("26/21/melon.jpg"));
         return "user/user";
     }
 

@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="/taglib/postimage" prefix="pi" %>
@@ -35,7 +35,7 @@
             <div class="post-br" align="center">
                 <div class="col-sm-1 post-position">
                     <div class="thumbnail">
-                        <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        <img class="img-responsive user-photo" src="../../../resources/photo/default_avatar.png">
                     </div>
                 </div>
                 <div class="col-sm-5 post-position">
@@ -48,6 +48,7 @@
                                 <%--<spring:message code="post.resource.dir"/>${post.picturePath}--%>
                             <c:out value="${post.postContent}"/><br>
                         </div>
+                        <hr>
                         <c:if test="${post.imageByte != null}">
                             <img src="<pi:image imageByte="${post.imageByte}"/>" width="430" height="430">
                         </c:if>

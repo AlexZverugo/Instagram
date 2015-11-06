@@ -32,6 +32,9 @@ public class User {
     @Column(name = "user_role")
     private String role;
 
+    @Column(name = "user_enable")
+    private boolean enable;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "owner")
     private List<Post> ownPosts;
 
@@ -41,6 +44,14 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sender")
     private List<Comment> sentComment;
 
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
 
     public String getRole() {
         return role;

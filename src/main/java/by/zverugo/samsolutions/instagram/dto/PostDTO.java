@@ -7,27 +7,11 @@ public class PostDTO {
     private String postContent;
     private MultipartFile picture;
     private byte[] imageByte;
-    private String picturePath;
     private Integer like;
     private Integer dislike;
     private Long sender;
     private Long owner;
 
-    public byte[] getImageByte() {
-        return imageByte;
-    }
-
-    public void setImageByte(byte[] imageByte) {
-        this.imageByte = imageByte;
-    }
-
-    public String getPicturePath() {
-        return picturePath;
-    }
-
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
-    }
 
     public MultipartFile getPicture() {
         return picture;
@@ -35,6 +19,14 @@ public class PostDTO {
 
     public void setPicture(MultipartFile picture) {
         this.picture = picture;
+    }
+
+    public byte[] getImageByte() {
+        return imageByte;
+    }
+
+    public void setImageByte(byte[] imageByte) {
+        this.imageByte = imageByte;
     }
 
     public Integer getDislike() {

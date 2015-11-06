@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AccessInterceptor extends HandlerInterceptorAdapter {
 
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger LOGGER = Logger.getLogger(getClass());
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest,
                              HttpServletResponse httpServletResponse, Object o) throws Exception {
-        logger.info("AccessInterceptor.preHandle start  " + o);
+        LOGGER.info("AccessInterceptor.preHandle start  " + o);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         GrantedAuthority roleAuthority = (GrantedAuthority) authentication.getAuthorities().toArray()[0];
         if (UserRoleEnum.ADMIN.getRole().equals(roleAuthority.getAuthority())) {

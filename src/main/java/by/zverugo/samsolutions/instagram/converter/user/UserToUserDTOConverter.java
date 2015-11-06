@@ -2,12 +2,23 @@ package by.zverugo.samsolutions.instagram.converter.user;
 
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.entity.User;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 
+import java.util.Locale;
+
 @Component
 public class UserToUserDTOConverter implements Converter<User, UserDTO> {
+
+    private final Logger LOGGER = Logger.getLogger(getClass());
+
+    @Autowired
+    private MessageSource messageSource;
+
     @Override
     public UserDTO convert(User user) {
         if (user == null) {
@@ -23,6 +34,9 @@ public class UserToUserDTOConverter implements Converter<User, UserDTO> {
         } else {
             userDTO.setRole(UserRoleEnum.USER);
         }
+
+        LOGGER.info(messageSource.getMessage("converter.convert",
+                new Object[]{"User", "UserDTO", user, userDTO}, Locale.ENGLISH));
 
         return userDTO;
     }

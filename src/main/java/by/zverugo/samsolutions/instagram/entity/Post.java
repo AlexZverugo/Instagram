@@ -25,8 +25,8 @@ public class Post {
     @Column(name = "post_content")
     private String postContent;
 
-    @Column(name = "img_url")
-    private String imgUrl;
+    @Column(name = "img")
+    private byte[] imageBytes;
 
     @Column(name = "likes")
     private Integer like;
@@ -46,12 +46,12 @@ public class Post {
     private List<Comment> postsComment;
 
 
-    public String getImgUrl() {
-        return imgUrl;
+    public byte[] getImageBytes() {
+        return imageBytes;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImageBytes(byte[] imageBytes) {
+        this.imageBytes = imageBytes;
     }
 
     public User getOwner() {
