@@ -45,7 +45,6 @@
                             <strong>${usernames.get(post.sender)}</strong>
                         </div>
                         <div class="panel-body post-scroll">
-                                <%--<spring:message code="post.resource.dir"/>${post.picturePath}--%>
                             <c:out value="${post.postContent}"/><br>
                         </div>
                         <hr>

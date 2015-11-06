@@ -4,6 +4,7 @@ import by.zverugo.samsolutions.instagram.dao.user.UserDao;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,19 +21,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 @Service("authorizationService")
 @Transactional(readOnly = true)
 public class AuthorizationService implements UserDetailsService {
 
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger LOGGER = Logger.getLogger(getClass());
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Autowired
     private UserDao userDAO;
 
     @Autowired
     @Qualifier("authenticationManager")
-    private AuthenticationManager authenticationManager ;
+    private AuthenticationManager authenticationManager;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -53,7 +58,8 @@ public class AuthorizationService implements UserDetailsService {
                 getAuthorities(user.getRole())
         );
 
-        logger.info("found username: " + username);
+        LOGGER.info(messageSource.getMessage("service.authorizationService.loadUserByUsername",
+                new Object[]{username}, Locale.ENGLISH));
 
         return userLog;
     }
@@ -68,6 +74,8 @@ public class AuthorizationService implements UserDetailsService {
         Authentication token = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        LOGGER.info(messageSource.getMessage("service.authorizationService.login",
+                new Object[]{username}, Locale.ENGLISH));
     }
 
 }

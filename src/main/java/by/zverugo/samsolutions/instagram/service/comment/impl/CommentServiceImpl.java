@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service("commentService")
 public class CommentServiceImpl implements CommentService {
@@ -31,9 +32,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void saveComment(CommentDTO commentDTO) {
-        Comment comment;
-        comment = conversionService.convert(commentDTO, Comment.class);
+        Comment comment = conversionService.convert(commentDTO, Comment.class);
         commentDao.saveComment(comment);
+        LOGGER.info(messageSource.getMessage("service.comment.save", new Object[]{commentDTO}, Locale.ENGLISH));
     }
 
     @Override
@@ -41,20 +42,23 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(CommentDTO commentDTO) {
         Comment comment = conversionService.convert(getComment(commentDTO.getId()), Comment.class);
         commentDao.deleteComment(comment);
+        LOGGER.info(messageSource.getMessage("service.comment.delete", new Object[]{commentDTO}, Locale.ENGLISH));
     }
 
     @Override
     @Transactional
     public void updateComment(CommentDTO commentDTO) {
-        Comment comment;
-        comment = conversionService.convert(getComment(commentDTO.getId()), Comment.class);
+        Comment comment = conversionService.convert(getComment(commentDTO.getId()), Comment.class);
         commentDao.updateComment(comment);
+        LOGGER.info(messageSource.getMessage("service.comment.update", new Object[]{commentDTO}, Locale.ENGLISH));
     }
 
     @Override
     @Transactional(readOnly = true)
     public CommentDTO getComment(long id) {
-        return conversionService.convert(commentDao.getComment(id), CommentDTO.class);
+        CommentDTO commentDTO = conversionService.convert(commentDao.getComment(id), CommentDTO.class);
+        LOGGER.info(messageSource.getMessage("service.comment.getById", new Object[]{id, commentDTO}, Locale.ENGLISH));
+        return commentDTO;
     }
 
     @Override
@@ -66,6 +70,7 @@ public class CommentServiceImpl implements CommentService {
         for (Comment comment : comments) {
             commentDTOList.add(conversionService.convert(comment, CommentDTO.class));
         }
+        LOGGER.info(messageSource.getMessage("service.comment.getList", new Object[]{commentDTOList}, Locale.ENGLISH));
 
         return commentDTOList;
     }

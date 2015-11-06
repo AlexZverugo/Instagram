@@ -34,9 +34,9 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
         }
 
         User owner = new User();
-        owner.setId(postDTO.getId());
+        owner.setId(postDTO.getOwner());
         User sender = new User();
-        sender.setId(postDTO.getId());
+        sender.setId(postDTO.getSender());
         post.setOwner(owner);
         post.setSender(sender);
 

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 @Service("postService")
 public class PostServiceImpl implements PostService {
@@ -33,6 +34,8 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public long savePost(PostDTO postDTO) {
         Post post = conversionService.convert(postDTO, Post.class);
+        LOGGER.info(messageSource.getMessage("service.post.save", new Object[]{postDTO}, Locale.ENGLISH));
+
         return postDao.savePost(post);
     }
 
@@ -41,6 +44,7 @@ public class PostServiceImpl implements PostService {
     public void deletePost(PostDTO postDTO) {
         Post post = conversionService.convert(postDTO, Post.class);
         postDao.deletePost(post);
+        LOGGER.info(messageSource.getMessage("service.post.delete", new Object[]{postDTO}, Locale.ENGLISH));
     }
 
     @Override
@@ -48,12 +52,15 @@ public class PostServiceImpl implements PostService {
     public void updatePost(PostDTO postDTO) {
         Post post = conversionService.convert(postDTO, Post.class);
         postDao.updatePost(post);
+        LOGGER.info(messageSource.getMessage("service.post.update", new Object[]{postDTO}, Locale.ENGLISH));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public PostDTO getPostDTO(long id) {
-        return conversionService.convert(postDao.getPost(id), PostDTO.class);
+    public PostDTO getPost(long id) {
+        PostDTO postDTO = conversionService.convert(postDao.getPost(id), PostDTO.class);
+        LOGGER.info(messageSource.getMessage("service.post.getPostById", new Object[]{id, postDTO}, Locale.ENGLISH));
+        return postDTO;
     }
 
     @Override
@@ -65,6 +72,8 @@ public class PostServiceImpl implements PostService {
         for (Post post : posts) {
             postDTOList.add(conversionService.convert(post, PostDTO.class));
         }
+        LOGGER.info(messageSource.getMessage("service.post.getList", new Object[]{postDTOList}, Locale.ENGLISH));
+
         return postDTOList;
     }
 
@@ -77,6 +86,7 @@ public class PostServiceImpl implements PostService {
         for (Post post : posts) {
             postDTOList.add(conversionService.convert(post, PostDTO.class));
         }
+        LOGGER.info(messageSource.getMessage("service.post.getListByIdOfOwner", new Object[]{id, postDTOList}, Locale.ENGLISH));
 
         return postDTOList;
     }
@@ -92,6 +102,8 @@ public class PostServiceImpl implements PostService {
         }
 
         Collections.reverse(postDTOList);
+        LOGGER.info(messageSource.getMessage("service.post.getReversedListByIdOfOwner",
+                new Object[]{id, postDTOList}, Locale.ENGLISH));
 
         return postDTOList;
     }

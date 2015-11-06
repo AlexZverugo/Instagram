@@ -13,7 +13,7 @@ public interface UserService {
     public void deleteUser(UserDTO userDTO);
     public void updateUser(UserDTO userDTO);
     public UserDTO getUserByLogin(String login);
-    public UserDTO getUserDTOById(long id);
+    public UserDTO getUserById(long id);
     public List<UserDTO> getListOfUsers();
     public Map<Long,String> getPostSendersUsernames(List<PostDTO> posts);
 

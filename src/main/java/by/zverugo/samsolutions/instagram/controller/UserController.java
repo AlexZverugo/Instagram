@@ -40,7 +40,7 @@ public class UserController {
 
     @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
     public String userPage(@PathVariable("id") long id, Model model) throws UnsupportedEncodingException {
-        UserDTO user = userService.getUserDTOById(id);
+        UserDTO user = userService.getUserById(id);
 
         if (user == null || UserRoleEnum.ADMIN.getRole().equals(user.getRole().getRole())) {
             return "redirect:/users/user";

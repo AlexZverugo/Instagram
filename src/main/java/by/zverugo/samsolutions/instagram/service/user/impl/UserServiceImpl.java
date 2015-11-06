@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Service("userService")
@@ -36,34 +37,41 @@ public class UserServiceImpl implements UserService {
     public void saveUser(UserDTO userDTO) {
         User user = conversionService.convert(userDTO, User.class);
         userDao.saveUser(user);
-        logger.info("INFO: UserServiceImpl: save user" + user);
+        LOGGER.info(messageSource.getMessage("service.user.save", new Object[]{userDTO}, Locale.ENGLISH));
     }
 
     @Override
     @Transactional
     public void deleteUser(UserDTO userDTO) {
         userDao.deleteUserById(userDTO.getId());
-        logger.info("INFO: UserServiceImpl: delete user");
+        LOGGER.info(messageSource.getMessage("service.user.delete", new Object[]{userDTO}, Locale.ENGLISH));
     }
 
     @Override
     @Transactional
     public void updateUser(UserDTO userDTO) {
-        User user = conversionService.convert(getUserDTOById(userDTO.getId()), User.class);
+        User user = conversionService.convert(getUserById(userDTO.getId()), User.class);
         userDao.updateUser(user);
-        logger.info("INFO: UserServiceImpl: update user" + user);
+        LOGGER.info(messageSource.getMessage("service.user.update", new Object[]{userDTO}, Locale.ENGLISH));
     }
 
     @Override
     @Transactional(readOnly = true)
     public UserDTO getUserByLogin(String login) {
-        return conversionService.convert(userDao.getUserByName(login),UserDTO.class);
+        UserDTO userDTO = conversionService.convert(userDao.getUserByName(login), UserDTO.class);
+        LOGGER.info(messageSource.getMessage("service.user.getUserByLogin",
+                new Object[]{login, userDTO}, Locale.ENGLISH));
+
+        return userDTO;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public UserDTO getUserDTOById(long id) {
-        return conversionService.convert(userDao.getUser(id), UserDTO.class);
+    public UserDTO getUserById(long id) {
+        UserDTO userDTO = conversionService.convert(userDao.getUser(id), UserDTO.class);
+        LOGGER.info(messageSource.getMessage("service.user.getUserById", new Object[]{id, userDTO}, Locale.ENGLISH));
+
+        return userDTO;
     }
 
     @Override
@@ -74,6 +82,8 @@ public class UserServiceImpl implements UserService {
         for (User user : users) {
             userDTOList.add(conversionService.convert(user, UserDTO.class));
         }
+        LOGGER.info(messageSource.getMessage("service.user.getList", new Object[]{userDTOList}, Locale.ENGLISH));
+
         return userDTOList;
     }
 
@@ -83,8 +93,10 @@ public class UserServiceImpl implements UserService {
         Map<Long, String> usernames = new HashMap<>();
 
         for (PostDTO post : posts) {
-            usernames.put(post.getSender(), getUserDTOById(post.getSender()).getLogin());
+            usernames.put(post.getSender(), getUserById(post.getSender()).getLogin());
         }
+        LOGGER.info(messageSource.getMessage("service.user.getPostSendersUsernames",
+                new Object[]{usernames}, Locale.ENGLISH));
 
         return usernames;
     }
