@@ -7,7 +7,6 @@
 <html>
 <head>
     <toolkit:header title="Instagram admin page"/>
-    <link rel="stylesheet" href="<c:url value="/resources/css/admin.css"/>" type="text/css"/>
 </head>
 <body class="bg-common">
 <toolkit:navbar/>

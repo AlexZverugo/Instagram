@@ -18,7 +18,7 @@
             <label for="comment"><span style="color:#31b0d5"><spring:message
                     code="post.label.inputpost"/>:</span></label>
 
-            <div class="my-textarea">
+            <div class="post-textarea-border">
                 <form:textarea path="postContent" class="form-control" rows="5" id="comment"/>
             </div>
         </div>

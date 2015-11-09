@@ -55,6 +55,15 @@
         <url-pattern>*.png</url-pattern>
     </servlet-mapping>
 
+    <system.webServer>
+        <staticContent>
+            <remove fileExtension=".woff" />
+            <remove fileExtension=".woff2" />
+            <mimeMap fileExtension=".woff" mimeType="application/font-woff" />
+            <mimeMap fileExtension=".woff2" mimeType="application/font-woff" />
+        </staticContent>
+    </system.webServer>
+
     <!--Spring Security filter-->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -85,6 +94,8 @@
         <filter-name>CharacterEncoding</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
 
 
 </web-app>

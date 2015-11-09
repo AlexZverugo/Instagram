@@ -6,13 +6,12 @@
 <html>
 <head>
     <toolkit:header title="Instagram login page"/>
-    <link rel="stylesheet" href="<c:url value="/resources/css/signin.css"/>" type="text/css"/>
 </head>
 <body class="bg-common">
 <toolkit:langnav/>
-<div class="container cont" align="center">
-    <h2><span id="main-label"><spring:message code="login.label.signin"/></span></h2>
-    <h6 class="exc-col">${message}</h6>
+<div class="container frame-container" align="center">
+    <h2><span id="login-main-label"><spring:message code="login.label.signin"/></span></h2>
+    <h6 class="login-exc-col">${message}</h6>
     <c:url value="/j_spring_security_check" var="loginUrl"/>
     <form action="${loginUrl}" method="post" class="form-horizontal">
 
@@ -33,12 +32,12 @@
 
 
         <spring:message code="login.button.signin" var="SubmitLabel"/>
-        <input type="submit" class="btn btn-info my-btn" value="${SubmitLabel}"/>
+        <input type="submit" class="btn btn-info btn-bg my-btn-size" value="${SubmitLabel}"/>
     </form>
 
     <form action="/registration" method="get" class="form-horizontal">
         <spring:message code="login.button.signup" var="SignUpButton"/>
-        <input type="submit" class="btn btn-info my-btn" value="${SignUpButton}"/>
+        <input type="submit" class="btn btn-info btn-bg my-btn-size" value="${SignUpButton}"/>
     </form>
 </div>
 

@@ -6,13 +6,11 @@
 <html lang="en">
 <head>
     <toolkit:header title="Instagram registration page"/>
-    <link rel="stylesheet" href="<c:url value="/resources/css/signup.css"/>" type="text/css"/>
-
 </head>
 <body class="bg-common">
 <toolkit:langnav/>
-<div class="container cont" align="center">
-    <h2><span id="main-label"><spring:message code="signup.label.input_inf"/></span></h2>
+<div class="container frame-container" align="center">
+    <h2><span id="signup-main-label"><spring:message code="signup.label.input_inf"/></span></h2>
     <form:form action="/registration/registerUser" method="post" commandName="userForm" class="form-horizontal"
                role="form">
         <form:errors path="login" cssClass="error" cssStyle="color:red"/>
@@ -49,7 +47,7 @@
         </div>
 
         <spring:message code="signup.button.signup" var="SignUpButton"/>
-        <input type="submit" class="my-btn btn btn-info" value="${SignUpButton}"/>
+        <input type="submit" class="btn-bg btn btn-info my-btn-size" value="${SignUpButton}"/>
     </form:form>
 </div>
 

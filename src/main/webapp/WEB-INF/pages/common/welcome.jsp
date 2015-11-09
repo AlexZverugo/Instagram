@@ -10,11 +10,11 @@
 <body class="welcome-bg">
 <toolkit:langnav/>
 <div class="container my-container" align="center">
-    <div id="cont">
+    <div id="welcome-cont">
         <img src="<c:url value="/resources/photo/insta.png"/>"><br><br>
-        <a href="/login" class="btn btn-info btn-lg my-btn">
+        <a href="/login" class="btn btn-info btn-lg welcome-btn">
             <spring:message code="welcome.label.signin"/></a><br><br>
-        <a href="/registration" class="btn btn-info btn-lg my-btn">
+        <a href="/registration" class="btn btn-info btn-lg welcome-btn">
             <spring:message code="welcome.label.signup"/></a><br><br>
     </div>
 </div>

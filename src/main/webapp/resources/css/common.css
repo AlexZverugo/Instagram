@@ -3,4 +3,153 @@
     background-size: 100% 100%;
 }
 
+.welcome-bg {
+    background: #b9b9b9 url(/resources/photo/background.jpg) no-repeat fixed;
+    background-size: 100% 100%;
+}
 
+.welcome-btn {
+    width: 200px;
+    background: gray;
+    border: gray;
+}
+
+#welcome-cont {
+    position: absolute;
+    top: 15%;
+    left: 60%;
+    width: 300px;
+    background: lavender;
+    border: 3px solid #fff;
+    border-radius: 10px;
+}
+
+
+.user-post-br {
+    clear: both;
+}
+
+.user-post-position {
+    left: 21.5% !important;
+}
+
+.user-btn-size {
+    width: 20%;
+    height: 10%;
+}
+
+.user-layer {
+    overflow: auto;
+    height: 100%;
+    border: 3px hidden #ffffff;
+    border-radius: 10px;
+}
+
+.user-label-fixed {
+    position: fixed;
+    color: gray;
+    top: 8%;
+    left: 12%;
+}
+
+.user-btn-fixed {
+    position: fixed;
+    background: gray;
+    border: gray;
+    top: 15%;
+    left: 4%;
+}
+
+.user-post-scroll {
+    overflow: auto;
+    height: 10%;
+}
+
+.my-col-sm-10 {
+    width: 200px !important;
+    left: 47px !important;
+}
+
+.my-btn-size {
+    width: 170px !important;
+}
+
+.login-exc-col {
+    color: red;
+}
+
+#login-main-label {
+    color: gray;
+}
+
+.frame-container {
+    position: absolute;
+    top: 40%;
+    left: 54%;
+    width: 300px;
+    background: lavender;
+    border: 3px solid #fff;
+    border-radius: 10px;
+}
+
+#signup-main-label {
+    color: gray;
+}
+
+.bg-nav {
+    background: #929292;
+    border: 2px solid lavender;
+}
+
+.nav-comp {
+    color: #ffffff;
+}
+
+.btn-bg {
+    background: gray;
+    border: gray;
+}
+
+.post-textarea-border {
+    border: 2px solid #31b0d5;
+    border-radius: 6px;
+}
+
+.table-stl {
+    color: #000000;
+}
+
+.tr-stl {
+    color: gray;
+}
+
+.pre-post {
+    background-color: #ffffff;
+    border: #ffffff;
+}
+
+
+.tag {
+    font-size: 14px;
+    padding: .3em .4em .4em;
+    margin: 0 .1em;
+}
+.tag a {
+    color: #bbb;
+    cursor: pointer;
+    opacity: 0.6;
+}
+.tag a:hover {
+    opacity: 1.0
+}
+.tag .remove {
+    vertical-align: bottom;
+    top: 0;
+}
+.tag a {
+    margin: 0 0 0 .3em;
+}
+.tag a .glyphicon-white {
+    color: #fff;
+    margin-bottom: 2px;
+}

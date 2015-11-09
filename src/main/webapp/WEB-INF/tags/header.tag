@@ -8,3 +8,4 @@
 <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet">
 <link href="<c:url value="/resources/css/common.css"/>" type="text/css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
