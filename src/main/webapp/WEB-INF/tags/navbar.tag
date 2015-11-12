@@ -1,8 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link href="<c:url value="/resources/css/navbar.css"/>" type="text/css" rel="stylesheet">
-
 <nav class="navbar navbar-default bg-nav navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">

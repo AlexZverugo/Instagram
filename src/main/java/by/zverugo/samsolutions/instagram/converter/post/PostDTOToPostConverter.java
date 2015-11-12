@@ -27,11 +27,7 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
         post.setLike(postDTO.getLike());
         post.setPostContent(postDTO.getPostContent());
 
-        if (postDTO.getImageByte().length > 0) {
-            post.setImageBytes(postDTO.getImageByte());
-        } else {
-            post.setImageBytes(null);
-        }
+        convertPostImage(postDTO,post);
 
         User owner = new User();
         owner.setId(postDTO.getOwner());
@@ -46,5 +42,16 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
         return post;
     }
 
+    private void convertPostImage(PostDTO postDTO, Post post) {
+        if (postDTO.getImageByte() == null) {
+            post.setImageBytes(null);
+        } else {
+            if (postDTO.getImageByte().length > 0) {
+                post.setImageBytes(postDTO.getImageByte());
+            } else {
+                post.setImageBytes(null);
+            }
+        }
+    }
 
 }

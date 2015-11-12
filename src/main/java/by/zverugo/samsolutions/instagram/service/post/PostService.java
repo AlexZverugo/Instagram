@@ -10,10 +10,11 @@ import java.util.List;
  */
 public interface PostService {
     public long savePost(PostDTO postDTO);
-    public void deletePost(PostDTO postDTO);
+    public void deletePost(long id);
     public void updatePost(PostDTO postDTO);
     public PostDTO getPost(long id);
     public List<PostDTO> getListOfPosts();
     public List<PostDTO> getListOfPostsByIdOfOwner(long id);
     public List<PostDTO> getReversedListOfPostsByIdOfOwner(long id);
+    public void encodePostContent(List<PostDTO> posts);
 }

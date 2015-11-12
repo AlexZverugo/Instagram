@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface PostDao {
     public long savePost(Post post);
-    public void deletePost(Post post);
+    public void deletePost(long id);
     public void updatePost(Post post);
     public Post getPost(long id);
     public List<Post> getListOfPosts();

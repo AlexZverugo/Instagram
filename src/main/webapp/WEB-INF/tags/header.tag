@@ -4,8 +4,9 @@
 <title>${title}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="<c:url value="/resources/bootstrap/js/jquery.min.js"/>"></script>
 <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
+<script src="<c:url value="/resources/js/common.js"/>"></script>
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet">
 <link href="<c:url value="/resources/css/common.css"/>" type="text/css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<link href="<c:url value="/resources/bootstrap/css/bootstrap-glyphicons.css"/>" type="text/css" rel="stylesheet">

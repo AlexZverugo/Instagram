@@ -27,7 +27,7 @@ public class CommentToCommentDTOConverter implements Converter<Comment, CommentD
         commentDTO.setId(comment.getCommentId());
         commentDTO.setLike(comment.getLike());
         commentDTO.setDislike(comment.getDislike());
-        commentDTO.setCommentContext(comment.getCommentContent());
+        commentDTO.setCommentContent(comment.getCommentContent());
         commentDTO.setPost(comment.getPost().getPostId());
         commentDTO.setSender(comment.getSender().getId());
 

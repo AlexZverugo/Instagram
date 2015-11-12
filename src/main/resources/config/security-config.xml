@@ -18,11 +18,11 @@
         <intercept-url pattern="/" access="!isAuthenticated()"/>
         <intercept-url pattern="/registration" access="!isAuthenticated()"/>
 
-        <access-denied-handler error-page="/login/403page"/>
+        <access-denied-handler error-page="/403page"/>
         <form-login
                 always-use-default-target="false"
                 login-page="/login"
-                default-target-url="/users/user"
+                default-target-url="/roleChecker"
                 authentication-failure-url="/login?fail"
                 username-parameter="username"
                 password-parameter="password"/>

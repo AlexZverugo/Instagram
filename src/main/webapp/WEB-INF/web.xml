@@ -35,6 +35,11 @@
         <location>/WEB-INF/pages/error/404.jsp</location>
     </error-page>
 
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/pages/error/403.jsp</location>
+    </error-page>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.css</url-pattern>
@@ -55,14 +60,21 @@
         <url-pattern>*.png</url-pattern>
     </servlet-mapping>
 
-    <system.webServer>
-        <staticContent>
-            <remove fileExtension=".woff" />
-            <remove fileExtension=".woff2" />
-            <mimeMap fileExtension=".woff" mimeType="application/font-woff" />
-            <mimeMap fileExtension=".woff2" mimeType="application/font-woff" />
-        </staticContent>
-    </system.webServer>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.woff</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.woff2</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.ttf</url-pattern>
+    </servlet-mapping>
+
 
     <!--Spring Security filter-->
     <filter>

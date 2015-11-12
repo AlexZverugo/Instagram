@@ -2,7 +2,7 @@ package by.zverugo.samsolutions.instagram.dto;
 
 public class CommentDTO {
     private Long id;
-    private String commentContext;
+    private String commentContent;
     private Integer like;
     private Integer dislike;
     private Long post;
@@ -33,12 +33,12 @@ public class CommentDTO {
         this.id = id;
     }
 
-    public String getCommentContext() {
-        return commentContext;
+    public String getCommentContent() {
+        return commentContent;
     }
 
-    public void setCommentContext(String commentContext) {
-        this.commentContext = commentContext;
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
     }
 
     public Integer getLike() {

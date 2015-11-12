@@ -41,10 +41,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void deletePost(PostDTO postDTO) {
-        Post post = conversionService.convert(postDTO, Post.class);
-        postDao.deletePost(post);
-        LOGGER.info(messageSource.getMessage("service.post.delete", new Object[]{postDTO}, Locale.ENGLISH));
+    public void deletePost(long id) {
+//        Post post = conversionService.convert(postDTO, Post.class);
+        postDao.deletePost(id);
+        LOGGER.info(messageSource.getMessage("service.post.delete", new Object[]{id}, Locale.ENGLISH));
     }
 
     @Override
@@ -86,7 +86,8 @@ public class PostServiceImpl implements PostService {
         for (Post post : posts) {
             postDTOList.add(conversionService.convert(post, PostDTO.class));
         }
-        LOGGER.info(messageSource.getMessage("service.post.getListByIdOfOwner", new Object[]{id, postDTOList}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.post.getListByIdOfOwner",
+                new Object[]{id, postDTOList}, Locale.ENGLISH));
 
         return postDTOList;
     }
@@ -106,6 +107,14 @@ public class PostServiceImpl implements PostService {
                 new Object[]{id, postDTOList}, Locale.ENGLISH));
 
         return postDTOList;
+    }
+
+    @Override
+    public void encodePostContent(List<PostDTO> posts) {
+        for (PostDTO post : posts) {
+            String encodedStr = post.getPostContent().replaceAll("\n", "%0A").replaceAll("\r", "%0D");
+            post.setPostContent(encodedStr);
+        }
     }
 
 }

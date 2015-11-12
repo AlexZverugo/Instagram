@@ -19,7 +19,7 @@
         <div class="form-group">
             <div class="col-sm-10 my-col-sm-10">
                 <input class="form-control" name="username" type="text"
-                       placeholder="<spring:message code="login.placeholder.login"/>"/>
+                       placeholder="<spring:message code="login.placeholder.login"/>" autofocus/>
             </div>
         </div>
 

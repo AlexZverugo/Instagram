@@ -3,6 +3,7 @@ package by.zverugo.samsolutions.instagram.converter.comment;
 import by.zverugo.samsolutions.instagram.dto.CommentDTO;
 import by.zverugo.samsolutions.instagram.entity.Comment;
 import by.zverugo.samsolutions.instagram.entity.Post;
+import by.zverugo.samsolutions.instagram.entity.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -25,11 +26,14 @@ public class CommentDTOToCommentConverter implements Converter<CommentDTO, Comme
         comment.setCommentId(commentDTO.getId());
         comment.setLike(commentDTO.getLike());
         comment.setDislike(commentDTO.getDislike());
-        comment.setCommentContent(commentDTO.getCommentContext());
+        comment.setCommentContent(commentDTO.getCommentContent());
 
         Post post = new Post();
         post.setPostId(commentDTO.getPost());
         comment.setPost(post);
+        User user = new User();
+        user.setId(commentDTO.getSender());
+        comment.setSender(user);
 
         LOGGER.info(messageSource.getMessage("converter.convert",
                 new Object[]{"CommentDTO", "Comment", commentDTO, comment}, Locale.ENGLISH));

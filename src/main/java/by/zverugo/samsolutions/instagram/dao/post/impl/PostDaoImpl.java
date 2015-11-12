@@ -33,9 +33,12 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public void deletePost(Post post) {
-        sessionFactory.getCurrentSession().delete(post);
-        LOGGER.info(messageSource.getMessage("dao.post.delete", new Object[]{post}, Locale.ENGLISH));
+    public void deletePost(long id) {
+        String posthql = "delete FROM  by.zverugo.samsolutions.instagram.entity.Post P WHERE P.id = :id";
+        Query query = sessionFactory.getCurrentSession().createQuery(posthql);
+        query.setParameter("id", id);
+        query.executeUpdate();
+        LOGGER.info(messageSource.getMessage("dao.post.delete", new Object[]{id}, Locale.ENGLISH));
     }
 
     @Override

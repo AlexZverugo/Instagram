@@ -17,7 +17,7 @@
         <div class="form-group">
             <div class="my-col-sm-10 col-sm-10">
                 <spring:message code="signup.placeholder.login" var="Login"/>
-                <form:input path="login" class="form-control" type="text" placeholder="${Login}"/>
+                <form:input path="login" class="form-control" type="text" placeholder="${Login}" autofocus="true"/>
             </div>
         </div>
 
@@ -34,7 +34,7 @@
         <div class="form-group">
             <div class="my-col-sm-10 col-sm-10">
                 <spring:message code="signup.placeholder.repeatedlpassword" var="RepeatedPassword"/>
-                <form:input path="repeatedPassword" class="form-control" type="password" placeholder="${RepeatedPassword}"
+                <form:input  path="repeatedPassword" class="form-control" type="password" placeholder="${RepeatedPassword}"
                             disabled="false"/>
             </div>
         </div>

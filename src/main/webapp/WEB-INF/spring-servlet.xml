@@ -38,7 +38,7 @@
             <property name="paramName" value="lang"/>
         </bean>
         <mvc:interceptor>
-            <mvc:mapping path="/login/403page"/>
+            <mvc:mapping path="/403page"/>
             <bean class="by.zverugo.samsolutions.instagram.interceptor.AccessInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
