@@ -62,7 +62,7 @@
 
 .user-post-scroll {
     overflow: auto;
-    height: 10%;
+    height: 12%;
 }
 
 .my-col-sm-10 {
@@ -126,11 +126,12 @@
 .pre-post {
     background-color: #ffffff;
     border: #ffffff;
-    text-align: justify
+    text-align: justify;
 }
 
 .post-popup {
-    width:80%;
+    width: 40%;
+    height: auto;
     border: 2px solid #66afe9;
     border-radius: 5px;
     overflow: auto;
@@ -156,7 +157,7 @@
     overflow: auto;
 }
 
-#window{
+#mypopup{
     overflow: auto;
     width: 75%;
     height: 85%;
@@ -168,7 +169,7 @@
     left: 0;
     right: 0;
     top: 1%;
-    bottom: 0;
+    bottom: 10%;
     padding: 16px;
     border-radius: 10px;
 }
@@ -181,7 +182,25 @@
 
 .post-popup-img {
     border-radius: 10px;
-    border: 4px solid #66afe9;
+    border: #ffffff;
     max-height: 100%;
     max-width: 100%;
+}
+
+.comment-footer {
+    bottom: 0;
+}
+
+.comment-textarea {
+    width: 60%;
+}
+
+.comment-btn {
+    background: gray;
+    border: gray;
+    height: 95px;
+}
+
+.time-pos {
+    float: right;
 }

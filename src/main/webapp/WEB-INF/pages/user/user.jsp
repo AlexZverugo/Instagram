@@ -10,6 +10,7 @@
 <html>
 <head>
     <toolkit:header title="Instagram user page"/>
+    <script src="<c:url value="/resources/js/user.js"/>"></script>
 </head>
 
 <body class="bg-common">
@@ -54,30 +55,26 @@
                     </div>
                 </div>
 
+                <div id="post${post.id}" data-toggle="modal" data-target="#myModal" id-parameter="${post.id}">
 
-
-                <div id="post${post.id}" onclick="setDisplayAttribute('block');
-                        setPostPopUpData('<pi:image imageByte="${post.imageByte}"/>', '${post.postContent}');">
-                    <div align="justify">
-                        <c:set var="postContent" value="${fn:trim(post.postContent)}"/>
-                        <c:set var="encodedBr" value="${fn:replace(postContent,'%0A','<br>')}"/>
-                        <c:set var="encodedPost" value="${fn:replace(encodedBr,'%0D','')}"/>
-                        <pre id="postPanel" class="user-post-scroll pre-post">
-                            <p>${encodedPost}</p>
+                    <div align="justify" class="user-post-scroll">
+                        <pre id="contentPost${post.id}" class="pre-post">
+                            <p>${post.postContent}</p>
                         </pre>
                     </div>
-
                     <hr>
+                    <div id="imgPost${post.id}">
+                        <c:if test="${post.imageByte != null}">
+                            <img class="post-popup-img" src="<pi:image imageByte="${post.imageByte}"/>">
+                        </c:if>
+                    </div>
 
-                    <c:if test="${post.imageByte != null}">
-                        <img src="<pi:image imageByte="${post.imageByte}"/>" width="430" height="430">
-                    </c:if>
+                </div>
+                <br>
 
-                    <div class="panel-footer">
-                        <button id="commentTextareaButton${post.id}" class="btn">
-                        <span class="glyphicon glyphicon-arrow-down"
-                              aria-hidden="true"></span>
-                        </button>
+                <div class="panel-footer">
+                    <div class="panel-body">
+                        <span class="time-pos">${post.dateDispatch}</span>
                     </div>
                 </div>
             </div>
@@ -87,29 +84,44 @@
     </div>
 
 
-    <div onclick="setDisplayAttribute('none')" id="wrap"></div>
+    <div id="myModal" class="modal" role="dialog">
+        <div class="modal-dialog modal-lg">
 
-    <div id="window" style="align-content: center">
-        <img class="close" onclick="setDisplayAttribute('none')"
-             src="../../../resources/photo/close.png">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><spring:message code="user.post.popup.head"/></h4>
+                </div>
+                <div class="modal-body">
+                    <div id="popupContent">
+                        <pre class="pre-post"></pre>
+                    </div>
+                    <br>
 
-        <div class="post-popup">
-            <pre class="pre-post" id="postContent"></pre>
-        </div>
+                    <div id="popupImg">
+                        <img class="post-popup-img">
+                    </div>
+                    <hr>
+                    <div id="commentsOfPost"></div>
 
-        <br>
-        <img src="" id="postImg" class="post-popup-img">
-        <br><br><br>
 
-        <div  style="height: 50%; width: 50%;">
-            <form:form action="/users/user" method="post">
-                <textarea class="form-control" cols="40" rows="5"></textarea>
+                </div>
+                <div class="row">
+                    <form id="commentInput">
+                        <textarea id="commentContent"
+                                  class="form-control comment-textarea col-sm-offset-1 col-sm-5" rows="4"></textarea>
+
+                        <p>
+                            <input type="submit" class="btn btn-primary col-sm-3 comment-btn"
+                                   value="<spring:message code="user.button.send"/>">
+                        </p>
+                    </form>
+                </div>
                 <br>
-
-                <p><input type="submit" class="btn btn-primary" value="<spring:message code="user.button.send"/>"></p>
-            </form:form>
+            </div>
         </div>
     </div>
 
+</div>
 </body>
 </html>

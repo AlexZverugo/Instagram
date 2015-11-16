@@ -4,9 +4,6 @@ import by.zverugo.samsolutions.instagram.entity.User;
 
 import java.util.List;
 
-/**
- * Created by alzv on 13.10.2015.
- */
 public interface UserDao {
     public void saveUser(User user);
     public void deleteUser(User user);

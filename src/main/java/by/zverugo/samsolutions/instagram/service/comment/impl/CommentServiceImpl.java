@@ -74,4 +74,19 @@ public class CommentServiceImpl implements CommentService {
 
         return commentDTOList;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CommentDTO> getListOfPostsByPostId(long id) {
+        List<CommentDTO> commentDTOList = new ArrayList<>();
+        List<Comment> comments = commentDao.getListOfPostsByPostId(id);
+        for (Comment comment : comments) {
+            commentDTOList.add(conversionService.convert(comment, CommentDTO.class));
+        }
+
+        LOGGER.info(messageSource.getMessage("service.comment.getListOfPostsByPostId",
+                new Object[]{id, commentDTOList}, Locale.ENGLISH));
+
+        return commentDTOList;
+    }
 }

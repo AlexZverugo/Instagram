@@ -89,4 +89,7 @@ public class SignUpValidator implements Validator {
 
         return error;
     }
+
+    //TODO Admin delete
+    //TODO Koval bugs (posts and comments)
 }

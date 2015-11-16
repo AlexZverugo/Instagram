@@ -14,4 +14,6 @@ public interface CommentService {
     public void updateComment(CommentDTO commentDTO);
     public CommentDTO getComment(long id);
     public List<CommentDTO> getListOfComments();
+    public List<CommentDTO> getListOfPostsByPostId(long id);
+
 }

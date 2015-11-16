@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class BaseController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/welcome**"}, method = RequestMethod.GET)
     public String basePage() {
         return "common/welcome";
     }

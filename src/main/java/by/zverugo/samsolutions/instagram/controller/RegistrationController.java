@@ -51,6 +51,6 @@ public class RegistrationController {
         userService.saveUser(userDTO);
         authorizationService.login(userDTO.getLogin(), password);
 
-        return "redirect:../users/user";
+        return "redirect:/roleChecker";
     }
 }

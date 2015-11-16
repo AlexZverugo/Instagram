@@ -1,11 +1,20 @@
 package by.zverugo.samsolutions.instagram.dto;
 
+import by.zverugo.samsolutions.instagram.jsonview.Views;
+import com.fasterxml.jackson.annotation.JsonView;
+
 public class CommentDTO {
     private Long id;
+
+    @JsonView(Views.Public.class)
     private String commentContent;
+
     private Integer like;
     private Integer dislike;
+
+    @JsonView(Views.Public.class)
     private Long post;
+
     private Long sender;
 
 

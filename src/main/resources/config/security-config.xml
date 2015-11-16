@@ -22,12 +22,15 @@
         <form-login
                 always-use-default-target="false"
                 login-page="/login"
-                default-target-url="/roleChecker"
+                default-target-url="/users/user"
                 authentication-failure-url="/login?fail"
                 username-parameter="username"
                 password-parameter="password"/>
         <logout logout-success-url="/login"/>
+
+        <remember-me remember-me-parameter="remember-me"  key="uniqueAndSecret" token-validity-seconds="1209600"/>
     </http>
+
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="authorizationService">

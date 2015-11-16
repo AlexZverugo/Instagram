@@ -4,6 +4,7 @@ import by.zverugo.samsolutions.instagram.dao.post.PostDao;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.entity.Post;
 import by.zverugo.samsolutions.instagram.service.post.PostService;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -11,8 +12,11 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,7 +46,6 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public void deletePost(long id) {
-//        Post post = conversionService.convert(postDTO, Post.class);
         postDao.deletePost(id);
         LOGGER.info(messageSource.getMessage("service.post.delete", new Object[]{id}, Locale.ENGLISH));
     }
@@ -95,13 +98,13 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional(readOnly = true)
     public List<PostDTO> getReversedListOfPostsByIdOfOwner(long id) {
+        //TODO sort list by id 'Comparator'
         List<Post> posts = postDao.getListOfPostsByIdOfOwner(id);
         List<PostDTO> postDTOList = new ArrayList();
 
         for (Post post : posts) {
             postDTOList.add(conversionService.convert(post, PostDTO.class));
         }
-
         Collections.reverse(postDTOList);
         LOGGER.info(messageSource.getMessage("service.post.getReversedListByIdOfOwner",
                 new Object[]{id, postDTOList}, Locale.ENGLISH));
@@ -109,12 +112,12 @@ public class PostServiceImpl implements PostService {
         return postDTOList;
     }
 
-    @Override
-    public void encodePostContent(List<PostDTO> posts) {
-        for (PostDTO post : posts) {
-            String encodedStr = post.getPostContent().replaceAll("\n", "%0A").replaceAll("\r", "%0D");
-            post.setPostContent(encodedStr);
-        }
-    }
+    public String getCurrentDate() {
+        String date;
+        SimpleDateFormat dateFormat = new SimpleDateFormat(InstagramConstants.DATE_FORMAT);
+        Date justNow = Calendar.getInstance().getTime();
+        date = dateFormat.format(justNow);
 
+        return date;
+    }
 }

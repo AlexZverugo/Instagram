@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -33,6 +34,9 @@ public class Post {
 
     @Column(name = "dislikes")
     private Integer dislike;
+
+    @Column(name = "post_send_date")
+    private Timestamp dateDispatch;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -108,5 +112,13 @@ public class Post {
 
     public void setDislike(Integer dislike) {
         this.dislike = dislike;
+    }
+
+    public Timestamp getDateDispatch() {
+        return dateDispatch;
+    }
+
+    public void setDateDispatch(Timestamp dateDispatch) {
+        this.dateDispatch = dateDispatch;
     }
 }

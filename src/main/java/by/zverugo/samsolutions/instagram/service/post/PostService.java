@@ -16,5 +16,5 @@ public interface PostService {
     public List<PostDTO> getListOfPosts();
     public List<PostDTO> getListOfPostsByIdOfOwner(long id);
     public List<PostDTO> getReversedListOfPostsByIdOfOwner(long id);
-    public void encodePostContent(List<PostDTO> posts);
+    public String getCurrentDate();
 }

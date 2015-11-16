@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -19,7 +23,7 @@ import java.util.Map;
 @RequestMapping(value = "/post")
 public class PostController {
 
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger LOGGER = Logger.getLogger(getClass());
 
     @Autowired
     private PostService postService;
@@ -39,6 +43,7 @@ public class PostController {
         post.setSender(authUser);
         post.setOwner(id);
         post.setImageByte(post.getPicture().getBytes());
+        post.setDateDispatch(postService.getCurrentDate());
         post.setId(postService.savePost(post));
 
         return "redirect:../users/user/" + id;

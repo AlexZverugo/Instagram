@@ -19,7 +19,6 @@ public class PostDaoImpl implements PostDao {
 
     @Autowired
     private MessageSource messageSource;
-    ;
 
     @Autowired
     private SessionFactory sessionFactory;

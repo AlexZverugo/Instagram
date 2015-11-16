@@ -29,8 +29,9 @@
                        placeholder="<spring:message code="login.placeholder.password"/>"/>
             </div>
         </div>
-
-
+        <i><spring:message code="login.label.rememberme"/></i>
+        <input checked type="checkbox" name="remember-me"/>
+        <br><br>
         <spring:message code="login.button.signin" var="SubmitLabel"/>
         <input type="submit" class="btn btn-info btn-bg my-btn-size" value="${SubmitLabel}"/>
     </form>

@@ -14,6 +14,7 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String loginPage(@RequestParam(required = false) String fail, Model model, HttpSession httpSession) {
+        //TODO enable/disable
         String message;
         if (fail != null) {
             message = "Invalid login or password";

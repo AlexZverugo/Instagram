@@ -7,6 +7,9 @@ import by.zverugo.samsolutions.instagram.service.post.PostService;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,8 +36,11 @@ public class UserController {
     private PostService postService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String checkUser(@ModelAttribute("authorizedUser") long authUser) {
-        return "redirect:user/" + authUser;
+    public String checkUser(HttpSession httpSession) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDTO userDTO = userService.getUserByLogin(authentication.getName());
+        httpSession.setAttribute("authorizedUser", userDTO.getId());
+        return "redirect:user/" + userDTO.getId();
     }
 
     @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
@@ -54,9 +60,8 @@ public class UserController {
         }
 
         List<PostDTO> posts = postService.getReversedListOfPostsByIdOfOwner(id);
-        postService.encodePostContent(posts);
         Map<Long, String> usernames = userService.getPostSendersUsernames(posts);
-//        model.addAttribute("commentForm", new CommentDTO());
+        model.addAttribute("commentForm", new CommentDTO());
         model.addAttribute("usernames", usernames);
         model.addAttribute("posts", posts);
         model.addAttribute("username", user.getLogin());

@@ -9,6 +9,7 @@ public class PostDTO {
     private byte[] imageByte;
     private Integer like;
     private Integer dislike;
+    private String dateDispatch;
     private Long sender;
     private Long owner;
 
@@ -77,5 +78,11 @@ public class PostDTO {
         this.like = like;
     }
 
+    public String getDateDispatch() {
+        return dateDispatch;
+    }
 
+    public void setDateDispatch(String dateDispatch) {
+        this.dateDispatch = dateDispatch;
+    }
 }

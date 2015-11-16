@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateUser(UserDTO userDTO) {
-        User user = conversionService.convert(getUserById(userDTO.getId()), User.class);
+        User user = conversionService.convert(userDTO, User.class);
         userDao.updateUser(user);
         LOGGER.info(messageSource.getMessage("service.user.update", new Object[]{userDTO}, Locale.ENGLISH));
     }

@@ -3,6 +3,7 @@ package by.zverugo.samsolutions.instagram.dao.comment.impl;
 import by.zverugo.samsolutions.instagram.dao.comment.CommentDao;
 import by.zverugo.samsolutions.instagram.entity.Comment;
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -52,6 +53,17 @@ public class CommentDaoImpl implements CommentDao {
     public List<Comment> getListOfComments() {
         List<Comment> comments = sessionFactory.getCurrentSession().createCriteria(Comment.class).list();
         LOGGER.info(messageSource.getMessage("dao.comment.getList", new Object[] {comments}, Locale.ENGLISH));
+
+        return comments;
+    }
+
+    @Override
+    public List<Comment> getListOfPostsByPostId(long id) {
+        String posthql = "FROM  by.zverugo.samsolutions.instagram.entity.Comment C WHERE C.post.postId = :id";
+        Query query = sessionFactory.getCurrentSession().createQuery(posthql);
+        query.setParameter("id", id);
+        List<Comment> comments = query.list();
+        LOGGER.info(messageSource.getMessage("dao.comment.getListOfPostsByPostId", new Object[]{id, comments}, Locale.ENGLISH));
 
         return comments;
     }

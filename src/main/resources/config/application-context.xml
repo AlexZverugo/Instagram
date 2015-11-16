@@ -42,6 +42,8 @@
                 <ref bean="postToPostDTOConverter"/>
                 <ref bean="commentDTOToCommentConverter"/>
                 <ref bean="commentToCommentDTOConverter"/>
+                <ref bean="profileToProfileDTOConverter"/>
+                <ref bean="profileDTOToProfileConverter"/>
             </set>
         </property>
     </bean>
