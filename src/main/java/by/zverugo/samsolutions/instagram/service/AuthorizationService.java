@@ -1,6 +1,7 @@
 package by.zverugo.samsolutions.instagram.service;
 
 import by.zverugo.samsolutions.instagram.dao.user.UserDao;
+import by.zverugo.samsolutions.instagram.util.LoggerLocale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -59,7 +60,7 @@ public class AuthorizationService implements UserDetailsService {
         );
 
         LOGGER.info(messageSource.getMessage("service.authorizationService.loadUserByUsername",
-                new Object[]{username}, Locale.ENGLISH));
+                new Object[]{username}, LoggerLocale.LOCALE));
 
         return userLog;
     }
@@ -75,7 +76,7 @@ public class AuthorizationService implements UserDetailsService {
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         LOGGER.info(messageSource.getMessage("service.authorizationService.login",
-                new Object[]{username}, Locale.ENGLISH));
+                new Object[]{username}, LoggerLocale.LOCALE));
     }
 
 }

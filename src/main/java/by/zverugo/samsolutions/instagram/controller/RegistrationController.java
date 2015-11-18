@@ -1,7 +1,9 @@
 package by.zverugo.samsolutions.instagram.controller;
 
+import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.hash.PasswordHashEncoder;
+import by.zverugo.samsolutions.instagram.service.profile.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,6 +28,9 @@ public class RegistrationController {
     private UserService userService;
 
     @Autowired
+    private ProfileService profileService;
+
+    @Autowired
     private PasswordHashEncoder passwordEncoder;
 
     @Autowired
@@ -48,9 +53,12 @@ public class RegistrationController {
         userDTO.setRole(UserRoleEnum.USER);
         String password = userDTO.getPassword();
         userDTO.setPassword(passwordEncoder.encode(password));
-        userService.saveUser(userDTO);
+        long userId = userService.saveUser(userDTO);
+        ProfileDTO profile = new ProfileDTO();
+        profile.setUser(userId);
+        profileService.saveProfile(profile);
         authorizationService.login(userDTO.getLogin(), password);
 
-        return "redirect:/roleChecker";
+        return "redirect:/users/user";
     }
 }

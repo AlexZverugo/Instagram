@@ -1,12 +1,12 @@
 package by.zverugo.samsolutions.instagram.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.sql.Date;
@@ -34,9 +34,6 @@ public class Profile {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "relationship_status")
-    private String relationshipStatus;
-
     @Column(name = "sex")
     private String sex;
 
@@ -46,7 +43,8 @@ public class Profile {
     @Column(name = "avatar")
     private byte[] avatar;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "profile")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Long getId() {
@@ -95,14 +93,6 @@ public class Profile {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getRelationshipStatus() {
-        return relationshipStatus;
-    }
-
-    public void setRelationshipStatus(String relationshipStatus) {
-        this.relationshipStatus = relationshipStatus;
     }
 
     public String getSex() {

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class AccessInterceptor extends HandlerInterceptorAdapter {
-
+    //TODO deleting id checker
     private final Logger LOGGER = Logger.getLogger(getClass());
 
     @Override

@@ -17,7 +17,6 @@ public class ProfileToProfileDTOConverter implements Converter<Profile,ProfileDT
         profileDTO.setCountry(profile.getCountry());
         profileDTO.setCity(profile.getCity());
         profileDTO.setSex(profile.getSex());
-        profileDTO.setRelationshipStatus(profile.getRelationshipStatus());
         profileDTO.setAvatar(profile.getAvatar());
         profileDTO.setBirthday(profile.getBirthday());
         profileDTO.setUser(profile.getUser().getId());

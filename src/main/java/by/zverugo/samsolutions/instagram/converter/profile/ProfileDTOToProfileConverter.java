@@ -3,7 +3,6 @@ package by.zverugo.samsolutions.instagram.converter.profile;
 import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
 import by.zverugo.samsolutions.instagram.entity.Profile;
 import by.zverugo.samsolutions.instagram.entity.User;
-import by.zverugo.samsolutions.instagram.util.enums.PicturesByteArrayEnum;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -19,14 +18,8 @@ public class ProfileDTOToProfileConverter implements Converter<ProfileDTO, Profi
         profile.setCountry(profileDTO.getCountry());
         profile.setCity(profileDTO.getCity());
         profile.setSex(profileDTO.getSex());
-        profile.setRelationshipStatus(profileDTO.getRelationshipStatus());
-        profile.setAvatar(profileDTO.getAvatar());
 
-//        if (profileDTO.getAvatar() == null) {
-//            profile.setAvatar(PicturesByteArrayEnum.DEFAULT_AVATAR.getByte());
-//        } else {
-//            profile.setAvatar(profileDTO.getAvatar());
-//        }
+        convertPostImage(profileDTO, profile);
         profile.setBirthday(profileDTO.getBirthday());
 
         User user = new User();
@@ -35,4 +28,13 @@ public class ProfileDTOToProfileConverter implements Converter<ProfileDTO, Profi
 
         return profile;
     }
+
+    private void convertPostImage(ProfileDTO profileDTO, Profile profile) {
+        if (profileDTO.getAvatar() == null || profileDTO.getAvatar().length <= 0) {
+            profile.setAvatar(null);
+        } else {
+            profile.setAvatar(profileDTO.getAvatar());
+        }
+    }
+
 }

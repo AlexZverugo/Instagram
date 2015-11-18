@@ -6,14 +6,16 @@
 <html>
 <head>
     <toolkit:header title="Post adder page"/>
-    <link rel="stylesheet" href="<c:url value="/resources/css/post.css"/>" type="text/css"/>
+    <script src="<c:url value="/resources/js/post.js"/>"></script>
 </head>
 <body class="bg-common">
 <toolkit:navbar/>
 <div class="container" align="center">
+
     <br><br>
     <br><br>
-    <form:form action="/post/addPost" method="post" commandName="postForm" enctype="multipart/form-data">
+    <form:form action="/post/addPost" method="post" commandName="postForm" id="postSubmit"
+               enctype="multipart/form-data">
         <div class="form-group">
             <label for="comment"><span style="color:#31b0d5"><spring:message
                     code="post.label.inputpost"/>:</span></label>
@@ -22,7 +24,6 @@
                 <form:textarea path="postContent" class="form-control" rows="5" id="comment"/>
             </div>
         </div>
-
         <span class="btn btn-primary btn-file">
            <form:input path="picture" type="file" name="photo" accept="image/*"/>
         </span>

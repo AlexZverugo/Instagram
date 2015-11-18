@@ -2,6 +2,7 @@ package by.zverugo.samsolutions.instagram.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+
 public class PostDTO {
     private Long id;
     private String postContent;

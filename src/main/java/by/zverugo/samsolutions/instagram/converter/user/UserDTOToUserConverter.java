@@ -2,6 +2,7 @@ package by.zverugo.samsolutions.instagram.converter.user;
 
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.entity.User;
+import by.zverugo.samsolutions.instagram.util.LoggerLocale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -28,7 +29,7 @@ public class UserDTOToUserConverter implements Converter<UserDTO, User> {
         user.setRole(userDTO.getRole().getRole());
 
         LOGGER.info(messageSource.getMessage("converter.convert",
-                new Object[]{"UserDTO", "User", userDTO, user}, Locale.ENGLISH));
+                new Object[]{"UserDTO", "User", userDTO, user}, LoggerLocale.LOCALE));
 
         return user;
     }

@@ -1,10 +1,12 @@
 package by.zverugo.samsolutions.instagram.service.user.impl;
 
 import by.zverugo.samsolutions.instagram.dao.user.UserDao;
+import by.zverugo.samsolutions.instagram.dto.CommentDTO;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.entity.User;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
+import by.zverugo.samsolutions.instagram.util.LoggerLocale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -34,17 +36,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void saveUser(UserDTO userDTO) {
+    public long saveUser(UserDTO userDTO) {
         User user = conversionService.convert(userDTO, User.class);
-        userDao.saveUser(user);
-        LOGGER.info(messageSource.getMessage("service.user.save", new Object[]{userDTO}, Locale.ENGLISH));
+        long id = userDao.saveUser(user);
+        LOGGER.info(messageSource.getMessage("service.user.save", new Object[]{userDTO}, LoggerLocale.LOCALE));
+        return id;
     }
 
     @Override
     @Transactional
     public void deleteUser(UserDTO userDTO) {
         userDao.deleteUserById(userDTO.getId());
-        LOGGER.info(messageSource.getMessage("service.user.delete", new Object[]{userDTO}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.user.delete", new Object[]{userDTO}, LoggerLocale.LOCALE));
     }
 
     @Override
@@ -52,7 +55,7 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDTO userDTO) {
         User user = conversionService.convert(userDTO, User.class);
         userDao.updateUser(user);
-        LOGGER.info(messageSource.getMessage("service.user.update", new Object[]{userDTO}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.user.update", new Object[]{userDTO}, LoggerLocale.LOCALE));
     }
 
     @Override
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserByLogin(String login) {
         UserDTO userDTO = conversionService.convert(userDao.getUserByName(login), UserDTO.class);
         LOGGER.info(messageSource.getMessage("service.user.getUserByLogin",
-                new Object[]{login, userDTO}, Locale.ENGLISH));
+                new Object[]{login, userDTO}, LoggerLocale.LOCALE));
 
         return userDTO;
     }
@@ -69,7 +72,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public UserDTO getUserById(long id) {
         UserDTO userDTO = conversionService.convert(userDao.getUser(id), UserDTO.class);
-        LOGGER.info(messageSource.getMessage("service.user.getUserById", new Object[]{id, userDTO}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.user.getUserById", new Object[]{id, userDTO}, LoggerLocale.LOCALE));
 
         return userDTO;
     }
@@ -82,7 +85,7 @@ public class UserServiceImpl implements UserService {
         for (User user : users) {
             userDTOList.add(conversionService.convert(user, UserDTO.class));
         }
-        LOGGER.info(messageSource.getMessage("service.user.getList", new Object[]{userDTOList}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.user.getList", new Object[]{userDTOList}, LoggerLocale.LOCALE));
 
         return userDTOList;
     }
@@ -96,8 +99,22 @@ public class UserServiceImpl implements UserService {
             usernames.put(post.getSender(), getUserById(post.getSender()).getLogin());
         }
         LOGGER.info(messageSource.getMessage("service.user.getPostSendersUsernames",
-                new Object[]{usernames}, Locale.ENGLISH));
+                new Object[]{usernames}, LoggerLocale.LOCALE));
 
         return usernames;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Map<Long, String> getCommentSendersNames(List<CommentDTO> comments) {
+        Map<Long, String> senders = new HashMap<>();
+
+        for (CommentDTO comment : comments) {
+            senders.put(comment.getSender(), getUserById(comment.getSender()).getLogin());
+        }
+        LOGGER.info(messageSource.getMessage("service.user.getCommentSendersNames",
+                new Object[]{senders}, LoggerLocale.LOCALE));
+
+        return senders;
     }
 }

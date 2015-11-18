@@ -5,9 +5,6 @@ import by.zverugo.samsolutions.instagram.entity.Post;
 
 import java.util.List;
 
-/**
- * Created by alzv on 13.10.2015.
- */
 public interface PostService {
     public long savePost(PostDTO postDTO);
     public void deletePost(long id);
@@ -16,5 +13,4 @@ public interface PostService {
     public List<PostDTO> getListOfPosts();
     public List<PostDTO> getListOfPostsByIdOfOwner(long id);
     public List<PostDTO> getReversedListOfPostsByIdOfOwner(long id);
-    public String getCurrentDate();
 }

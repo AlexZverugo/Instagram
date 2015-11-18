@@ -37,7 +37,6 @@ public class ProfileTest {
         profile = new Profile();
         profile.setId(222L);
         profile.setBirthday(new Date(100000));
-        profile.setRelationshipStatus("married");
         profile.setFirstName("Max");
         profile.setSurname("Petrenko");
         profile.setSecondName("Vitalievich");

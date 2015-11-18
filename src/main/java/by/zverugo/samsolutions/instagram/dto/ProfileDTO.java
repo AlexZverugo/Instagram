@@ -1,5 +1,7 @@
 package by.zverugo.samsolutions.instagram.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.sql.Date;
 
 public class ProfileDTO {
@@ -9,9 +11,9 @@ public class ProfileDTO {
     private String secondName;
     private String country;
     private String city;
-    private String relationshipStatus;
     private String sex;
     private Date birthday;
+    private MultipartFile picture;
     private byte[] avatar;
     private Long user;
 
@@ -63,14 +65,6 @@ public class ProfileDTO {
         this.city = city;
     }
 
-    public String getRelationshipStatus() {
-        return relationshipStatus;
-    }
-
-    public void setRelationshipStatus(String relationshipStatus) {
-        this.relationshipStatus = relationshipStatus;
-    }
-
     public String getSex() {
         return sex;
     }
@@ -101,5 +95,13 @@ public class ProfileDTO {
 
     public void setUser(Long user) {
         this.user = user;
+    }
+
+    public MultipartFile getPicture() {
+        return picture;
+    }
+
+    public void setPicture(MultipartFile picture) {
+        this.picture = picture;
     }
 }

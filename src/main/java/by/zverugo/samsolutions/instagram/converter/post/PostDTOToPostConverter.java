@@ -3,7 +3,7 @@ package by.zverugo.samsolutions.instagram.converter.post;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.entity.Post;
 import by.zverugo.samsolutions.instagram.entity.User;
-import by.zverugo.samsolutions.instagram.util.InstagramConstants;
+import by.zverugo.samsolutions.instagram.util.LoggerLocale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -11,8 +11,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -32,7 +30,7 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
         post.setLike(postDTO.getLike());
         post.setPostContent(postDTO.getPostContent());
 
-        convertStringToTimestamp(postDTO,post);
+        convertStringToTimestamp(post);
         convertPostImage(postDTO, post);
 
         User owner = new User();
@@ -43,7 +41,7 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
         post.setSender(sender);
 
         LOGGER.info(messageSource.getMessage("converter.convert",
-                new Object[]{"PostDTO", "Post", postDTO, post}, Locale.ENGLISH));
+                new Object[]{"PostDTO", "Post", postDTO, post}, LoggerLocale.LOCALE));
 
         return post;
     }
@@ -56,14 +54,11 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
         }
     }
 
-    private void convertStringToTimestamp(PostDTO postDTO, Post post) {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(InstagramConstants.DATE_FORMAT);
-            Date parsedDate = dateFormat.parse(postDTO.getDateDispatch());
-            post.setDateDispatch(new Timestamp(parsedDate.getTime()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    private void convertStringToTimestamp(Post post) {
+        //TODO normal timezone
+        int timezone = 21600000;
+        Date date = new Date();
+        post.setDateDispatch(new Timestamp(date.getTime() + timezone));
     }
 
 }

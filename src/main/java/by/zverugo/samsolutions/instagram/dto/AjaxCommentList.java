@@ -7,13 +7,13 @@ import java.util.List;
 
 public class AjaxCommentList {
     @JsonView(Views.Public.class)
-    private List<CommentDTO> comments;
+    private List<AjaxComment> comments;
 
-    public List<CommentDTO> getComments() {
+    public List<AjaxComment> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentDTO> comments) {
+    public void setComments(List<AjaxComment> comments) {
         this.comments = comments;
     }
 }

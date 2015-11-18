@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <script src="<c:url value="/resources/bootstrap/js/jquery.min.js"/>"></script>
+<script src="<c:url value="/resources/bootstrap/js/jquery-ui.min.js"/>"></script>
 <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
 <script src="<c:url value="/resources/js/common.js"/>"></script>
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet">

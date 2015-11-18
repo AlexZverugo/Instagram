@@ -16,73 +16,85 @@
 <body class="bg-common">
 <toolkit:navbar/>
 
-
 <h2 class="user-label-fixed">${username}</h2>
 
-<form action="/users/addPost?id=${id}" method="post" class="form-horizontal" role="form">
-    <input type="submit" class="user-btn-size btn btn-primary user-btn-fixed"
+    <a href="/users/addPost?id=${profile.user}">
+        <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-add-btn-position"
            value="<spring:message code="user.button.addpost"/>">
-</form>
+    </a>
+
+    <a href="/profile/user=${profile.user}">
+        <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-profile-btn-position"
+           value="<spring:message code="user.button.showprofile"/>">
+    </a>
 
 <div class="container user-layer" align="center">
     <br><br>
     <br><br>
 
     <c:forEach var="post" items="${posts}">
-    <br><br>
+        <br><br>
 
-    <div class="user-post-br" align="center">
-        <div class="col-sm-1 user-post-position">
-            <div class="thumbnail">
-                <img class="img-responsive user-photo" src="../../../resources/photo/default_avatar.png">
+        <div id="fullPostContent${post.id}" class="user-post-br" align="center">
+            <div class="col-sm-1 user-post-position">
+                <div class="thumbnail">
+                    <c:choose>
+                        <c:when test="${profilesImages.get(post.id) != null}">
+                            <a href="/profile/user=${post.sender}">
+                                <img class="img-responsive user-photo"
+                                     src="<pi:image imageByte="${profilesImages.get(post.id)}"/>">
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <img class="img-responsive user-photo" src="../../../resources/photo/default_avatar.png">
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-5 user-post-position">
-            <div class="panel panel-default">
-                <div class="left panel-heading">
-                    <div align="left">
-                        <span class="text-muted"><spring:message code="user.label.username"/>:</span>
-                        <strong>${usernames.get(post.sender)}</strong>
+            <div class="col-sm-5 user-post-position">
+                <div class="panel panel-default">
+                    <div class="left panel-heading">
+                        <div align="left">
+                            <span class="text-muted"><spring:message code="user.label.username"/>:</span>
+                            <strong>${usernames.get(post.sender)}</strong>
 
-                        <c:if test="${removingCross}">
-                            <a href="/post/deletePost/id=${post.id}"
-                               id="post-del">
+                            <c:if test="${removingCross}">
+                                <div id="remove${post.id}" class="post-del cursor-pointer">
                                     <span class="glyphicon glyphicon-remove"
                                           aria-hidden="true"></span>
-                            </a>
-                        </c:if>
+                                </div>
+                            </c:if>
 
+                        </div>
                     </div>
-                </div>
 
-                <div id="post${post.id}" data-toggle="modal" data-target="#myModal" id-parameter="${post.id}">
+                    <div id="post${post.id}" class="cursor-pointer" data-toggle="modal" data-target="#myModal" id-parameter="${post.id}">
 
-                    <div align="justify" class="user-post-scroll">
+                        <div align="justify" class="user-post-scroll">
                         <pre id="contentPost${post.id}" class="pre-post">
                             <p>${post.postContent}</p>
                         </pre>
-                    </div>
-                    <hr>
-                    <div id="imgPost${post.id}">
-                        <c:if test="${post.imageByte != null}">
-                            <img class="post-popup-img" src="<pi:image imageByte="${post.imageByte}"/>">
-                        </c:if>
-                    </div>
+                        </div>
+                        <hr>
+                        <div id="imgPost${post.id}">
+                            <c:if test="${post.imageByte != null}">
+                                <img class="post-popup-img" src="<pi:image imageByte="${post.imageByte}"/>">
+                            </c:if>
+                        </div>
 
-                </div>
-                <br>
+                    </div>
+                    <br>
 
-                <div class="panel-footer">
-                    <div class="panel-body">
-                        <span class="time-pos">${post.dateDispatch}</span>
+                    <div class="panel-footer">
+                        <div class="panel-body">
+                            <span class="time-pos">${post.dateDispatch}</span>
+                        </div>
                     </div>
                 </div>
+                <br><br>
             </div>
-            <br><br>
         </div>
-        </c:forEach>
-    </div>
-
+    </c:forEach>
 
     <div id="myModal" class="modal" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -102,7 +114,7 @@
                         <img class="post-popup-img">
                     </div>
                     <hr>
-                    <div id="commentsOfPost"></div>
+                    <div id="commentsOfPost" class="row"></div>
 
 
                 </div>

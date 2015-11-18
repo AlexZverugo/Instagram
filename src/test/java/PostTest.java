@@ -59,7 +59,7 @@ public class PostTest {
     @Test
     public void testAddPost() {
         postDao.savePost(post);
-        LOGGER.info(messageSource.getMessage("test.post.save", new Object[]{post}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.post.save", new Object[]{post, postDao.getPost(post.getPostId())}, Locale.ENGLISH));
     }
 
     @Test
@@ -83,6 +83,7 @@ public class PostTest {
         long id = postDao.savePost(post);
         post = postDao.getPost(id);
         postDao.deletePost(id);
-        LOGGER.info(messageSource.getMessage("test.post.delete", new Object[]{id}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.post.delete",
+                new Object[]{id, postDao.getPost(post.getPostId())}, Locale.ENGLISH));
     }
 }

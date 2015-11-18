@@ -1,0 +1,8 @@
+1. три точки
+2. дефолтный путь к картинке аватара
+3. Иногда выскакивает ошибка: 
+	java.io.IOException: tmpFile.renameTo(classFile) failed (org.apache.jasper.JasperException: Unable to compile class for JSP)
+	при (при переходе на страницу добавление поста '/post?authorizedUser=51')
+4.datepicker
+5. аннотация @PrimaryKeyJoinColumn не работает
+6. 

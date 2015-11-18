@@ -8,7 +8,39 @@ $(document).ready(function () {
 
         showComments($(this).attr("id-parameter"))
     });
+
+    $('div[id^=remove]').click(function () {
+        var removeId = $(this)[0].id;
+        var id = removeId.substring('remove'.length);
+        deletePost(id);
+    });
+
+    $('#commentInput').submit(function (event) {
+        event.preventDefault();
+        addComment();
+    });
 });
+
+
+function deletePost(id) {
+    var post = {};
+    post["id"] = id;
+
+    $.ajax({
+        type: "GET",
+        url: "/post/deletePost",
+        data: post,
+        dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json',
+
+
+        success: function (data) {
+            var post = $('#fullPostContent' + id);
+            post.remove();
+        }
+    });
+}
 
 
 function showComments(id) {
@@ -33,18 +65,12 @@ function display(data) {
     var commentsViewHTML = '';
 
     for (var commentIndex = 0; commentIndex < data.comments.length; commentIndex++) {
-        commentsViewHTML += '<pre class="pre-post">' + data.comments[commentIndex].commentContent + '</pre><hr>';
+        commentsViewHTML += '<div align="left"><b>' + data.comments[commentIndex].senderName + ':</b></div><br>'
+        + '<pre class="pre-post">' + data.comments[commentIndex].commentContent + '</pre><hr>';
     }
 
     $('#commentsOfPost').html(commentsViewHTML);
 }
-
-$(document).ready(function () {
-    $('#commentInput').submit(function (event) {
-        event.preventDefault();
-        addComment();
-    });
-});
 
 function addComment() {
     var comment = {};
@@ -60,7 +86,8 @@ function addComment() {
         mimeType: 'application/json',
 
         success: function (data) {
-            var comment = '<pre class="pre-post">' + data.commentContent + '</pre><hr>';
+            var comment = '<div align="left"><b>' + data.senderName + ':</b></div><br>'
+                + '<pre class="pre-post">' + data.commentContent + '</pre><hr>';
             $('#commentsOfPost').append(comment);
             var textarea = $('#commentContent');
             textarea.val('');

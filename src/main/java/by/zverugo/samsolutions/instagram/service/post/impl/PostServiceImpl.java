@@ -4,7 +4,7 @@ import by.zverugo.samsolutions.instagram.dao.post.PostDao;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.entity.Post;
 import by.zverugo.samsolutions.instagram.service.post.PostService;
-import by.zverugo.samsolutions.instagram.util.InstagramConstants;
+import by.zverugo.samsolutions.instagram.util.LoggerLocale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -12,11 +12,9 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,7 +36,7 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public long savePost(PostDTO postDTO) {
         Post post = conversionService.convert(postDTO, Post.class);
-        LOGGER.info(messageSource.getMessage("service.post.save", new Object[]{postDTO}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.post.save", new Object[]{postDTO}, LoggerLocale.LOCALE));
 
         return postDao.savePost(post);
     }
@@ -47,7 +45,7 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public void deletePost(long id) {
         postDao.deletePost(id);
-        LOGGER.info(messageSource.getMessage("service.post.delete", new Object[]{id}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.post.delete", new Object[]{id}, LoggerLocale.LOCALE));
     }
 
     @Override
@@ -55,14 +53,14 @@ public class PostServiceImpl implements PostService {
     public void updatePost(PostDTO postDTO) {
         Post post = conversionService.convert(postDTO, Post.class);
         postDao.updatePost(post);
-        LOGGER.info(messageSource.getMessage("service.post.update", new Object[]{postDTO}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.post.update", new Object[]{postDTO}, LoggerLocale.LOCALE));
     }
 
     @Override
     @Transactional(readOnly = true)
     public PostDTO getPost(long id) {
         PostDTO postDTO = conversionService.convert(postDao.getPost(id), PostDTO.class);
-        LOGGER.info(messageSource.getMessage("service.post.getPostById", new Object[]{id, postDTO}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.post.getPostById", new Object[]{id, postDTO}, LoggerLocale.LOCALE));
         return postDTO;
     }
 
@@ -75,7 +73,7 @@ public class PostServiceImpl implements PostService {
         for (Post post : posts) {
             postDTOList.add(conversionService.convert(post, PostDTO.class));
         }
-        LOGGER.info(messageSource.getMessage("service.post.getList", new Object[]{postDTOList}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("service.post.getList", new Object[]{postDTOList}, LoggerLocale.LOCALE));
 
         return postDTOList;
     }
@@ -90,7 +88,7 @@ public class PostServiceImpl implements PostService {
             postDTOList.add(conversionService.convert(post, PostDTO.class));
         }
         LOGGER.info(messageSource.getMessage("service.post.getListByIdOfOwner",
-                new Object[]{id, postDTOList}, Locale.ENGLISH));
+                new Object[]{id, postDTOList}, LoggerLocale.LOCALE));
 
         return postDTOList;
     }
@@ -102,22 +100,18 @@ public class PostServiceImpl implements PostService {
         List<Post> posts = postDao.getListOfPostsByIdOfOwner(id);
         List<PostDTO> postDTOList = new ArrayList();
 
+        Comparator<Post> postComparator = (x, y) -> (x.getPostId().compareTo(y.getPostId()));
+
+        Collections.sort(posts, postComparator);
+
         for (Post post : posts) {
             postDTOList.add(conversionService.convert(post, PostDTO.class));
         }
+
         Collections.reverse(postDTOList);
         LOGGER.info(messageSource.getMessage("service.post.getReversedListByIdOfOwner",
-                new Object[]{id, postDTOList}, Locale.ENGLISH));
+                new Object[]{id, postDTOList}, LoggerLocale.LOCALE));
 
         return postDTOList;
-    }
-
-    public String getCurrentDate() {
-        String date;
-        SimpleDateFormat dateFormat = new SimpleDateFormat(InstagramConstants.DATE_FORMAT);
-        Date justNow = Calendar.getInstance().getTime();
-        date = dateFormat.format(justNow);
-
-        return date;
     }
 }

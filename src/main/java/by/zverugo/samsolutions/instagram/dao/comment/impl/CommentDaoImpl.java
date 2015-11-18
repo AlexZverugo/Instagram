@@ -2,6 +2,7 @@ package by.zverugo.samsolutions.instagram.dao.comment.impl;
 
 import by.zverugo.samsolutions.instagram.dao.comment.CommentDao;
 import by.zverugo.samsolutions.instagram.entity.Comment;
+import by.zverugo.samsolutions.instagram.util.LoggerLocale;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -26,25 +27,25 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public void saveComment(Comment comment) {
         sessionFactory.getCurrentSession().save(comment);
-        LOGGER.info(messageSource.getMessage("dao.comment.save", new Object[]{comment}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("dao.comment.save", new Object[]{comment}, LoggerLocale.LOCALE));
     }
 
     @Override
     public void deleteComment(Comment comment) {
         sessionFactory.getCurrentSession().delete(comment);
-        LOGGER.info(messageSource.getMessage("dao.comment.delete", new Object[]{comment}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("dao.comment.delete", new Object[]{comment}, LoggerLocale.LOCALE));
     }
 
     @Override
     public void updateComment(Comment comment) {
         sessionFactory.getCurrentSession().update(comment);
-        LOGGER.info(messageSource.getMessage("dao.comment.update", new Object[]{comment}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("dao.comment.update", new Object[]{comment}, LoggerLocale.LOCALE));
     }
 
     @Override
     public Comment getComment(long id) {
         Comment comment = sessionFactory.getCurrentSession().get(Comment.class, id);
-        LOGGER.info(messageSource.getMessage("dao.comment.getById", new Object[]{id}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("dao.comment.getById", new Object[]{id}, LoggerLocale.LOCALE));
 
         return comment;
     }
@@ -52,7 +53,7 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<Comment> getListOfComments() {
         List<Comment> comments = sessionFactory.getCurrentSession().createCriteria(Comment.class).list();
-        LOGGER.info(messageSource.getMessage("dao.comment.getList", new Object[] {comments}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("dao.comment.getList", new Object[] {comments}, LoggerLocale.LOCALE));
 
         return comments;
     }
@@ -63,7 +64,8 @@ public class CommentDaoImpl implements CommentDao {
         Query query = sessionFactory.getCurrentSession().createQuery(posthql);
         query.setParameter("id", id);
         List<Comment> comments = query.list();
-        LOGGER.info(messageSource.getMessage("dao.comment.getListOfPostsByPostId", new Object[]{id, comments}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("dao.comment.getListOfPostsByPostId", new Object[]{id, comments},
+                LoggerLocale.LOCALE));
 
         return comments;
     }

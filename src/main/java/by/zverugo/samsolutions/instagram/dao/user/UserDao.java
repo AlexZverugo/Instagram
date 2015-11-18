@@ -5,7 +5,7 @@ import by.zverugo.samsolutions.instagram.entity.User;
 import java.util.List;
 
 public interface UserDao {
-    public void saveUser(User user);
+    public long saveUser(User user);
     public void deleteUser(User user);
     public void updateUser(User user);
     public User getUser(long id);

@@ -56,12 +56,23 @@
     position: fixed;
     background: gray;
     border: gray;
+
+}
+
+.user-add-btn-position {
     top: 15%;
     left: 4%;
 }
 
+.user-profile-btn-position {
+    top: 28%;
+    left: 4%;
+}
+
 .user-post-scroll {
-    overflow: auto;
+    overflow: hidden;
+    /*text-overflow-ellipsis: ;*/
+    text-after-overflow: ellipse;
     height: 12%;
 }
 
@@ -110,11 +121,6 @@
     border: gray;
 }
 
-.post-textarea-border {
-    border: 2px solid #31b0d5;
-    border-radius: 6px;
-}
-
 .table-stl {
     color: #000000;
 }
@@ -138,40 +144,9 @@
 }
 
 
-#post-del {
+.post-del {
     float:right;
     color: gray;
-}
-
-#wrap{
-    display: none;
-    opacity: 0.8;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    padding: 16px;
-    background-color: rgba(1, 1, 1, 0.725);
-    z-index: 100;
-    overflow: auto;
-}
-
-#mypopup{
-    overflow: auto;
-    width: 75%;
-    height: 85%;
-    margin: 50px auto;
-    display: none;
-    background: #fff;
-    z-index: 200;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 1%;
-    bottom: 10%;
-    padding: 16px;
-    border-radius: 10px;
 }
 
 .close{
@@ -203,4 +178,45 @@
 
 .time-pos {
     float: right;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.profile-popup-link-text {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 50px;
+    color: blue;
+}
+
+.profile-img {
+    cursor: pointer;
+    max-height: 350px;
+    max-width: 350px;
+}
+
+.profile-layer {
+    overflow-x: auto;
+    overflow-clip: 100%;
+}
+
+.profile-edit-btn {
+    position: fixed;
+    cursor: pointer;
+    top: 12%;
+    left: 4%;
+}
+
+.profile-header-text {
+    color: #000000;
+}
+
+.profile-text {
+    color: #ffffff;
+}
+
+.profile-popup-avatar {
+    max-height: 100%;
+    max-width: 100%;
 }

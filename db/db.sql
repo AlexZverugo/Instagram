@@ -24,9 +24,7 @@ comment_id serial PRIMARY KEY,
 post_id int references post(post_id) ON UPDATE CASCADE ON DELETE CASCADE,
 sender int references users(id) ON UPDATE CASCADE ON DELETE CASCADE,
 comment_content varchar,
-comment_send_date timestamp without time zone,
-likes int DEFAULT 0,
-dislikes int  DEFAULT 0
+comment_send_date timestamp without time zone
 );
 
 CREATE TABLE  profile (
@@ -39,8 +37,7 @@ country varchar(125),
 city varchar(125),
 avatar bytea,
 sex varchar(15),
-birthday  date,
-relationship_status varchar(25)
+birthday  date
 );
 
 

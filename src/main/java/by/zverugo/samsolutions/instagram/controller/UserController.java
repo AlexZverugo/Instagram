@@ -2,13 +2,14 @@ package by.zverugo.samsolutions.instagram.controller;
 
 import by.zverugo.samsolutions.instagram.dto.CommentDTO;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
+import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.service.post.PostService;
+import by.zverugo.samsolutions.instagram.service.profile.ProfileService;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,21 +36,25 @@ public class UserController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private ProfileService profileService;
+
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String checkUser(HttpSession httpSession) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDTO userDTO = userService.getUserByLogin(authentication.getName());
-        httpSession.setAttribute("authorizedUser", userDTO.getId());
+        httpSession.setAttribute("authorizedUser", userDTO);
+
         return "redirect:user/" + userDTO.getId();
     }
 
     @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
     public String userPage(@PathVariable("id") long id,
-                           @ModelAttribute("authorizedUser") long authUser,
+                           @ModelAttribute("authorizedUser") UserDTO authUser,
                            Model model) throws UnsupportedEncodingException {
         UserDTO user = userService.getUserById(id);
 
-        if (authUser == id) {
+        if (authUser.getId() == id) {
             model.addAttribute("removingCross", true);
         } else {
             model.addAttribute("removingCross", false);
@@ -61,6 +66,10 @@ public class UserController {
 
         List<PostDTO> posts = postService.getReversedListOfPostsByIdOfOwner(id);
         Map<Long, String> usernames = userService.getPostSendersUsernames(posts);
+        ProfileDTO profile = profileService.getProfileByUserId(id);
+        Map<Long, byte[]> profilesImages = profileService.getPostSendersProfiles(posts);
+        model.addAttribute("profilesImages",profilesImages);
+        model.addAttribute("profile",profile);
         model.addAttribute("commentForm", new CommentDTO());
         model.addAttribute("usernames", usernames);
         model.addAttribute("posts", posts);
@@ -69,7 +78,7 @@ public class UserController {
         return "user/user";
     }
 
-    @RequestMapping(value = "/addPost", method = RequestMethod.POST)
+    @RequestMapping(value = "/addPost", method = RequestMethod.GET)
     public String addPost(@RequestParam(required = true) long id, HttpSession httpSession) {
         httpSession.setAttribute("postOwnerId", id);
         return "redirect:/post";
