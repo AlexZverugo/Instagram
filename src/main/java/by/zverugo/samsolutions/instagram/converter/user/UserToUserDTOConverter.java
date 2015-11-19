@@ -2,15 +2,13 @@ package by.zverugo.samsolutions.instagram.converter.user;
 
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.entity.User;
-import by.zverugo.samsolutions.instagram.util.LoggerLocale;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
-
-import java.util.Locale;
 
 @Component
 public class UserToUserDTOConverter implements Converter<User, UserDTO> {
@@ -26,7 +24,7 @@ public class UserToUserDTOConverter implements Converter<User, UserDTO> {
             return null;
         }
         UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
+        userDTO.setUserId(user.getId());
         userDTO.setLogin(user.getLogin());
         userDTO.setPassword(user.getPassword());
         userDTO.setEmail(user.getEmail());
@@ -37,7 +35,7 @@ public class UserToUserDTOConverter implements Converter<User, UserDTO> {
         }
 
         LOGGER.info(messageSource.getMessage("converter.convert",
-                new Object[]{"User", "UserDTO", user, userDTO}, LoggerLocale.LOCALE));
+                new Object[]{"User", "UserDTO", user, userDTO}, InstagramConstants.LOGGER_LOCALE));
 
         return userDTO;
     }

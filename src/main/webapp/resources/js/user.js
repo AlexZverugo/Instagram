@@ -64,9 +64,9 @@ function showComments(id) {
 function display(data) {
     var commentsViewHTML = '';
 
-    for (var commentIndex = 0; commentIndex < data.comments.length; commentIndex++) {
-        commentsViewHTML += '<div align="left"><b>' + data.comments[commentIndex].senderName + ':</b></div><br>'
-        + '<pre class="pre-post">' + data.comments[commentIndex].commentContent + '</pre><hr>';
+    for (var commentIndex = 0; commentIndex < data.length; commentIndex++) {
+        commentsViewHTML += '<div align="left" style="border: 2px solid #b9b9b9"><b>' + data[commentIndex].senderName
+        + '</b></div>' + '<pre class="pre-post">' + data[commentIndex].commentContent + '</pre><hr>';
     }
 
     $('#commentsOfPost').html(commentsViewHTML);
@@ -86,7 +86,7 @@ function addComment() {
         mimeType: 'application/json',
 
         success: function (data) {
-            var comment = '<div align="left"><b>' + data.senderName + ':</b></div><br>'
+            var comment = '<div align="left" style="border: 2px solid #b9b9b9"><b>' + data.senderName + ':</b></div>'
                 + '<pre class="pre-post">' + data.commentContent + '</pre><hr>';
             $('#commentsOfPost').append(comment);
             var textarea = $('#commentContent');

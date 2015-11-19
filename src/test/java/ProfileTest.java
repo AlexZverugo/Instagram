@@ -1,4 +1,5 @@
 import by.zverugo.samsolutions.instagram.dao.profile.ProfileDao;
+import by.zverugo.samsolutions.instagram.dao.user.UserDao;
 import by.zverugo.samsolutions.instagram.entity.Profile;
 import by.zverugo.samsolutions.instagram.entity.User;
 import by.zverugo.samsolutions.instagram.hash.PasswordHashEncoder;
@@ -30,6 +31,9 @@ public class ProfileTest {
     private ProfileDao profileDao;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private PasswordHashEncoder passwordHashEncoder;
 
     @Before
@@ -50,6 +54,7 @@ public class ProfileTest {
         user.setPassword(passwordHashEncoder.encode("123456"));
         user.setEmail("user@gmail.com");
         user.setRole(UserRoleEnum.USER.getRole());
+        userDao.saveUser(user);
         profile.setUser(user);
 
         LOGGER.info(messageSource.getMessage("test.profile.init", new Object[]{profile}, Locale.ENGLISH));

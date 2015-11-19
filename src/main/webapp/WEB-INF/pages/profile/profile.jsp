@@ -32,9 +32,9 @@
             <hr>
         </c:otherwise>
     </c:choose>
-    <c:choose>
-        <c:when test="${profile.sex eq 'male'}">
-            <div class="row">
+    <div class="row">
+        <c:choose>
+            <c:when test="${profile.sex eq 'male'}">
                 <h3 class="col-sm-3 profile-header-text" align="right">
                     <b><spring:message code="profile.label.sex"/>:</b>
                 </h3>
@@ -42,72 +42,63 @@
                 <h3 class="col-sm-6 profile-text" align="left">
                     <spring:message code="profile.popup.select.option.male"/>
                 </h3>
-            </div>
-            <hr>
-        </c:when>
-        <c:when test="${profile.sex eq 'female'}">
-            <div class="row">
+            </c:when>
+            <c:when test="${profile.sex eq 'female'}">
                 <h3 class="col-sm-3 profile-header-text" align="right">
                     <b><spring:message code="profile.label.sex"/>:</b>
                 </h3>
-
                 <h3 class="col-sm-6 profile-text" align="left">
                     <spring:message code="profile.popup.select.option.female"/>
                 </h3>
-            </div>
-            <hr>
-        </c:when>
-    </c:choose>
-    <c:if test="${profile.firstName != null}">
-        <div class="row">
+            </c:when>
+        </c:choose>
+    </div>
+    <div class="row">
+        <c:if test="${profile.firstName != null}">
             <h3 class="col-sm-3 profile-header-text" align="right">
                 <b><spring:message code="profile.label.firstname"/>:</b>
             </h3>
-
             <h3 class="col-sm-6 profile-text" align="left">${profile.firstName}</h3>
-        </div>
-        <hr>
-    </c:if>
-    <c:if test="${profile.surname != null}">
-        <div class="row">
+        </c:if>
+    </div>
+
+    <div class="row">
+        <c:if test="${profile.surname != null}">
             <h3 class="col-sm-3 profile-header-text" align="right">
                 <b><spring:message code="profile.label.surname"/>:</b>
             </h3>
-
             <h3 class="col-sm-6 profile-text" align="left">${profile.surname}</h3>
-        </div>
-        <hr>
-    </c:if>
-    <c:if test="${profile.secondName != null}">
-        <div class="row">
+        </c:if>
+    </div>
+
+    <div class="row">
+        <c:if test="${profile.secondName != null}">
             <h3 class="col-sm-3 profile-header-text" align="right">
                 <b><spring:message code="profile.label.secondname"/>:</b>
             </h3>
-
             <h3 class="col-sm-6 profile-text" align="left">${profile.secondName}</h3>
-        </div>
-        <hr>
-    </c:if>
-    <c:if test="${profile.country != null}">
-        <div class="row">
+        </c:if>
+    </div>
+
+    <div class="row">
+        <c:if test="${profile.country != null}">
             <h3 class="col-sm-3 profile-header-text" align="right">
                 <b><spring:message code="profile.label.country"/>:</b>
             </h3>
-
             <h3 class="col-sm-6 profile-text" align="left">${profile.country}</h3>
-        </div>
-        <hr>
-    </c:if>
-    <c:if test="${profile.city != null}">
-        <div class="row">
+        </c:if>
+    </div>
+
+    <div class="row">
+        <c:if test="${profile.city != null}">
             <h3 class="col-sm-3 profile-header-text" align="right">
                 <b><spring:message code="profile.label.city"/>:</b>
             </h3>
 
             <h3 class="col-sm-6 profile-text" align="left">${profile.city}</h3>
-        </div>
-        <hr>
-    </c:if>
+        </c:if>
+    </div>
+    <hr>
 
     <div id="profileModal" class="modal" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -141,6 +132,7 @@
                             <form:input class="col-sm-4" type="text" value="${profile.firstName}" path="firstName"/>
                         </div>
                         <br>
+
                         <div class="row">
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                     <spring:message code="profile.label.surname"/>:
@@ -148,6 +140,7 @@
                             <form:input class="col-sm-4" type="text" value="${profile.surname}" path="surname"/><br>
                         </div>
                         <br>
+
                         <div class="row">
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                     <spring:message code="profile.label.secondname"/>:
@@ -156,6 +149,7 @@
                                         path="secondName"/><br>
                         </div>
                         <br>
+
                         <div class="row">
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                     <spring:message code="profile.label.country"/>:
@@ -163,6 +157,7 @@
                             <form:input class="col-sm-4" type="text" value="${profile.country}" path="country"/><br>
                         </div>
                         <br>
+
                         <div class="row">
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                     <spring:message code="profile.label.city"/>:
@@ -170,6 +165,7 @@
                             <form:input class="col-sm-4" type="text" path="city" value="${profile.city}"/><br>
                         </div>
                         <br>
+
                         <div class="row">
                             <spring:message code="profile.popup.select.option.male" var="male"/>
                             <spring:message code="profile.popup.select.option.female" var="female"/>

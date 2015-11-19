@@ -3,7 +3,7 @@ package by.zverugo.samsolutions.instagram.converter.post;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.entity.Post;
 import by.zverugo.samsolutions.instagram.entity.User;
-import by.zverugo.samsolutions.instagram.util.LoggerLocale;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Locale;
 
 @Component
 public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
@@ -41,7 +40,7 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
         post.setSender(sender);
 
         LOGGER.info(messageSource.getMessage("converter.convert",
-                new Object[]{"PostDTO", "Post", postDTO, post}, LoggerLocale.LOCALE));
+                new Object[]{"PostDTO", "Post", postDTO, post}, InstagramConstants.LOGGER_LOCALE));
 
         return post;
     }

@@ -3,15 +3,12 @@ package by.zverugo.samsolutions.instagram.converter.post;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.entity.Post;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
-import by.zverugo.samsolutions.instagram.util.LoggerLocale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 
 @Component
@@ -39,7 +36,7 @@ public class PostToPostDTOConverter implements Converter<Post, PostDTO> {
         convertTimestampToString(post, postDTO);
 
         LOGGER.info(messageSource.getMessage("converter.convert",
-                new Object[]{"Post", "PostDTO", post, postDTO}, LoggerLocale.LOCALE));
+                new Object[]{"Post", "PostDTO", post, postDTO}, InstagramConstants.LOGGER_LOCALE));
 
         return postDTO;
     }

@@ -1,11 +1,10 @@
 package by.zverugo.samsolutions.instagram.service.comment.impl;
 
 import by.zverugo.samsolutions.instagram.dao.comment.CommentDao;
-import by.zverugo.samsolutions.instagram.dto.AjaxComment;
 import by.zverugo.samsolutions.instagram.dto.CommentDTO;
 import by.zverugo.samsolutions.instagram.entity.Comment;
 import by.zverugo.samsolutions.instagram.service.comment.CommentService;
-import by.zverugo.samsolutions.instagram.util.LoggerLocale;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
     public void saveComment(CommentDTO commentDTO) {
         Comment comment = conversionService.convert(commentDTO, Comment.class);
         commentDao.saveComment(comment);
-        LOGGER.info(messageSource.getMessage("service.comment.save", new Object[]{commentDTO}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("service.comment.save", new Object[]{commentDTO}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
@@ -45,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(CommentDTO commentDTO) {
         Comment comment = conversionService.convert(getComment(commentDTO.getId()), Comment.class);
         commentDao.deleteComment(comment);
-        LOGGER.info(messageSource.getMessage("service.comment.delete", new Object[]{commentDTO}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("service.comment.delete", new Object[]{commentDTO}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
@@ -53,14 +51,14 @@ public class CommentServiceImpl implements CommentService {
     public void updateComment(CommentDTO commentDTO) {
         Comment comment = conversionService.convert(getComment(commentDTO.getId()), Comment.class);
         commentDao.updateComment(comment);
-        LOGGER.info(messageSource.getMessage("service.comment.update", new Object[]{commentDTO}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("service.comment.update", new Object[]{commentDTO}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
     @Transactional(readOnly = true)
     public CommentDTO getComment(long id) {
         CommentDTO commentDTO = conversionService.convert(commentDao.getComment(id), CommentDTO.class);
-        LOGGER.info(messageSource.getMessage("service.comment.getById", new Object[]{id, commentDTO}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("service.comment.getById", new Object[]{id, commentDTO}, InstagramConstants.LOGGER_LOCALE));
         return commentDTO;
     }
 
@@ -73,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
         for (Comment comment : comments) {
             commentDTOList.add(conversionService.convert(comment, CommentDTO.class));
         }
-        LOGGER.info(messageSource.getMessage("service.comment.getList", new Object[]{commentDTOList}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("service.comment.getList", new Object[]{commentDTOList}, InstagramConstants.LOGGER_LOCALE));
 
         return commentDTOList;
     }
@@ -88,24 +86,18 @@ public class CommentServiceImpl implements CommentService {
         }
 
         LOGGER.info(messageSource.getMessage("service.comment.getListOfPostsByPostId",
-                new Object[]{id, commentDTOList}, LoggerLocale.LOCALE));
+                new Object[]{id, commentDTOList}, InstagramConstants.LOGGER_LOCALE));
 
         return commentDTOList;
     }
 
 
     @Override
-    public List<AjaxComment> getAjaxCommentList(List<CommentDTO> comments, Map<Long, String> senders) {
-        List<AjaxComment> ajaxComments = new ArrayList<>();
-        AjaxComment ajaxComment = new AjaxComment();
-
-
+    public List<CommentDTO> setSendersNameToCommentList(List<CommentDTO> comments, Map<Long, String> senders) {
         for (CommentDTO comment : comments) {
-            ajaxComment.setCommentContent(comment.getCommentContent());
-            ajaxComment.setPost(comment.getPost());
-            ajaxComment.setSenderName(senders.get(comment.getSender()));
-            ajaxComments.add(ajaxComment);
+            comment.setSenderName(senders.get(comment.getSender()));
         }
-        return ajaxComments;
+
+        return comments;
     }
 }

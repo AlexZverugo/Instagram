@@ -38,17 +38,18 @@
         <div id="fullPostContent${post.id}" class="user-post-br" align="center">
             <div class="col-sm-1 user-post-position">
                 <div class="thumbnail">
+                    <a href="/profile/user=${post.sender}">
                     <c:choose>
                         <c:when test="${profilesImages.get(post.id) != null}">
-                            <a href="/profile/user=${post.sender}">
+
                                 <img class="img-responsive user-photo"
                                      src="<pi:image imageByte="${profilesImages.get(post.id)}"/>">
-                            </a>
                         </c:when>
                         <c:otherwise>
                             <img class="img-responsive user-photo" src="../../../resources/photo/default_avatar.png">
                         </c:otherwise>
                     </c:choose>
+                    </a>
                 </div>
             </div>
             <div class="col-sm-5 user-post-position">

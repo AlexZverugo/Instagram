@@ -1,7 +1,7 @@
 package by.zverugo.samsolutions.instagram.service;
 
 import by.zverugo.samsolutions.instagram.dao.user.UserDao;
-import by.zverugo.samsolutions.instagram.util.LoggerLocale;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 @Service("authorizationService")
 @Transactional(readOnly = true)
@@ -44,6 +43,14 @@ public class AuthorizationService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         by.zverugo.samsolutions.instagram.entity.User user = userDAO.getUserByName(username);
 
+        if (user == null) {
+            final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+            final SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_ANONYMOUS");
+            authorities.add(authority);
+
+            return new User(username,"password", authorities);
+        }
+
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
@@ -60,7 +67,7 @@ public class AuthorizationService implements UserDetailsService {
         );
 
         LOGGER.info(messageSource.getMessage("service.authorizationService.loadUserByUsername",
-                new Object[]{username}, LoggerLocale.LOCALE));
+                new Object[]{username}, InstagramConstants.LOGGER_LOCALE));
 
         return userLog;
     }
@@ -76,7 +83,7 @@ public class AuthorizationService implements UserDetailsService {
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         LOGGER.info(messageSource.getMessage("service.authorizationService.login",
-                new Object[]{username}, LoggerLocale.LOCALE));
+                new Object[]{username}, InstagramConstants.LOGGER_LOCALE));
     }
 
 }

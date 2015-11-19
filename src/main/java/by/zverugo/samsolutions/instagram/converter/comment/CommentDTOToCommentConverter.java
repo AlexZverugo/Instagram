@@ -4,14 +4,12 @@ import by.zverugo.samsolutions.instagram.dto.CommentDTO;
 import by.zverugo.samsolutions.instagram.entity.Comment;
 import by.zverugo.samsolutions.instagram.entity.Post;
 import by.zverugo.samsolutions.instagram.entity.User;
-import by.zverugo.samsolutions.instagram.util.LoggerLocale;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-
-import java.util.Locale;
 
 @Component
 public class CommentDTOToCommentConverter implements Converter<CommentDTO, Comment> {
@@ -35,7 +33,7 @@ public class CommentDTOToCommentConverter implements Converter<CommentDTO, Comme
         comment.setSender(user);
 
         LOGGER.info(messageSource.getMessage("converter.convert",
-                new Object[]{"CommentDTO", "Comment", commentDTO, comment}, LoggerLocale.LOCALE));
+                new Object[]{"CommentDTO", "Comment", commentDTO, comment}, InstagramConstants.LOGGER_LOCALE));
 
         return comment;
     }

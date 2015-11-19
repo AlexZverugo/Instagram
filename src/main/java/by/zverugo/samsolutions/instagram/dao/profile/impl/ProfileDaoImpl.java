@@ -2,7 +2,7 @@ package by.zverugo.samsolutions.instagram.dao.profile.impl;
 
 import by.zverugo.samsolutions.instagram.dao.profile.ProfileDao;
 import by.zverugo.samsolutions.instagram.entity.Profile;
-import by.zverugo.samsolutions.instagram.util.LoggerLocale;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -26,7 +26,7 @@ public class ProfileDaoImpl implements ProfileDao {
     @Override
     public long saveProfile(Profile profile) {
         sessionFactory.getCurrentSession().save(profile);
-        LOGGER.info(messageSource.getMessage("dao.profile.save", new Object[]{profile}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.profile.save", new Object[]{profile}, InstagramConstants.LOGGER_LOCALE));
 
         return profile.getId();
     }
@@ -37,20 +37,20 @@ public class ProfileDaoImpl implements ProfileDao {
         Query query = sessionFactory.getCurrentSession().createQuery(posthql);
         query.setParameter("id", id);
         query.executeUpdate();
-        LOGGER.info(messageSource.getMessage("dao.profile.delete", new Object[]{id}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.profile.delete", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
     public void updateProfile(Profile profile) {
         sessionFactory.getCurrentSession().update(profile);
-        LOGGER.info(messageSource.getMessage("dao.profile.update", new Object[]{profile}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.profile.update", new Object[]{profile}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
     public Profile getProfile(long id) {
         Profile profile;
         profile = sessionFactory.getCurrentSession().get(Profile.class, id);
-        LOGGER.info(messageSource.getMessage("dao.profile.getById", new Object[]{id}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.profile.getById", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
 
         return profile;
     }
@@ -61,7 +61,7 @@ public class ProfileDaoImpl implements ProfileDao {
         Query query = sessionFactory.getCurrentSession().createQuery(posthql);
         query.setParameter("id", id);
         Profile profile = (Profile) query.uniqueResult();
-        LOGGER.info(messageSource.getMessage("dao.profile.getByUserId", new Object[]{id}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.profile.getByUserId", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
 
         return profile;
     }
@@ -70,7 +70,7 @@ public class ProfileDaoImpl implements ProfileDao {
     public List<Profile> getListOfProfiles() {
         List<Profile> profiles;
         profiles = sessionFactory.getCurrentSession().createCriteria(Profile.class).list();
-        LOGGER.info(messageSource.getMessage("dao.profile.getList", new Object[]{profiles}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.profile.getList", new Object[]{profiles}, InstagramConstants.LOGGER_LOCALE));
 
         return profiles;
     }

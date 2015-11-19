@@ -10,6 +10,7 @@ import by.zverugo.samsolutions.instagram.service.user.UserService;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +46,7 @@ public class UserController {
         UserDTO userDTO = userService.getUserByLogin(authentication.getName());
         httpSession.setAttribute("authorizedUser", userDTO);
 
-        return "redirect:user/" + userDTO.getId();
+        return "redirect:user/" + userDTO.getUserId();
     }
 
     @RequestMapping(value = "user/{id}", method = RequestMethod.GET)
@@ -54,7 +55,7 @@ public class UserController {
                            Model model) throws UnsupportedEncodingException {
         UserDTO user = userService.getUserById(id);
 
-        if (authUser.getId() == id) {
+        if (authUser.getUserId() == id) {
             model.addAttribute("removingCross", true);
         } else {
             model.addAttribute("removingCross", false);

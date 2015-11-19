@@ -40,6 +40,12 @@ sex varchar(15),
 birthday  date
 );
 
+CREATE TABLE rating (
+rating_id serial PRIMARY KEY,
+post_id int references post(post_id) ON UPDATE CASCADE ON DELETE CASCADE,
+sender int references users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+type varchar(255) NOT NULL
+);
 
 
 INSERT INTO users(login, password, email, user_role)

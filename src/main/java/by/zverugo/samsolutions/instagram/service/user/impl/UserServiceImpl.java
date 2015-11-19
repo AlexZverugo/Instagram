@@ -6,18 +6,16 @@ import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.entity.User;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
-import by.zverugo.samsolutions.instagram.util.LoggerLocale;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 @Service("userService")
@@ -39,15 +37,15 @@ public class UserServiceImpl implements UserService {
     public long saveUser(UserDTO userDTO) {
         User user = conversionService.convert(userDTO, User.class);
         long id = userDao.saveUser(user);
-        LOGGER.info(messageSource.getMessage("service.user.save", new Object[]{userDTO}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("service.user.save", new Object[]{userDTO}, InstagramConstants.LOGGER_LOCALE));
         return id;
     }
 
     @Override
     @Transactional
     public void deleteUser(UserDTO userDTO) {
-        userDao.deleteUserById(userDTO.getId());
-        LOGGER.info(messageSource.getMessage("service.user.delete", new Object[]{userDTO}, LoggerLocale.LOCALE));
+        userDao.deleteUserById(userDTO.getUserId());
+        LOGGER.info(messageSource.getMessage("service.user.delete", new Object[]{userDTO}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
@@ -55,7 +53,7 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDTO userDTO) {
         User user = conversionService.convert(userDTO, User.class);
         userDao.updateUser(user);
-        LOGGER.info(messageSource.getMessage("service.user.update", new Object[]{userDTO}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("service.user.update", new Object[]{userDTO}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
@@ -63,7 +61,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserByLogin(String login) {
         UserDTO userDTO = conversionService.convert(userDao.getUserByName(login), UserDTO.class);
         LOGGER.info(messageSource.getMessage("service.user.getUserByLogin",
-                new Object[]{login, userDTO}, LoggerLocale.LOCALE));
+                new Object[]{login, userDTO}, InstagramConstants.LOGGER_LOCALE));
 
         return userDTO;
     }
@@ -72,7 +70,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public UserDTO getUserById(long id) {
         UserDTO userDTO = conversionService.convert(userDao.getUser(id), UserDTO.class);
-        LOGGER.info(messageSource.getMessage("service.user.getUserById", new Object[]{id, userDTO}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("service.user.getUserById", new Object[]{id, userDTO}, InstagramConstants.LOGGER_LOCALE));
 
         return userDTO;
     }
@@ -85,7 +83,7 @@ public class UserServiceImpl implements UserService {
         for (User user : users) {
             userDTOList.add(conversionService.convert(user, UserDTO.class));
         }
-        LOGGER.info(messageSource.getMessage("service.user.getList", new Object[]{userDTOList}, LoggerLocale.LOCALE));
+        LOGGER.info(messageSource.getMessage("service.user.getList", new Object[]{userDTOList}, InstagramConstants.LOGGER_LOCALE));
 
         return userDTOList;
     }
@@ -99,7 +97,7 @@ public class UserServiceImpl implements UserService {
             usernames.put(post.getSender(), getUserById(post.getSender()).getLogin());
         }
         LOGGER.info(messageSource.getMessage("service.user.getPostSendersUsernames",
-                new Object[]{usernames}, LoggerLocale.LOCALE));
+                new Object[]{usernames}, InstagramConstants.LOGGER_LOCALE));
 
         return usernames;
     }
@@ -113,7 +111,7 @@ public class UserServiceImpl implements UserService {
             senders.put(comment.getSender(), getUserById(comment.getSender()).getLogin());
         }
         LOGGER.info(messageSource.getMessage("service.user.getCommentSendersNames",
-                new Object[]{senders}, LoggerLocale.LOCALE));
+                new Object[]{senders}, InstagramConstants.LOGGER_LOCALE));
 
         return senders;
     }

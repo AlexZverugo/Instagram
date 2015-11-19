@@ -40,7 +40,7 @@ public class PostController {
                           @ModelAttribute("authorizedUser") UserDTO authUser) throws IOException {
         post.setLike(0);
         post.setDislike(0);
-        post.setSender(authUser.getId());
+        post.setSender(authUser.getUserId());
         post.setOwner(id);
         post.setImageByte(post.getPicture().getBytes());
         post.setId(postService.savePost(post));
