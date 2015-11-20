@@ -3,6 +3,7 @@ import by.zverugo.samsolutions.instagram.dao.user.UserDao;
 import by.zverugo.samsolutions.instagram.entity.Profile;
 import by.zverugo.samsolutions.instagram.entity.User;
 import by.zverugo.samsolutions.instagram.hash.PasswordHashEncoder;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -57,20 +58,23 @@ public class ProfileTest {
         userDao.saveUser(user);
         profile.setUser(user);
 
-        LOGGER.info(messageSource.getMessage("test.profile.init", new Object[]{profile}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.profile.init", new Object[]{profile},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testSaveProfile() {
         long id = profileDao.saveProfile(profile);
-        LOGGER.info(messageSource.getMessage("test.profile.save", new Object[]{profile, id}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.profile.save", new Object[]{profile, id},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testGetProfile() {
         profileDao.updateProfile(profile);
         profile = profileDao.getProfile(profile.getId());
-        LOGGER.info(messageSource.getMessage("test.profile.get", new Object[]{profile}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.profile.get", new Object[]{profile},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
@@ -78,13 +82,13 @@ public class ProfileTest {
         profileDao.updateProfile(profile);
         Profile temp = profileDao.getProfile(profile.getId());
         LOGGER.info(messageSource.getMessage("test.profile.update", new Object[]{profile.getId(),
-                temp, temp.getId()}, Locale.ENGLISH));
+                temp, temp.getId()}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testDeleteProfile() {
         long id = profileDao.saveProfile(profile);
         profileDao.deleteProfile(id);
-        LOGGER.info(messageSource.getMessage("test.profile.delete", new Object[]{id}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.profile.delete", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
     }
 }

@@ -1,8 +1,5 @@
 package by.zverugo.samsolutions.instagram.util.enums;
 
-/**
- * Created by Alex on 22.10.2015.
- */
 public enum UserRoleEnum {
     ADMIN("ADMIN"),
     USER("USER");

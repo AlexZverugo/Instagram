@@ -48,7 +48,7 @@ public class PostController {
         return "redirect:../users/user/" + id;
     }
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Comment.class)
     @RequestMapping(value = "/deletePost", method = RequestMethod.GET)
     public @ResponseBody void removePost(@RequestParam Long id) {
         postService.deletePost(id);

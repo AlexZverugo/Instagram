@@ -44,10 +44,10 @@
                 <ref bean="commentToCommentDTOConverter"/>
                 <ref bean="profileToProfileDTOConverter"/>
                 <ref bean="profileDTOToProfileConverter"/>
+                <ref bean="ratingDTOToRatingConverter"/>
+                <ref bean="ratingToRatingDTOConverter"/>
             </set>
         </property>
     </bean>
-
-
 
 </beans>

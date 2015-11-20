@@ -18,15 +18,15 @@
 
 <h2 class="user-label-fixed">${username}</h2>
 
-    <a href="/users/addPost?id=${profile.user}">
-        <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-add-btn-position"
+<a href="/users/addPost?id=${profile.user}">
+    <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-add-btn-position"
            value="<spring:message code="user.button.addpost"/>">
-    </a>
+</a>
 
-    <a href="/profile/user=${profile.user}">
-        <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-profile-btn-position"
+<a href="/profile/user=${profile.user}">
+    <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-profile-btn-position"
            value="<spring:message code="user.button.showprofile"/>">
-    </a>
+</a>
 
 <div class="container user-layer" align="center">
     <br><br>
@@ -39,16 +39,17 @@
             <div class="col-sm-1 user-post-position">
                 <div class="thumbnail">
                     <a href="/profile/user=${post.sender}">
-                    <c:choose>
-                        <c:when test="${profilesImages.get(post.id) != null}">
+                        <c:choose>
+                            <c:when test="${profilesImages.get(post.id) != null}">
 
                                 <img class="img-responsive user-photo"
                                      src="<pi:image imageByte="${profilesImages.get(post.id)}"/>">
-                        </c:when>
-                        <c:otherwise>
-                            <img class="img-responsive user-photo" src="../../../resources/photo/default_avatar.png">
-                        </c:otherwise>
-                    </c:choose>
+                            </c:when>
+                            <c:otherwise>
+                                <img class="img-responsive user-photo"
+                                     src="../../../resources/photo/default_avatar.png">
+                            </c:otherwise>
+                        </c:choose>
                     </a>
                 </div>
             </div>
@@ -69,7 +70,8 @@
                         </div>
                     </div>
 
-                    <div id="post${post.id}" class="cursor-pointer" data-toggle="modal" data-target="#myModal" id-parameter="${post.id}">
+                    <div id="post${post.id}" class="cursor-pointer" data-toggle="modal" data-target="#myModal"
+                         id-parameter="${post.id}">
 
                         <div align="justify" class="user-post-scroll">
                         <pre id="contentPost${post.id}" class="pre-post">
@@ -87,12 +89,23 @@
                     <br>
 
                     <div class="panel-footer">
-                        <div class="panel-body">
-                            <span class="time-pos">${post.dateDispatch}</span>
+                        <div class="row">
+                            <div id="likeButton${post.id}" class="cursor-pointer col-sm-1">
+                                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                            </div>
+
+                            <span id="likeCount${post.id}" class="col-sm-1">${post.like}</span>
+
+                            <div id="dislikeButton${post.id}" class="cursor-pointer col-sm-1">
+                                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                            </div>
+
+                            <span id="dislikeCount${post.id}" class="col-sm-1">${post.dislike}</span>
+
+                            <span class="col-sm-offset-4 col-sm-4">${post.dateDispatch}</span>
                         </div>
                     </div>
                 </div>
-                <br><br>
             </div>
         </div>
     </c:forEach>

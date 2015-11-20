@@ -3,6 +3,7 @@ import by.zverugo.samsolutions.instagram.dao.user.UserDao;
 import by.zverugo.samsolutions.instagram.entity.Post;
 import by.zverugo.samsolutions.instagram.entity.User;
 import by.zverugo.samsolutions.instagram.hash.PasswordHashEncoder;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -13,8 +14,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Locale;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:config/application-context.xml"})
@@ -53,20 +52,21 @@ public class PostTest {
         userDao.saveUser(user);
         post.setOwner(user);
         post.setSender(user);
-        LOGGER.info(messageSource.getMessage("test.post.init", new Object[]{user}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.post.init", new Object[]{post}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testAddPost() {
         postDao.savePost(post);
-        LOGGER.info(messageSource.getMessage("test.post.save", new Object[]{post, postDao.getPost(post.getPostId())}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.post.save", new Object[]{post, postDao.getPost(post.getPostId())},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testGetPost() {
         long id = postDao.savePost(post);
         Post postById = postDao.getPost(id);
-        LOGGER.info(messageSource.getMessage("test.post.get", new Object[]{postById}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.post.get", new Object[]{postById}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
@@ -75,7 +75,8 @@ public class PostTest {
         post.setPostContent("Hi!");
         postDao.updatePost(post);
         Post temp = postDao.getPost(post.getPostId());
-        LOGGER.info(messageSource.getMessage("test.post.update", new Object[]{post.getPostId(), temp}, Locale.ENGLISH));
+        LOGGER.info(messageSource.getMessage("test.post.update", new Object[]{post.getPostId(), temp},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
@@ -84,6 +85,6 @@ public class PostTest {
         post = postDao.getPost(id);
         postDao.deletePost(id);
         LOGGER.info(messageSource.getMessage("test.post.delete",
-                new Object[]{id, postDao.getPost(post.getPostId())}, Locale.ENGLISH));
+                new Object[]{id, postDao.getPost(post.getPostId())}, InstagramConstants.LOGGER_LOCALE));
     }
 }

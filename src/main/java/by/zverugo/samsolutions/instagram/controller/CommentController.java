@@ -30,7 +30,7 @@ public class CommentController {
     @Autowired
     private UserService userService;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Comment.class)
     @RequestMapping(value = "/addComment", method = RequestMethod.POST)
     public @ResponseBody CommentDTO addComment(@RequestBody CommentDTO comment,
                            @ModelAttribute("authorizedUser") UserDTO authUser) {
@@ -41,7 +41,7 @@ public class CommentController {
         return comment;
     }
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Comment.class)
     @RequestMapping(value = "/getCommentOfPost", method = RequestMethod.GET)
     public @ResponseBody List<CommentDTO> getComments(@RequestParam Long id) {
         List<CommentDTO> comments = commentService.getListOfPostsByPostId(id);

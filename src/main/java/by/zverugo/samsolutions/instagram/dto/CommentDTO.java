@@ -6,14 +6,15 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class CommentDTO {
     private Long id;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Comment.class)
     private String commentContent;
-    @JsonView(Views.Public.class)
-    private Long post;
-    private Long sender;
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Comment.class)
+    private Long post;
+
+    @JsonView(Views.Comment.class)
     private String senderName;
+    private Long sender;
 
     public Long getPost() {
         return post;

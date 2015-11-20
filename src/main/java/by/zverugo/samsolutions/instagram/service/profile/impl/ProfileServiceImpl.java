@@ -36,7 +36,8 @@ public class ProfileServiceImpl implements ProfileService {
     public long saveProfile(ProfileDTO profileDTO) {
         Profile profile = conversionService.convert(profileDTO, Profile.class);
         long id = profileDao.saveProfile(profile);
-        LOGGER.info(messageSource.getMessage("service.profile.save", new Object[]{profileDTO}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.profile.save", new Object[]{profileDTO},
+                InstagramConstants.LOGGER_LOCALE));
 
         return id;
     }
@@ -45,7 +46,8 @@ public class ProfileServiceImpl implements ProfileService {
     @Transactional
     public void deleteProfile(long id) {
         profileDao.deleteProfile(id);
-        LOGGER.info(messageSource.getMessage("service.profile.delete", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.profile.delete", new Object[]{id},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
@@ -53,14 +55,16 @@ public class ProfileServiceImpl implements ProfileService {
     public void updateProfile(ProfileDTO profileDTO) {
         Profile profile = conversionService.convert(profileDTO, Profile.class);
         profileDao.updateProfile(profile);
-        LOGGER.info(messageSource.getMessage("service.profile.update", new Object[]{profileDTO}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.profile.update", new Object[]{profileDTO},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
     @Transactional(readOnly = true)
     public ProfileDTO getProfileById(long id) {
         ProfileDTO profileDTO = conversionService.convert(profileDao.getProfile(id), ProfileDTO.class);
-        LOGGER.info(messageSource.getMessage("service.profile.getPostById", new Object[]{id, profileDTO}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.profile.getPostById", new Object[]{id, profileDTO},
+                InstagramConstants.LOGGER_LOCALE));
 
         return profileDTO;
     }

@@ -1,14 +1,22 @@
 package by.zverugo.samsolutions.instagram.dto;
 
+import by.zverugo.samsolutions.instagram.jsonview.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.web.multipart.MultipartFile;
 
 
 public class PostDTO {
+
+    @JsonView(Views.Rating.class)
     private Long id;
     private String postContent;
     private MultipartFile picture;
     private byte[] imageByte;
+
+    @JsonView(Views.Rating.class)
     private Integer like;
+
+    @JsonView(Views.Rating.class)
     private Integer dislike;
     private String dateDispatch;
     private Long sender;

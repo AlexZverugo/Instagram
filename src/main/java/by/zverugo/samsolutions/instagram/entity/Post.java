@@ -49,6 +49,8 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
     private List<Comment> postsComment;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "post")
+    private List<Rating> ratings;
 
     public byte[] getImageBytes() {
         return imageBytes;
@@ -120,5 +122,13 @@ public class Post {
 
     public void setDateDispatch(Timestamp dateDispatch) {
         this.dateDispatch = dateDispatch;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 }

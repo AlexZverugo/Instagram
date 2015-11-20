@@ -19,8 +19,58 @@ $(document).ready(function () {
         event.preventDefault();
         addComment();
     });
+
+    $('div[id^=likeButton]').click(function () {
+        var likeButtonId = $(this)[0].id;
+        var id = likeButtonId.substring('likeButton'.length);
+        setLike(id);
+    });
+
+    $('div[id^=dislikeButton]').click(function () {
+        var dislikeButtonId = $(this)[0].id;
+        var id = dislikeButtonId.substring('dislikeButton'.length);
+        setDislike(id);
+    });
 });
 
+function setLike(postId) {
+    var rating = {};
+    rating["post"] = postId;
+    $.ajax({
+        type: "POST",
+        url: "/rating/setLike",
+        data: JSON.stringify(rating),
+        dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json',
+
+        success: function (data) {
+           setRatingsCount(data);
+        }
+    });
+}
+
+function setRatingsCount(data){
+    $('#likeCount' + data.id).html(data.like);
+    $('#dislikeCount' + data.id).html(data.dislike);
+}
+
+function setDislike(postId) {
+    var rating = {};
+    rating["post"] = postId;
+    $.ajax({
+        type: "POST",
+        url: "/rating/setDislike",
+        data: JSON.stringify(rating),
+        dataType: 'json',
+        contentType: 'application/json',
+        mimeType: 'application/json',
+
+        success: function (data) {
+            setRatingsCount(data);
+        }
+    });
+}
 
 function deletePost(id) {
     var post = {};
