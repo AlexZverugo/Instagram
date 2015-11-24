@@ -17,7 +17,7 @@ public class SignUpValidator implements Validator {
 
     private Pattern pattern;
 
-    private final String LOGIN_PATTERN = "^[a-zA-Z0-9_.]{4,20}$";
+    private final String LOGIN_PATTERN = "^[a-zA-Z0-9_.]{1,20}$";
 
     @Autowired
     private UserService userService;
@@ -91,5 +91,4 @@ public class SignUpValidator implements Validator {
     }
 
     //TODO Admin delete
-    //TODO Koval bugs (posts and comments)
 }

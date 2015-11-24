@@ -1,6 +1,7 @@
 package by.zverugo.samsolutions.instagram.controller;
 
 import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
+import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.service.profile.ProfileService;
 import by.zverugo.samsolutions.instagram.validator.UpdateProfileValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.io.IOException;
 
 @Controller
+@SessionAttributes({"authorizedUser"})
 @RequestMapping(value = "/profile")
 public class ProfileController {
 
@@ -24,14 +27,16 @@ public class ProfileController {
     private UpdateProfileValidator updateProfileValidator;
 
     @RequestMapping(value = "/user={id}", method = RequestMethod.GET)
-    public String showProfile(@PathVariable("id") long userId, Model model) {
-        ProfileDTO profileDTO = profileService.getProfileByUserId(userId);
-        ProfileDTO editedProfile = new ProfileDTO();
-        editedProfile.setId(profileDTO.getId());
-        editedProfile.setUser(profileDTO.getUser());
-        editedProfile.setAvatar(profileDTO.getAvatar());
+    public String showProfile(@PathVariable("id") long currentUserId,
+                              @ModelAttribute("authorizedUser") UserDTO authUser, Model model) {
+        ProfileDTO profileDTO = profileService.getProfileByUserId(currentUserId);
+        if (currentUserId == authUser.getUserId()) {
+            model.addAttribute("isEditable", true);
+        } else {
+            model.addAttribute("isEditable", false);
+        }
         model.addAttribute("profile", profileDTO);
-        model.addAttribute("editedProfile", editedProfile);
+
         return "profile/profile";
     }
 

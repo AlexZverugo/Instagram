@@ -4,6 +4,7 @@ import by.zverugo.samsolutions.instagram.hash.PasswordHashEncoder;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +13,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Locale;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,15 +31,14 @@ public class UserTest {
     @Autowired
     private PasswordHashEncoder passwordHashEncoder;
 
-
     @Before
     public void init() {
         user = new User();
-        user.setId(225L);
         user.setLogin("user3");
         user.setPassword(passwordHashEncoder.encode("123456"));
         user.setEmail("user@gmail.com");
         user.setRole(UserRoleEnum.USER.getRole());
+
         LOGGER.info(messageSource.getMessage("test.user.init", new Object[]{user}, InstagramConstants.LOGGER_LOCALE));
     }
 
@@ -48,6 +46,9 @@ public class UserTest {
     @Test
     public void testAddUser() {
         userDao.saveUser(user);
+        User storedUser = userDao.getUser(user.getId());
+        Assert.assertNotNull(storedUser);
+
         LOGGER.info(messageSource.getMessage("test.user.save", new Object[]{user}, InstagramConstants.LOGGER_LOCALE));
     }
 
@@ -56,24 +57,34 @@ public class UserTest {
         userDao.saveUser(user);
         User userByName = userDao.getUserByName(user.getLogin());
         User userById = userDao.getUser(userByName.getId());
+        Assert.assertEquals(userByName, user);
+        Assert.assertEquals(userById, user);
+
         LOGGER.info(messageSource.getMessage("test.user.get", new Object[]{userByName,userById},
                 InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testUpdateUser() {
+        userDao.saveUser(user);
+        String email = "qwerty@mail.ru";
+        user.setEmail(email);
         userDao.updateUser(user);
-        User temp = userDao.getUser(user.getId());
-        LOGGER.info(messageSource.getMessage("test.profile.update", new Object[]{user.getId(),
-                temp, temp.getId()}, InstagramConstants.LOGGER_LOCALE));
+        User updatedUser = userDao.getUser(user.getId());
+        Assert.assertEquals(updatedUser, user);
+        Assert.assertEquals(email, updatedUser.getEmail());
+
+        LOGGER.info(messageSource.getMessage("test.user.update", new Object[]{user, user.getId()},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testDeleteUser() {
         userDao.saveUser(user);
-        user = userDao.getUserByName(user.getLogin());
         userDao.deleteUserById(user.getId());
-        LOGGER.info(messageSource.getMessage("test.profile.delete", new Object[]{user.getId()},
-                InstagramConstants.LOGGER_LOCALE));
+        User deletedUser = userDao.getUser(user.getId());
+        Assert.assertNull(deletedUser);
+
+        LOGGER.info(messageSource.getMessage("test.user.delete", null, InstagramConstants.LOGGER_LOCALE));
     }
 }

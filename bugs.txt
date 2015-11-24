@@ -1,9 +1,10 @@
 1. три точки
-2. дефолтный путь к картинке аватара
+2. дефолтный путь к картинке аватара(не особо актуально, уже сделал по-другому)
 3. Иногда выскакивает ошибка: 
 	java.io.IOException: tmpFile.renameTo(classFile) failed (org.apache.jasper.JasperException: Unable to compile class for JSP)
 	при (при переходе на страницу добавление поста '/post?authorizedUser=51')
-4.datepicker
+4.datepicker не работает
 5. аннотация @PrimaryKeyJoinColumn не работает
-6. отправитель коммента меняется
-7. Remember me не работает при регистрации 
+6. Remember me не работает при регистрации  
+7. В тестах не работает удаление 
+8.

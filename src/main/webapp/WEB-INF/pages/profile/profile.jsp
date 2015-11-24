@@ -14,10 +14,16 @@
 </head>
 <body class="bg-common">
 <toolkit:navbar/>
-    <span class="profile-popup-link-text profile-edit-btn"
-          data-toggle="modal" data-target="#profileModal">
-        <spring:message code="profile.label.edit"/>
-    </span>
+<c:if test="${isEditable}">
+        <input type="button" class="user-btn-size btn btn-primary user-btn-fixed profile-edit-btn-position"
+               data-toggle="modal" data-target="#profileModal"
+               value="<spring:message code="profile.label.edit"/>">
+</c:if>
+
+<a href="/users/user/${profile.user}">
+    <input type="button" class="user-btn-size btn btn-primary user-btn-fixed profile-user-return-btn-position"
+           value="<spring:message code="profile.button.userpage"/>">
+</a>
 
 <div class="container profile-layer" align="center">
     <br><br><br>
@@ -47,6 +53,7 @@
                 <h3 class="col-sm-3 profile-header-text" align="right">
                     <b><spring:message code="profile.label.sex"/>:</b>
                 </h3>
+
                 <h3 class="col-sm-6 profile-text" align="left">
                     <spring:message code="profile.popup.select.option.female"/>
                 </h3>
@@ -58,6 +65,7 @@
             <h3 class="col-sm-3 profile-header-text" align="right">
                 <b><spring:message code="profile.label.firstname"/>:</b>
             </h3>
+
             <h3 class="col-sm-6 profile-text" align="left">${profile.firstName}</h3>
         </c:if>
     </div>
@@ -67,6 +75,7 @@
             <h3 class="col-sm-3 profile-header-text" align="right">
                 <b><spring:message code="profile.label.surname"/>:</b>
             </h3>
+
             <h3 class="col-sm-6 profile-text" align="left">${profile.surname}</h3>
         </c:if>
     </div>
@@ -76,6 +85,7 @@
             <h3 class="col-sm-3 profile-header-text" align="right">
                 <b><spring:message code="profile.label.secondname"/>:</b>
             </h3>
+
             <h3 class="col-sm-6 profile-text" align="left">${profile.secondName}</h3>
         </c:if>
     </div>
@@ -85,6 +95,7 @@
             <h3 class="col-sm-3 profile-header-text" align="right">
                 <b><spring:message code="profile.label.country"/>:</b>
             </h3>
+
             <h3 class="col-sm-6 profile-text" align="left">${profile.country}</h3>
         </c:if>
     </div>
@@ -109,7 +120,7 @@
                     <h4 class="modal-title"><spring:message code="profile.popup.head"/></h4>
                 </div>
                 <div class="modal-body">
-                    <form:form action="/profile/updateProfile" method="post" commandName="editedProfile"
+                    <form:form action="/profile/updateProfile" method="post" commandName="profile"
                                id="profileSubmit" enctype="multipart/form-data">
                         <form:hidden path="id"/>
                         <form:hidden path="user"/>

@@ -27,9 +27,8 @@ public class AdminController {
 
     @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
     public String deleteUser(@RequestParam(required = true) long id) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUserId(id);
-        userService.deleteUser(userDTO);
+        userService.deleteUser(id);
+
         return "redirect:../admin";
     }
 }

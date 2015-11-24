@@ -33,10 +33,11 @@ public class ProfileDaoImpl implements ProfileDao {
 
     @Override
     public void deleteProfile(long id) {
-        String posthql = "delete FROM  by.zverugo.samsolutions.instagram.entity.Profile P WHERE P.id = :id";
-        Query query = sessionFactory.getCurrentSession().createQuery(posthql);
-        query.setParameter("id", id);
-        query.executeUpdate();
+        Profile profile = new Profile();
+        profile.setId(id);
+        Profile mergedProfile = (Profile) sessionFactory.getCurrentSession().merge(profile);
+        sessionFactory.getCurrentSession().delete(mergedProfile);
+
         LOGGER.info(messageSource.getMessage("dao.profile.delete", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
     }
 

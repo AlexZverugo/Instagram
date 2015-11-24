@@ -2,6 +2,7 @@ package by.zverugo.samsolutions.instagram.validator;
 
 import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 
@@ -18,19 +19,19 @@ public class UpdateProfileValidator {
         profile.setCity(profile.getCity().trim());
         profile.setCountry(profile.getCountry().trim());
 
-        if(profile.getFirstName().equals("")) {
+        if(StringUtils.isEmpty(profile.getFirstName())) {
             profile.setFirstName(null);
         }
-        if(profile.getSurname().equals("")) {
+        if(StringUtils.isEmpty(profile.getSurname())) {
             profile.setSurname(null);
         }
-        if(profile.getSecondName().equals("")) {
+        if(StringUtils.isEmpty(profile.getSecondName())) {
             profile.setSecondName(null);
         }
-        if(profile.getCountry().equals("")) {
+        if(StringUtils.isEmpty(profile.getCountry())) {
             profile.setCountry(null);
         }
-        if(profile.getCity().equals("")) {
+        if(StringUtils.isEmpty(profile.getCity())) {
             profile.setCity(null);
         }
         return profile;

@@ -47,6 +47,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sender")
     private List<Comment> sentComment;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "owner")
+    private List<Comment> pageComments;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sender")
     private List<Rating> ratings;
 
@@ -140,5 +143,13 @@ public class User {
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public List<Comment> getPageComments() {
+        return pageComments;
+    }
+
+    public void setPageComments(List<Comment> pageComments) {
+        this.pageComments = pageComments;
     }
 }

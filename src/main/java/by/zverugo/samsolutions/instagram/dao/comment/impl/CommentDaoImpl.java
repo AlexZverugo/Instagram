@@ -24,27 +24,36 @@ public class CommentDaoImpl implements CommentDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public void saveComment(Comment comment) {
+    public long saveComment(Comment comment) {
         sessionFactory.getCurrentSession().save(comment);
-        LOGGER.info(messageSource.getMessage("dao.comment.save", new Object[]{comment}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.comment.save", new Object[]{comment},
+                InstagramConstants.LOGGER_LOCALE));
+        return comment.getCommentId();
     }
 
     @Override
-    public void deleteComment(Comment comment) {
-        sessionFactory.getCurrentSession().delete(comment);
-        LOGGER.info(messageSource.getMessage("dao.comment.delete", new Object[]{comment}, InstagramConstants.LOGGER_LOCALE));
+    public void deleteComment(long id) {
+        Comment comment = new Comment();
+        comment.setCommentId(id);
+        Comment mergedComment = (Comment) sessionFactory.getCurrentSession().merge(comment);
+        sessionFactory.getCurrentSession().delete(mergedComment);
+
+        LOGGER.info(messageSource.getMessage("dao.comment.delete", new Object[]{mergedComment},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
     public void updateComment(Comment comment) {
         sessionFactory.getCurrentSession().update(comment);
-        LOGGER.info(messageSource.getMessage("dao.comment.update", new Object[]{comment}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.comment.update", new Object[]{comment},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
     public Comment getComment(long id) {
         Comment comment = sessionFactory.getCurrentSession().get(Comment.class, id);
-        LOGGER.info(messageSource.getMessage("dao.comment.getById", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.comment.getById", new Object[]{id},
+                InstagramConstants.LOGGER_LOCALE));
 
         return comment;
     }
@@ -52,7 +61,8 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<Comment> getListOfComments() {
         List<Comment> comments = sessionFactory.getCurrentSession().createCriteria(Comment.class).list();
-        LOGGER.info(messageSource.getMessage("dao.comment.getList", new Object[] {comments}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.comment.getList", new Object[] {comments},
+                InstagramConstants.LOGGER_LOCALE));
 
         return comments;
     }

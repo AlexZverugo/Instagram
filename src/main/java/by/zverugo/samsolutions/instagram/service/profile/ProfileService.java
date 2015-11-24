@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProfileService {
-    public long saveProfile(ProfileDTO profileDTO);
-    public void deleteProfile(long id);
-    public void updateProfile(ProfileDTO profileDTO);
-    public ProfileDTO getProfileById(long id);
-    public ProfileDTO getProfileByUserId(long id);
-    public List<ProfileDTO> getListOfProfiles();
-    public Map<Long, byte[]> getPostSendersProfiles(List<PostDTO> posts);
+    long saveProfile(ProfileDTO profileDTO);
+    void deleteProfile(long id);
+    void updateProfile(ProfileDTO profileDTO);
+    ProfileDTO getProfileById(long id);
+    ProfileDTO getProfileByUserId(long id);
+    List<ProfileDTO> getListOfProfiles();
+    Map<Long, byte[]> getPostSendersProfiles(List<PostDTO> posts);
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public String loginPage(@RequestParam(required = false) String fail, Model model, HttpSession httpSession) {
+    public String loginPage(@RequestParam(required = false) String fail, Model model) {
         //TODO enable/disable
         String message;
         if (fail != null) {
@@ -22,5 +22,4 @@ public class LoginController {
         }
         return "common/login";
     }
-
 }

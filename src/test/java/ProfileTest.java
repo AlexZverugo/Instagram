@@ -1,11 +1,8 @@
 import by.zverugo.samsolutions.instagram.dao.profile.ProfileDao;
-import by.zverugo.samsolutions.instagram.dao.user.UserDao;
 import by.zverugo.samsolutions.instagram.entity.Profile;
-import by.zverugo.samsolutions.instagram.entity.User;
-import by.zverugo.samsolutions.instagram.hash.PasswordHashEncoder;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
-import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,16 +28,9 @@ public class ProfileTest {
     @Autowired
     private ProfileDao profileDao;
 
-    @Autowired
-    private UserDao userDao;
-
-    @Autowired
-    private PasswordHashEncoder passwordHashEncoder;
-
     @Before
     public void init() {
         profile = new Profile();
-        profile.setId(222L);
         profile.setBirthday(new Date(100000));
         profile.setFirstName("Max");
         profile.setSurname("Petrenko");
@@ -49,46 +39,51 @@ public class ProfileTest {
         profile.setCountry("Belarus");
         profile.setCity("Minsk");
 
-        User user = new User();
-        user.setId(222L);
-        user.setLogin("test_user");
-        user.setPassword(passwordHashEncoder.encode("123456"));
-        user.setEmail("user@gmail.com");
-        user.setRole(UserRoleEnum.USER.getRole());
-        userDao.saveUser(user);
-        profile.setUser(user);
-
         LOGGER.info(messageSource.getMessage("test.profile.init", new Object[]{profile},
                 InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testSaveProfile() {
-        long id = profileDao.saveProfile(profile);
-        LOGGER.info(messageSource.getMessage("test.profile.save", new Object[]{profile, id},
+        profileDao.saveProfile(profile);
+        Profile storedProfile = profileDao.getProfile(profile.getId());
+        Assert.assertNotNull(storedProfile);
+
+        LOGGER.info(messageSource.getMessage("test.profile.save", new Object[]{profile, profile.getId()},
                 InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testGetProfile() {
-        profileDao.updateProfile(profile);
+        profileDao.saveProfile(profile);
         profile = profileDao.getProfile(profile.getId());
+        Assert.assertNotNull(profile);
+
         LOGGER.info(messageSource.getMessage("test.profile.get", new Object[]{profile},
                 InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testUpdateProfile() {
+        profileDao.saveProfile(profile);
+        String firstName = "Vlad";
+        profile.setFirstName(firstName);
         profileDao.updateProfile(profile);
-        Profile temp = profileDao.getProfile(profile.getId());
-        LOGGER.info(messageSource.getMessage("test.profile.update", new Object[]{profile.getId(),
-                temp, temp.getId()}, InstagramConstants.LOGGER_LOCALE));
+        Profile updatedProfile = profileDao.getProfile(profile.getId());
+        Assert.assertEquals(profile,updatedProfile);
+        Assert.assertEquals(firstName,updatedProfile.getFirstName());
+
+        LOGGER.info(messageSource.getMessage("test.profile.update", new Object[]{profile, profile.getId()},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test
     public void testDeleteProfile() {
-        long id = profileDao.saveProfile(profile);
-        profileDao.deleteProfile(id);
-        LOGGER.info(messageSource.getMessage("test.profile.delete", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
+        profileDao.saveProfile(profile);
+        profileDao.deleteProfile(profile.getId());
+        profile = profileDao.getProfile(profile.getId());
+        Assert.assertNull(profile);
+
+        LOGGER.info(messageSource.getMessage("test.profile.delete", null, InstagramConstants.LOGGER_LOCALE));
     }
 }

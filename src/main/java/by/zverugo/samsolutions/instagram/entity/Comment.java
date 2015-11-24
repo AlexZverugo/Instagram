@@ -30,6 +30,10 @@ public class Comment {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner")
+    private User owner;
+
     public User getSender() {
         return sender;
     }
@@ -60,5 +64,13 @@ public class Comment {
 
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

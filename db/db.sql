@@ -1,6 +1,6 @@
 ﻿CREATE TABLE users (
 id serial PRIMARY KEY,
-login varchar(255) NOT NULL UNIQUE,
+login varchar(20) NOT NULL UNIQUE,
 password varchar(144) NOT NULL,
 email varchar(255) NOT NULL,
 user_role varchar(255) NOT NULL,
@@ -23,6 +23,7 @@ CREATE TABLE  comment (
 comment_id serial PRIMARY KEY,
 post_id int references post(post_id) ON UPDATE CASCADE ON DELETE CASCADE,
 sender int references users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+owner int references users(id) ON UPDATE CASCADE ON DELETE CASCADE,
 comment_content varchar,
 comment_send_date timestamp without time zone
 );

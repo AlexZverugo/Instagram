@@ -1,3 +1,4 @@
+<%@ page import="org.hibernate.Session" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
@@ -18,7 +19,7 @@
 
 <h2 class="user-label-fixed">${username}</h2>
 
-<a href="/users/addPost?id=${profile.user}">
+<a href="/post?postOwnerId=${profile.user}">
     <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-add-btn-position"
            value="<spring:message code="user.button.addpost"/>">
 </a>
@@ -31,10 +32,9 @@
 <div class="container user-layer" align="center">
     <br><br>
     <br><br>
+    <div id="deleteExc"></div>
 
     <c:forEach var="post" items="${posts}">
-        <br><br>
-
         <div id="fullPostContent${post.id}" class="user-post-br" align="center">
             <div class="col-sm-1 user-post-position">
                 <div class="thumbnail">
@@ -59,14 +59,14 @@
                         <div align="left">
                             <span class="text-muted"><spring:message code="user.label.username"/>:</span>
                             <strong>${usernames.get(post.sender)}</strong>
+                            <div id="remove${post.id}" class="post-del cursor-pointer">
 
-                            <c:if test="${removingCross}">
-                                <div id="remove${post.id}" class="post-del cursor-pointer">
-                                    <span class="glyphicon glyphicon-remove"
-                                          aria-hidden="true"></span>
-                                </div>
-                            </c:if>
+                                <c:if test="${authUser.userId eq post.sender or authUser.userId eq post.owner}">
+                                        <span data-toggle="tooltip" title="<spring:message code="user.tooltip.delete"/>"
+                                              class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </c:if>
 
+                            </div>
                         </div>
                     </div>
 
@@ -132,6 +132,7 @@
 
 
                 </div>
+                <div id="authUser${authUser.userId}" current-user="${profile.user}"></div>
                 <div class="row">
                     <form id="commentInput">
                         <textarea id="commentContent"

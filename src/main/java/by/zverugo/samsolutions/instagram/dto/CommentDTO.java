@@ -4,6 +4,7 @@ import by.zverugo.samsolutions.instagram.jsonview.Views;
 import com.fasterxml.jackson.annotation.JsonView;
 
 public class CommentDTO {
+    @JsonView(Views.Comment.class)
     private Long id;
 
     @JsonView(Views.Comment.class)
@@ -14,7 +15,12 @@ public class CommentDTO {
 
     @JsonView(Views.Comment.class)
     private String senderName;
+
+    @JsonView(Views.Comment.class)
     private Long sender;
+
+    @JsonView(Views.Comment.class)
+    private Long owner;
 
     public Long getPost() {
         return post;
@@ -54,5 +60,13 @@ public class CommentDTO {
 
     public void setSenderName(String senderName) {
         this.senderName = senderName;
+    }
+
+    public Long getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Long owner) {
+        this.owner = owner;
     }
 }

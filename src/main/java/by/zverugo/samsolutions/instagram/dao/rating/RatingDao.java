@@ -1,14 +1,15 @@
 package by.zverugo.samsolutions.instagram.dao.rating;
 
 import by.zverugo.samsolutions.instagram.entity.Rating;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 
 public interface RatingDao {
-    public long saveRating(Rating rating);
-    public void deleteRating(long id);
-    public void updateRating(Rating rating);
-    public Rating getRating(long id);
-    public List<Rating> getListOfRatings();
-    public Rating getRatingBySenderAndPostId(long sender, long postId);
+     long saveRating(Rating rating);
+     void deleteRating(long id);
+     void updateRating(Rating rating);
+     Rating getRating(long id);
+     List<Rating> getListOfRatings();
+     Rating getRatingBySenderAndPostId(long sender, long postId);
 }

@@ -33,10 +33,10 @@ public class RatingDaoImpl implements RatingDao {
 
     @Override
     public void deleteRating(long id) {
-        String posthql = "delete FROM  by.zverugo.samsolutions.instagram.entity.Rating R WHERE R.ratingId = :id";
-        Query query = sessionFactory.getCurrentSession().createQuery(posthql);
-        query.setParameter("id", id);
-        query.executeUpdate();
+        Rating rating = new Rating();
+        rating.setRatingId(id);
+        Rating mergedRating = (Rating) sessionFactory.getCurrentSession().merge(rating);
+        sessionFactory.getCurrentSession().delete(mergedRating);
         LOGGER.info(messageSource.getMessage("dao.rating.delete", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
     }
 
@@ -78,4 +78,5 @@ public class RatingDaoImpl implements RatingDao {
 
         return rating;
     }
+
 }

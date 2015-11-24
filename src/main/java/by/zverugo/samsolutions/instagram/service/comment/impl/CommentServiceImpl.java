@@ -32,18 +32,19 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public void saveComment(CommentDTO commentDTO) {
+    public long saveComment(CommentDTO commentDTO) {
         Comment comment = conversionService.convert(commentDTO, Comment.class);
-        commentDao.saveComment(comment);
-        LOGGER.info(messageSource.getMessage("service.comment.save", new Object[]{commentDTO}, InstagramConstants.LOGGER_LOCALE));
+        long id = commentDao.saveComment(comment);
+        LOGGER.info(messageSource.getMessage("service.comment.save", new Object[]{commentDTO},
+                InstagramConstants.LOGGER_LOCALE));
+        return id;
     }
 
     @Override
     @Transactional
-    public void deleteComment(CommentDTO commentDTO) {
-        Comment comment = conversionService.convert(getComment(commentDTO.getId()), Comment.class);
-        commentDao.deleteComment(comment);
-        LOGGER.info(messageSource.getMessage("service.comment.delete", new Object[]{commentDTO}, InstagramConstants.LOGGER_LOCALE));
+    public void deleteComment(long id) {
+        commentDao.deleteComment(id);
+        LOGGER.info(messageSource.getMessage("service.comment.delete", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override

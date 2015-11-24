@@ -5,10 +5,10 @@ import by.zverugo.samsolutions.instagram.entity.Comment;
 import java.util.List;
 
 public interface CommentDao {
-    public void saveComment(Comment comment);
-    public void deleteComment(Comment comment);
-    public void updateComment(Comment comment);
-    public Comment getComment(long id);
-    public List<Comment> getListOfComments();
-    public List<Comment> getListOfPostsByPostId(long id);
+   long saveComment(Comment comment);
+   void deleteComment(long id);
+   void updateComment(Comment comment);
+   Comment getComment(long id);
+   List<Comment> getListOfComments();
+   List<Comment> getListOfPostsByPostId(long id);
 }

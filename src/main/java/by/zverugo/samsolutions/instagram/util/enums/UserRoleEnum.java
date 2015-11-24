@@ -4,8 +4,6 @@ public enum UserRoleEnum {
     ADMIN("ADMIN"),
     USER("USER");
 
-    //TODO Locale getter for log4j
-
     private String role;
 
     UserRoleEnum(String role) {

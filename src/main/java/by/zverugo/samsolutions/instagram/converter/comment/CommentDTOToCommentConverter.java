@@ -28,9 +28,12 @@ public class CommentDTOToCommentConverter implements Converter<CommentDTO, Comme
         Post post = new Post();
         post.setPostId(commentDTO.getPost());
         comment.setPost(post);
-        User user = new User();
-        user.setId(commentDTO.getSender());
-        comment.setSender(user);
+        User sender = new User();
+        sender.setId(commentDTO.getSender());
+        comment.setSender(sender);
+        User owner = new User();
+        owner.setId(commentDTO.getOwner());
+        comment.setOwner(owner);
 
         LOGGER.info(messageSource.getMessage("converter.convert",
                 new Object[]{"CommentDTO", "Comment", commentDTO, comment}, InstagramConstants.LOGGER_LOCALE));

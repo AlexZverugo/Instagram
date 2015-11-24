@@ -93,7 +93,6 @@
             <version>${org.springframework.version}</version>
         </dependency>
 
-
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -121,13 +120,11 @@
             <scope>provided</scope>
         </dependency>
 
-
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -159,13 +156,11 @@
             <version>${org.apache.tomcat.version}</version>
         </dependency>
 
-
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>${commons-codec.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -190,7 +185,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
 
     </dependencies>
 

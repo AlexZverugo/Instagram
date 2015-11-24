@@ -16,6 +16,7 @@
     <br><br>
     <form:form action="/post/addPost" method="post" commandName="postForm" id="postSubmit"
                enctype="multipart/form-data">
+        <form:hidden path="owner"/>
         <div class="form-group">
             <label for="comment"><span style="color:#31b0d5"><spring:message
                     code="post.label.inputpost"/>:</span></label>

@@ -3,11 +3,20 @@ package by.zverugo.samsolutions.instagram.converter.profile;
 import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
 import by.zverugo.samsolutions.instagram.entity.Profile;
 import by.zverugo.samsolutions.instagram.entity.User;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProfileDTOToProfileConverter implements Converter<ProfileDTO, Profile> {
+    private final Logger LOGGER = Logger.getLogger(getClass());
+
+    @Autowired
+    private MessageSource messageSource;
+
     @Override
     public Profile convert(ProfileDTO profileDTO) {
         Profile profile = new Profile();
@@ -26,6 +35,8 @@ public class ProfileDTOToProfileConverter implements Converter<ProfileDTO, Profi
         user.setId(profileDTO.getUser());
         profile.setUser(user);
 
+        LOGGER.info(messageSource.getMessage("converter.convert",
+                new Object[]{"ProfileDTO", "Profile", profileDTO, profile}, InstagramConstants.LOGGER_LOCALE));
         return profile;
     }
 

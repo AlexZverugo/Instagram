@@ -21,7 +21,7 @@
             <th><spring:message code="admin.tablehead.block"/></th>
         </tr>
         <c:forEach var="user" items="${users}">
-            <form:form action="/admin/deleteUser?id=${user.id}" method="post" class="form-horizontal" role="form">
+            <form:form action="/admin/deleteUser?id=${user.userId}" method="post" class="form-horizontal" role="form">
                 <tr>
                     <td><c:out value="${user.login}"/></td>
                     <td><c:out value="${user.email}"/></td>

@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-    public long saveUser(UserDTO userDTO) throws ConstraintViolationException;
-    public void deleteUser(UserDTO userDTO);
-    public void updateUser(UserDTO userDTO);
-    public UserDTO getUserByLogin(String login);
-    public UserDTO getUserById(long id);
-    public List<UserDTO> getListOfUsers();
-    public Map<Long, String> getCommentSendersNames(List<CommentDTO> comments);
-    public Map<Long,String> getPostSendersUsernames(List<PostDTO> posts);
+    long saveUser(UserDTO userDTO) throws ConstraintViolationException;
+    void deleteUser(long id);
+    void updateUser(UserDTO userDTO);
+    UserDTO getUserByLogin(String login);
+    UserDTO getUserById(long id);
+    List<UserDTO> getListOfUsers();
+    Map<Long, String> getCommentSendersNames(List<CommentDTO> comments);
+    Map<Long,String> getPostSendersUsernames(List<PostDTO> posts);
 
 }

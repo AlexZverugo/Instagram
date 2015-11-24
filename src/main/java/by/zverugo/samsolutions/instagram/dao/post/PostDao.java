@@ -5,10 +5,10 @@ import by.zverugo.samsolutions.instagram.entity.Post;
 import java.util.List;
 
 public interface PostDao {
-    public long savePost(Post post);
-    public void deletePost(long id);
-    public void updatePost(Post post);
-    public Post getPost(long id);
-    public List<Post> getListOfPosts();
-    public List<Post> getListOfPostsByIdOfOwner(long id);
+    long savePost(Post post);
+    void deletePost(long id);
+    void updatePost(Post post);
+    Post getPost(long id);
+    List<Post> getListOfPosts();
+    List<Post> getListOfPostsByIdOfOwner(long id);
 }

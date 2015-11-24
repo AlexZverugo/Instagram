@@ -69,6 +69,17 @@
     left: 4%;
 }
 
+
+.profile-user-return-btn-position {
+    top: 8%;
+    left: 4%;
+}
+
+.profile-edit-btn-position {
+    top: 20%;
+    left: 4%;
+}
+
 .user-post-scroll {
     overflow: hidden;
     /*text-overflow-ellipsis: ;*/

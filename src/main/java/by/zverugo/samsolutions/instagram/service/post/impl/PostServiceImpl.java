@@ -94,7 +94,6 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional(readOnly = true)
     public List<PostDTO> getReversedListOfPostsByIdOfOwner(long id) {
-        //TODO sort list by id 'Comparator'
         List<Post> posts = postDao.getListOfPostsByIdOfOwner(id);
         List<PostDTO> postDTOList = new ArrayList();
 

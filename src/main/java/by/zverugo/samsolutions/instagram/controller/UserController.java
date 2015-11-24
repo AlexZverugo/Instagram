@@ -55,12 +55,6 @@ public class UserController {
                            Model model) throws UnsupportedEncodingException {
         UserDTO user = userService.getUserById(id);
 
-        if (authUser.getUserId() == id) {
-            model.addAttribute("removingCross", true);
-        } else {
-            model.addAttribute("removingCross", false);
-        }
-
         if (user == null || UserRoleEnum.ADMIN.getRole().equals(user.getRole().getRole())) {
             return "redirect:/users/user";
         }
@@ -69,6 +63,7 @@ public class UserController {
         Map<Long, String> usernames = userService.getPostSendersUsernames(posts);
         ProfileDTO profile = profileService.getProfileByUserId(id);
         Map<Long, byte[]> profilesImages = profileService.getPostSendersProfiles(posts);
+        model.addAttribute("authUser",authUser);
         model.addAttribute("profilesImages",profilesImages);
         model.addAttribute("profile",profile);
         model.addAttribute("commentForm", new CommentDTO());
@@ -77,12 +72,6 @@ public class UserController {
         model.addAttribute("username", user.getLogin());
 
         return "user/user";
-    }
-
-    @RequestMapping(value = "/addPost", method = RequestMethod.GET)
-    public String addPost(@RequestParam(required = true) long id, HttpSession httpSession) {
-        httpSession.setAttribute("postOwnerId", id);
-        return "redirect:/post";
     }
 
     @RequestMapping(value = "/findUser", method = RequestMethod.POST)

@@ -43,9 +43,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void deleteUser(UserDTO userDTO) {
-        userDao.deleteUserById(userDTO.getUserId());
-        LOGGER.info(messageSource.getMessage("service.user.delete", new Object[]{userDTO}, InstagramConstants.LOGGER_LOCALE));
+    public void deleteUser(long id) {
+        userDao.deleteUserById(id);
+        LOGGER.info(messageSource.getMessage("service.user.delete", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override

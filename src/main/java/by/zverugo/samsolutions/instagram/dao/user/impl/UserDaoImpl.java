@@ -31,13 +31,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void deleteUser(User user) {
-        sessionFactory.getCurrentSession().delete(user);
-        LOGGER.info(messageSource.getMessage("dao.user.delete", new Object[]{user}, InstagramConstants.LOGGER_LOCALE));
-    }
-
-
-    @Override
     public void updateUser(User user) {
         sessionFactory.getCurrentSession().update(user);
         LOGGER.info(messageSource.getMessage("dao.user.update", new Object[]{user}, InstagramConstants.LOGGER_LOCALE));
@@ -74,10 +67,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUserById(long id) {
-        String userhql = "delete FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE U.id = :id";
-        Query query = sessionFactory.getCurrentSession().createQuery(userhql);
-        query.setParameter("id", id);
-        query.executeUpdate();
+        User user = new User();
+        user.setId(id);
+        User mergedUser = (User) sessionFactory.getCurrentSession().merge(user);
+        sessionFactory.getCurrentSession().delete(mergedUser);
+
         LOGGER.info(messageSource.getMessage("dao.user.deleteUserById", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
     }
 }

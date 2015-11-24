@@ -31,22 +31,22 @@ public class RatingController {
     @JsonView(Views.Rating.class)
     @RequestMapping(value = "/setLike", method = RequestMethod.POST)
     public @ResponseBody PostDTO setLike(@RequestBody RatingDTO rating,
-                                           @ModelAttribute("authorizedUser") UserDTO authUser) {
-        rating.setSender(authUser.getUserId());
-        rating.setType(RatingTypeEnum.LIKE);
-        PostDTO post = postService.getPost(rating.getPost());
-        post = ratingService.saveOrDeleteRating(post, rating);
-        postService.updatePost(post);
+                    @ModelAttribute("authorizedUser") UserDTO authUser) {
 
-        return post;
+        return setRating(RatingTypeEnum.LIKE, rating, authUser);
     }
 
     @JsonView(Views.Rating.class)
     @RequestMapping(value = "/setDislike", method = RequestMethod.POST)
     public @ResponseBody PostDTO setDislike(@RequestBody RatingDTO rating,
-                                         @ModelAttribute("authorizedUser") UserDTO authUser) {
+                       @ModelAttribute("authorizedUser") UserDTO authUser) {
+
+        return setRating(RatingTypeEnum.DISLIKE, rating, authUser);
+    }
+
+    private PostDTO setRating(RatingTypeEnum ratingTypeEnum, RatingDTO rating, UserDTO authUser) {
         rating.setSender(authUser.getUserId());
-        rating.setType(RatingTypeEnum.DISLIKE);
+        rating.setType(ratingTypeEnum);
         PostDTO post = postService.getPost(rating.getPost());
         post = ratingService.saveOrDeleteRating(post, rating);
         postService.updatePost(post);
