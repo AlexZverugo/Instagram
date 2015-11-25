@@ -4,27 +4,30 @@ import by.zverugo.samsolutions.instagram.dto.CommentDTO;
 import by.zverugo.samsolutions.instagram.dto.PostDTO;
 import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
+import by.zverugo.samsolutions.instagram.jsonview.Views;
 import by.zverugo.samsolutions.instagram.service.post.PostService;
 import by.zverugo.samsolutions.instagram.service.profile.ProfileService;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
+import com.fasterxml.jackson.annotation.JsonView;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @SessionAttributes({"authorizedUser"})
@@ -60,24 +63,28 @@ public class UserController {
         }
 
         List<PostDTO> posts = postService.getReversedListOfPostsByIdOfOwner(id);
-        Map<Long, String> usernames = userService.getPostSendersUsernames(posts);
+        userService.setPostSendersUsernames(posts);
         ProfileDTO profile = profileService.getProfileByUserId(id);
-        Map<Long, byte[]> profilesImages = profileService.getPostSendersProfiles(posts);
-        model.addAttribute("authUser",authUser);
-        model.addAttribute("profilesImages",profilesImages);
-        model.addAttribute("profile",profile);
+        profileService.setPostSendersProfiles(posts);
+
+        model.addAttribute("authUser", authUser);
+        model.addAttribute("profile", profile);
         model.addAttribute("commentForm", new CommentDTO());
-        model.addAttribute("usernames", usernames);
         model.addAttribute("posts", posts);
         model.addAttribute("username", user.getLogin());
 
         return "user/user";
     }
 
+    @JsonView(Views.Search.class)
     @RequestMapping(value = "/findUser", method = RequestMethod.POST)
-    public String searchPage(@ModelAttribute("searchForm") UserDTO userDTO) {
+    public @ResponseBody List<UserDTO> searchPage(@RequestBody UserDTO user) {
+        if (StringUtils.isNotEmpty(user.getLogin())) {
+            List<UserDTO> users = userService.findByPattern(user.getLogin());
+            return users;
+        }
 
-        return "redirect:/users/user";
+        return new ArrayList<UserDTO>();
     }
 
 }

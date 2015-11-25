@@ -40,7 +40,8 @@ public class UserDaoImpl implements UserDao {
     public User getUser(long id) {
         User user;
         user = sessionFactory.getCurrentSession().get(User.class, id);
-        LOGGER.info(messageSource.getMessage("dao.user.getById", new Object[]{id, user}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.user.getById", new Object[]{id, user},
+                InstagramConstants.LOGGER_LOCALE));
 
         return user;
     }
@@ -51,7 +52,8 @@ public class UserDaoImpl implements UserDao {
         Query query = sessionFactory.getCurrentSession().createQuery(userhql);
         query.setParameter("login", login);
         User user = (User) query.uniqueResult();
-        LOGGER.info(messageSource.getMessage("dao.user.getUserByName", new Object[]{login, user}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.user.getUserByName", new Object[]{login, user},
+                InstagramConstants.LOGGER_LOCALE));
 
         return user;
     }
@@ -72,6 +74,20 @@ public class UserDaoImpl implements UserDao {
         User mergedUser = (User) sessionFactory.getCurrentSession().merge(user);
         sessionFactory.getCurrentSession().delete(mergedUser);
 
-        LOGGER.info(messageSource.getMessage("dao.user.deleteUserById", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("dao.user.deleteUserById", new Object[]{id},
+                InstagramConstants.LOGGER_LOCALE));
+    }
+
+    @Override
+    public List<User> findByPattern(String pattern) {
+        String userhql = "FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE U.login like :pattern";
+        Query query = sessionFactory.getCurrentSession().createQuery(userhql);
+        query.setString("pattern", pattern + "%");
+        List<User> users = query.list();
+
+        LOGGER.info(messageSource.getMessage("dao.user.findByPattern", new Object[]{pattern},
+                InstagramConstants.LOGGER_LOCALE));
+
+        return users;
     }
 }

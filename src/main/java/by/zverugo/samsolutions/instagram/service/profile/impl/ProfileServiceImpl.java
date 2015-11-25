@@ -88,21 +88,21 @@ public class ProfileServiceImpl implements ProfileService {
         for (Profile profile : profiles) {
             profileDTOList.add(conversionService.convert(profile, ProfileDTO.class));
         }
-        LOGGER.info(messageSource.getMessage("service.profile.getList", new Object[]{profileDTOList}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.profile.getList", new Object[]{profileDTOList},
+                InstagramConstants.LOGGER_LOCALE));
 
         return profileDTOList;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Map<Long, byte[]> getPostSendersProfiles(List<PostDTO> posts){
-        Map<Long, byte[]> profiles = new HashMap<>();
+    public void setPostSendersProfiles(List<PostDTO> posts){
         for (PostDTO post : posts) {
-            profiles.put(post.getId(), getProfileByUserId(post.getSender()).getAvatar());
+            post.setSenderAvatar(getProfileByUserId(post.getSender()).getAvatar());
         }
-        LOGGER.info(messageSource.getMessage("service.profile.getPostSendersProfiles",
-                new Object[]{profiles}, InstagramConstants.LOGGER_LOCALE));
 
-        return profiles;
+        LOGGER.info(messageSource.getMessage("service.profile.setPostSendersProfiles",
+                null, InstagramConstants.LOGGER_LOCALE));
+
     }
 }

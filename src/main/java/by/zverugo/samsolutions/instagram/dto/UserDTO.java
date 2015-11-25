@@ -1,10 +1,14 @@
 package by.zverugo.samsolutions.instagram.dto;
 
 
+import by.zverugo.samsolutions.instagram.jsonview.Views;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
+import com.fasterxml.jackson.annotation.JsonView;
 
 public class UserDTO {
+    @JsonView(Views.Search.class)
     private Long userId;
+    @JsonView(Views.Search.class)
     private String login;
     private String password;
     private String repeatedPassword;

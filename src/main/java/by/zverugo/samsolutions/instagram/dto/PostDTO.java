@@ -18,7 +18,9 @@ public class PostDTO {
 
     @JsonView(Views.Rating.class)
     private Integer dislike;
+    private String senderName;
     private String dateDispatch;
+    private byte[] senderAvatar;
     private Long sender;
     private Long owner;
 
@@ -93,5 +95,21 @@ public class PostDTO {
 
     public void setDateDispatch(String dateDispatch) {
         this.dateDispatch = dateDispatch;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public byte[] getSenderAvatar() {
+        return senderAvatar;
+    }
+
+    public void setSenderAvatar(byte[] senderAvatar) {
+        this.senderAvatar = senderAvatar;
     }
 }

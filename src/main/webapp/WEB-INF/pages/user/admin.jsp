@@ -9,7 +9,7 @@
     <toolkit:header title="Instagram admin page"/>
 </head>
 <body class="bg-common">
-<toolkit:navbar/>
+<toolkit:langnav/>
 <div class="container" align="center">
     <br><br>
     <br><br>

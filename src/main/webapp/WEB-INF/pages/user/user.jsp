@@ -1,4 +1,3 @@
-<%@ page import="org.hibernate.Session" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
@@ -29,9 +28,12 @@
            value="<spring:message code="user.button.showprofile"/>">
 </a>
 
+<div id="searchResult" class="row"></div>
+
 <div class="container user-layer" align="center">
     <br><br>
     <br><br>
+
     <div id="deleteExc"></div>
 
     <c:forEach var="post" items="${posts}">
@@ -40,10 +42,10 @@
                 <div class="thumbnail">
                     <a href="/profile/user=${post.sender}">
                         <c:choose>
-                            <c:when test="${profilesImages.get(post.id) != null}">
+                            <c:when test="${post.senderAvatar != null}">
 
                                 <img class="img-responsive user-photo"
-                                     src="<pi:image imageByte="${profilesImages.get(post.id)}"/>">
+                                     src="<pi:image imageByte="${post.senderAvatar}"/>">
                             </c:when>
                             <c:otherwise>
                                 <img class="img-responsive user-photo"
@@ -58,7 +60,8 @@
                     <div class="left panel-heading">
                         <div align="left">
                             <span class="text-muted"><spring:message code="user.label.username"/>:</span>
-                            <strong>${usernames.get(post.sender)}</strong>
+                            <strong>${post.senderName}</strong>
+
                             <div id="remove${post.id}" class="post-del cursor-pointer">
 
                                 <c:if test="${authUser.userId eq post.sender or authUser.userId eq post.owner}">
@@ -73,10 +76,10 @@
                     <div id="post${post.id}" class="cursor-pointer" data-toggle="modal" data-target="#myModal"
                          id-parameter="${post.id}">
 
-                        <div align="justify" class="user-post-scroll">
-                        <pre id="contentPost${post.id}" class="pre-post">
-                            <p>${post.postContent}</p>
-                        </pre>
+                        <div class="user-post-scroll">
+                            <pre id="contentPost${post.id}" class="pre-post">
+                                <p>${post.postContent}</p>
+                            </pre>
                         </div>
                         <hr>
                         <div id="imgPost${post.id}">
@@ -122,14 +125,13 @@
                     <div id="popupContent">
                         <pre class="pre-post"></pre>
                     </div>
-                    <br>
+                    <hr>
 
                     <div id="popupImg">
                         <img class="post-popup-img">
                     </div>
                     <hr>
                     <div id="commentsOfPost" class="row"></div>
-
 
                 </div>
                 <div id="authUser${authUser.userId}" current-user="${profile.user}"></div>

@@ -9,11 +9,8 @@
     <script src="<c:url value="/resources/js/post.js"/>"></script>
 </head>
 <body class="bg-common">
-<toolkit:navbar/>
+<toolkit:langnav/>
 <div class="container" align="center">
-
-    <br><br>
-    <br><br>
     <form:form action="/post/addPost" method="post" commandName="postForm" id="postSubmit"
                enctype="multipart/form-data">
         <form:hidden path="owner"/>

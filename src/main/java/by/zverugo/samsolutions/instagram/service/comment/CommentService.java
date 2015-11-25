@@ -11,6 +11,5 @@ public interface CommentService {
     CommentDTO getComment(long id);
     List<CommentDTO> getListOfComments();
     List<CommentDTO> getListOfPostsByPostId(long id);
-    List<CommentDTO> setSendersNameToCommentList(List<CommentDTO> comments, Map<Long, String> senders);
 
 }

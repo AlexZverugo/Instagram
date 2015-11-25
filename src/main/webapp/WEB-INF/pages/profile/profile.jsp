@@ -13,7 +13,7 @@
 
 </head>
 <body class="bg-common">
-<toolkit:navbar/>
+<toolkit:langnav/>
 <c:if test="${isEditable}">
         <input type="button" class="user-btn-size btn btn-primary user-btn-fixed profile-edit-btn-position"
                data-toggle="modal" data-target="#profileModal"
@@ -26,7 +26,6 @@
 </a>
 
 <div class="container profile-layer" align="center">
-    <br><br><br>
     <c:choose>
         <c:when test="${profile.avatar != null}">
             <img class="profile-img" src="<pi:image imageByte="${profile.avatar}"/>"

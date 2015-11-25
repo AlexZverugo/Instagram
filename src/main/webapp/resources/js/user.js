@@ -32,7 +32,12 @@ $(document).ready(function () {
         setDislike(id);
     });
 
+    $('#dynamicSearch').keyup(function () {
+        startDynamicSearch();
+    });
+
     $('[data-toggle="tooltip"]').tooltip();
+
 });
 
 function setLike(postId) {
@@ -135,7 +140,7 @@ function showComments(id) {
 
 function display(data) {
     var commentsViewHTML = '';
-    var authUserId =  $('div[id^=authUser]')[0].id.substring('authUser'.length);
+    var authUserId = $('div[id^=authUser]')[0].id.substring('authUser'.length);
     for (var commentIndex = 0; commentIndex < data.length; commentIndex++) {
         var fullComment = '<div id="fullComment' + data[commentIndex].id + '">';
         if (authUserId == data[commentIndex].owner || data[commentIndex].sender == authUserId) {
@@ -197,4 +202,41 @@ function addComment() {
         }
     });
 }
+
+function startDynamicSearch() {
+
+    var search = {};
+    search['login'] = $('#dynamicSearch').val();
+
+    $.ajax({
+        type: "POST",
+        url: "/users/findUser",
+        data: JSON.stringify(search),
+        dataType: 'json',
+        contentType: 'application/json',
+        cache: false,
+
+        success: function (response) {
+            var responseOptions = '';
+
+            for (var detectedUserIndex = 0; detectedUserIndex < response.length; detectedUserIndex++) {
+                responseOptions += '<option value="' + response[detectedUserIndex].userId
+                + '">' + response[detectedUserIndex].login + '</option>';
+            }
+
+            var responseHTML = '';
+
+            if (response.length > 0) {
+                responseHTML = '<select multiple class="col-lg-2 search-dropdown" onchange="window.location.href=this.value;">'
+                + responseOptions + '</select>';
+            } else {
+                responseHTML = responseOptions;
+            }
+
+            $("#searchResult").html(responseHTML);
+        }
+    });
+}
+
+
 

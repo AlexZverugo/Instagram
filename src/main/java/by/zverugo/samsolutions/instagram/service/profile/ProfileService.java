@@ -13,5 +13,5 @@ public interface ProfileService {
     ProfileDTO getProfileById(long id);
     ProfileDTO getProfileByUserId(long id);
     List<ProfileDTO> getListOfProfiles();
-    Map<Long, byte[]> getPostSendersProfiles(List<PostDTO> posts);
+    void setPostSendersProfiles(List<PostDTO> posts);
 }

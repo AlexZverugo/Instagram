@@ -11,4 +11,5 @@ public interface UserDao {
     User getUserByName(String login);
     List<User> getListOfUsers();
     void deleteUserById(long id);
+    List<User> findByPattern(String pattern);
 }

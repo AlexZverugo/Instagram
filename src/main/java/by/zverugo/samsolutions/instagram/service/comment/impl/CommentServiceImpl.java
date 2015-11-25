@@ -91,14 +91,4 @@ public class CommentServiceImpl implements CommentService {
 
         return commentDTOList;
     }
-
-
-    @Override
-    public List<CommentDTO> setSendersNameToCommentList(List<CommentDTO> comments, Map<Long, String> senders) {
-        for (CommentDTO comment : comments) {
-            comment.setSenderName(senders.get(comment.getSender()));
-        }
-
-        return comments;
-    }
 }

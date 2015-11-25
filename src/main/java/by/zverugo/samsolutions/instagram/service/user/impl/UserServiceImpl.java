@@ -13,10 +13,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -37,7 +36,8 @@ public class UserServiceImpl implements UserService {
     public long saveUser(UserDTO userDTO) {
         User user = conversionService.convert(userDTO, User.class);
         long id = userDao.saveUser(user);
-        LOGGER.info(messageSource.getMessage("service.user.save", new Object[]{userDTO}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.user.save", new Object[]{userDTO},
+                InstagramConstants.LOGGER_LOCALE));
         return id;
     }
 
@@ -45,7 +45,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(long id) {
         userDao.deleteUserById(id);
-        LOGGER.info(messageSource.getMessage("service.user.delete", new Object[]{id}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.user.delete", new Object[]{id},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
@@ -53,7 +54,8 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDTO userDTO) {
         User user = conversionService.convert(userDTO, User.class);
         userDao.updateUser(user);
-        LOGGER.info(messageSource.getMessage("service.user.update", new Object[]{userDTO}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.user.update", new Object[]{userDTO},
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
@@ -70,7 +72,8 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public UserDTO getUserById(long id) {
         UserDTO userDTO = conversionService.convert(userDao.getUser(id), UserDTO.class);
-        LOGGER.info(messageSource.getMessage("service.user.getUserById", new Object[]{id, userDTO}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.user.getUserById", new Object[]{id, userDTO},
+                InstagramConstants.LOGGER_LOCALE));
 
         return userDTO;
     }
@@ -83,36 +86,44 @@ public class UserServiceImpl implements UserService {
         for (User user : users) {
             userDTOList.add(conversionService.convert(user, UserDTO.class));
         }
-        LOGGER.info(messageSource.getMessage("service.user.getList", new Object[]{userDTOList}, InstagramConstants.LOGGER_LOCALE));
+        LOGGER.info(messageSource.getMessage("service.user.getList", new Object[]{userDTOList},
+                InstagramConstants.LOGGER_LOCALE));
 
         return userDTOList;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Map<Long, String> getPostSendersUsernames(List<PostDTO> posts) {
-        Map<Long, String> usernames = new HashMap<>();
-
+    public void setPostSendersUsernames(List<PostDTO> posts) {
         for (PostDTO post : posts) {
-            usernames.put(post.getSender(), getUserById(post.getSender()).getLogin());
+            post.setSenderName(getUserById(post.getSender()).getLogin());
         }
-        LOGGER.info(messageSource.getMessage("service.user.getPostSendersUsernames",
-                new Object[]{usernames}, InstagramConstants.LOGGER_LOCALE));
 
-        return usernames;
+        LOGGER.info(messageSource.getMessage("service.user.setPostSendersUsernames", null,
+                InstagramConstants.LOGGER_LOCALE));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Map<Long, String> getCommentSendersNames(List<CommentDTO> comments) {
-        Map<Long, String> senders = new HashMap<>();
-
-        for (CommentDTO comment : comments) {
-            senders.put(comment.getSender(), getUserById(comment.getSender()).getLogin());
+    public List<UserDTO> findByPattern(String pattern) {
+        List<User> users = userDao.findByPattern(pattern);
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user : users) {
+            userDTOList.add(conversionService.convert(user, UserDTO.class));
         }
-        LOGGER.info(messageSource.getMessage("service.user.getCommentSendersNames",
-                new Object[]{senders}, InstagramConstants.LOGGER_LOCALE));
 
-        return senders;
+        return userDTOList;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public void setCommentSendersNames(List<CommentDTO> comments) {
+        for (CommentDTO comment : comments) {
+            comment.setSenderName(getUserById(comment.getSender()).getLogin());
+        }
+
+        LOGGER.info(messageSource.getMessage("service.user.setCommentSendersNames",
+                new Object[]{}, InstagramConstants.LOGGER_LOCALE));
+
     }
 }

@@ -72,7 +72,9 @@ public class PostDaoImpl implements PostDao {
         Query query = sessionFactory.getCurrentSession().createQuery(posthql);
         query.setParameter("id", id);
         List<Post> posts = query.list();
-        LOGGER.info(messageSource.getMessage("dao.post.getListByOwnerId", new Object[]{id, posts}, InstagramConstants.LOGGER_LOCALE));
+
+        LOGGER.info(messageSource.getMessage("dao.post.getListByOwnerId", new Object[]{id, posts},
+                InstagramConstants.LOGGER_LOCALE));
 
         return posts;
     }

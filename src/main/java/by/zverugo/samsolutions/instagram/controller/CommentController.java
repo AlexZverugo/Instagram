@@ -36,7 +36,7 @@ public class CommentController {
         comment.setSender(authUser.getUserId());
         comment = commentService.getComment(commentService.saveComment(comment));
         comment.setSenderName(authUser.getLogin());
-        
+
         return comment;
     }
 
@@ -44,8 +44,7 @@ public class CommentController {
     @RequestMapping(value = "/getCommentOfPost", method = RequestMethod.GET)
     public List<CommentDTO> getComments(@RequestParam Long id) {
         List<CommentDTO> comments = commentService.getListOfPostsByPostId(id);
-        Map<Long, String> senders = userService.getCommentSendersNames(comments);
-        comments = commentService.setSendersNameToCommentList(comments, senders);
+        userService.setCommentSendersNames(comments);
 
         return comments;
     }

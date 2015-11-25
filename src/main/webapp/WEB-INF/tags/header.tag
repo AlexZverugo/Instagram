@@ -7,7 +7,9 @@
 <script src="<c:url value="/resources/bootstrap/js/jquery.min.js"/>"></script>
 <script src="<c:url value="/resources/bootstrap/js/jquery-ui.min.js"/>"></script>
 <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
+<%--<script src="http://harvesthq.github.io/chosen/chosen.jquery.js"></script>--%>
 <script src="<c:url value="/resources/js/common.js"/>"></script>
 <link href="<c:url value="/resources/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet">
 <link href="<c:url value="/resources/css/common.css"/>" type="text/css" rel="stylesheet">
 <link href="<c:url value="/resources/bootstrap/css/bootstrap-glyphicons.css"/>" type="text/css" rel="stylesheet">
+<%--<link rel="stylesheet" href="http://harvesthq.github.io/chosen/chosen.css">--%>

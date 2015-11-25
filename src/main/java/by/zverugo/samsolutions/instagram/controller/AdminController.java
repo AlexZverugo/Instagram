@@ -22,6 +22,7 @@ public class AdminController {
     public String adminPage(Map<String, Object> model) {
         List<UserDTO> userDTOList = userService.getListOfUsers();
         model.put("users", userDTOList);
+
         return "user/admin";
     }
 

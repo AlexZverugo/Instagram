@@ -82,7 +82,6 @@
 
 .user-post-scroll {
     overflow: hidden;
-    /*text-overflow-ellipsis: ;*/
     text-after-overflow: ellipse;
     height: 12%;
 }
@@ -230,4 +229,11 @@
 .profile-popup-avatar {
     max-height: 100%;
     max-width: 100%;
+}
+
+.search-dropdown {
+    position: fixed;
+    top: 8%;
+    left: 4%;
+    z-index: 1;
 }

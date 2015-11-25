@@ -16,7 +16,7 @@ public interface UserService {
     UserDTO getUserByLogin(String login);
     UserDTO getUserById(long id);
     List<UserDTO> getListOfUsers();
-    Map<Long, String> getCommentSendersNames(List<CommentDTO> comments);
-    Map<Long,String> getPostSendersUsernames(List<PostDTO> posts);
-
+    void setCommentSendersNames(List<CommentDTO> comments);
+    void setPostSendersUsernames(List<PostDTO> posts);
+    List<UserDTO> findByPattern(String pattern);
 }

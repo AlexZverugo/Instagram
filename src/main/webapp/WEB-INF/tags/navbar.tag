@@ -1,5 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <nav class="navbar navbar-default bg-nav navbar-fixed-top">
     <div class="container-fluid">
@@ -8,7 +9,8 @@
         </div>
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="<spring:message code="navbar.button.search"/>">
+                <input id="dynamicSearch" type="search" class="form-control type-search"
+                       placeholder="<spring:message code="navbar.button.search"/>">
             </div>
             <button type="submit" class="btn btn-default"><spring:message code="navbar.button.search"/></button>
         </form>
@@ -24,7 +26,8 @@
                 </ul>
             </li>
             <c:url value="/j_spring_security_logout" var="logoutUrl"/>
-            <li><a href="${logoutUrl}"><span class="nav-comp"><spring:message code="navbar.label.logout"/></span></a></li>
+            <li><a href="${logoutUrl}"><span class="nav-comp"><spring:message code="navbar.label.logout"/></span></a>
+            </li>
         </ul>
     </div>
 </nav>
