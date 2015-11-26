@@ -9,10 +9,9 @@
         </div>
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <input id="dynamicSearch" type="search" class="form-control type-search"
-                       placeholder="<spring:message code="navbar.button.search"/>">
+                <select id="navbarSearch" data-placeholder="Search"
+                         style="width:300px" onchange="window.location.href=this.value;"></select>
             </div>
-            <button type="submit" class="btn btn-default"><spring:message code="navbar.button.search"/></button>
         </form>
 
         <ul class="nav navbar-nav navbar-right">

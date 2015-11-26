@@ -32,11 +32,41 @@ $(document).ready(function () {
         setDislike(id);
     });
 
-    $('#dynamicSearch').keyup(function () {
-        startDynamicSearch();
+    $('#navbarSearch').select2({
+        minimumInputLength: 1,
+        language: "ru",
+        ajax: {
+            type: "POST",
+            url: "/users/findUser",
+            contentType: 'application/json',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                var query = {
+                    login: params.term
+                };
+                return JSON.stringify(query);
+            },
+            processResults: function (data) {
+                var users = [];
+
+                for (var responseIndex = 0; responseIndex < data.length; responseIndex++) {
+                    var user = {};
+                    user["text"] = data[responseIndex].login;
+                    user["id"] = data[responseIndex].userId;
+                    users[responseIndex] = user;
+                }
+
+                return {
+                    results: users
+                };
+            },
+            cache: true
+        }
     });
 
     $('[data-toggle="tooltip"]').tooltip();
+
 
 });
 
@@ -156,7 +186,6 @@ function display(data) {
             + data[commentIndex].senderName + '</b></div>'
             + '<pre class="pre-post">' + data[commentIndex].commentContent + '</pre><hr></div>';
         }
-
     }
     $('#commentsOfPost').html(commentsViewHTML);
     addDeleteCommentListeners();

@@ -80,7 +80,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findByPattern(String pattern) {
-        String userhql = "FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE U.login like :pattern";
+        String userhql = "FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE upper( U.login) like upper(:pattern)";
         Query query = sessionFactory.getCurrentSession().createQuery(userhql);
         query.setString("pattern", pattern + "%");
         List<User> users = query.list();
