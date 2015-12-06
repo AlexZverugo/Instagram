@@ -9,7 +9,7 @@
     <toolkit:header title="${title}"/>
 </head>
 <body class="bg-common">
-<toolkit:langnav/>
+<toolkit:defaultnav/>
 <div class="container" align="center">
     <c:url value="/post/addPost" var="addPostUrl"/>
     <form:form action="${addPostUrl}" method="post" commandName="postForm" id="postSubmit"

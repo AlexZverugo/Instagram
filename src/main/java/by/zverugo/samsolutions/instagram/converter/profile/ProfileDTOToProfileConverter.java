@@ -1,6 +1,7 @@
 package by.zverugo.samsolutions.instagram.converter.profile;
 
 import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
+import by.zverugo.samsolutions.instagram.entity.Country;
 import by.zverugo.samsolutions.instagram.entity.Profile;
 import by.zverugo.samsolutions.instagram.entity.User;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
@@ -32,6 +33,7 @@ public class ProfileDTOToProfileConverter implements Converter<ProfileDTO, Profi
 
         convertPostImage(profileDTO, profile);
         convertBirthdayDate(profileDTO, profile);
+        convertCountry(profileDTO, profile);
 
         User user = new User();
         user.setId(profileDTO.getUser());
@@ -57,11 +59,6 @@ public class ProfileDTOToProfileConverter implements Converter<ProfileDTO, Profi
             profile.setSecondName(profileDTO.getSecondName().trim());
         } else {
             profile.setSecondName(profileDTO.getSecondName());
-        }
-        if (profileDTO.getCountry() != null) {
-            profile.setCountry(profileDTO.getCountry().trim());
-        } else {
-            profile.setCountry(profileDTO.getCountry());
         }
         if (profileDTO.getCity() != null) {
             profile.setCity(profileDTO.getCity().trim());
@@ -97,6 +94,16 @@ public class ProfileDTOToProfileConverter implements Converter<ProfileDTO, Profi
                 e.printStackTrace();
             }
             profile.setBirthday(new java.sql.Date(date.getTime()));
+        }
+    }
+
+    private void convertCountry(ProfileDTO profileDTO, Profile profile) {
+        if (profileDTO.getCountryID() == null) {
+            profile.setCountry(null);
+        } else {
+            Country country = new Country();
+            country.setCountryId(profileDTO.getCountryDTO().getCountryId());
+            profile.setCountry(country);
         }
     }
 

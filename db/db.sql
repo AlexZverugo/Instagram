@@ -31,10 +31,10 @@ comment_send_date timestamp without time zone
 CREATE TABLE  profile (
 id serial PRIMARY KEY,
 user_id int references users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+country_id varchar(150) references country(country_id) ON UPDATE CASCADE ON DELETE CASCADE,
 firstname varchar(125),
 surname varchar(125),
 secondname varchar(125),
-country varchar(125),
 city varchar(125),
 avatar bytea,
 sex varchar(15),

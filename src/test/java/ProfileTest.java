@@ -36,7 +36,7 @@ public class ProfileTest {
         profile.setSurname("Petrenko");
         profile.setSecondName("Vitalievich");
         profile.setSex("male");
-        profile.setCountry("Belarus");
+//        profile.setCountry("Belarus");
         profile.setCity("Minsk");
 
         LOGGER.info(messageSource.getMessage("test.profile.init", new Object[]{profile},

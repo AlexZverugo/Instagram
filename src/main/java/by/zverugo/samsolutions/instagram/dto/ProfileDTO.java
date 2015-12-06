@@ -8,6 +8,8 @@ public class ProfileDTO {
     private String surname;
     private String secondName;
     private String country;
+    private String countryID;
+    private CountryDTO countryDTO;
     private String city;
     private String sex;
     private String birthday;
@@ -101,5 +103,21 @@ public class ProfileDTO {
 
     public void setPicture(MultipartFile picture) {
         this.picture = picture;
+    }
+
+    public CountryDTO getCountryDTO() {
+        return countryDTO;
+    }
+
+    public void setCountryDTO(CountryDTO countryDTO) {
+        this.countryDTO = countryDTO;
+    }
+
+    public String getCountryID() {
+        return countryID;
+    }
+
+    public void setCountryID(String countryID) {
+        this.countryID = countryID;
     }
 }

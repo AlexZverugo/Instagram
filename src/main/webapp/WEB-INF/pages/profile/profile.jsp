@@ -17,7 +17,7 @@
     <script src="<c:url value="/resources/bootstrap/datepicher/locales/bootstrap-datepicker.${datepickerLocale}.min.js"/>"></script>
 </head>
 <body class="bg-common">
-<toolkit:langnav/>
+<toolkit:defaultnav/>
 <c:if test="${isEditable}">
     <input id="editButton" type="button" class="user-btn-size btn btn-primary user-btn-fixed profile-edit-btn-position"
            data-toggle="modal" data-target="#profileModal"
@@ -29,6 +29,7 @@
            value="<spring:message code="profile.button.userpage"/>">
 </a>
 
+<br><br><br>
 <div class="container profile-layer" align="center">
     <c:choose>
         <c:when test="${not empty profile.avatar}">
@@ -126,12 +127,6 @@
         </c:if>
     </div>
     <hr>
-    <c:if test="${not isValid}">
-        <script>
-            $('#editButton').click();
-        </script>
-    </c:if>
-
     <div id="profileModal" class="modal" role="dialog">
         <div class="modal-dialog modal-lg">
 
@@ -142,7 +137,7 @@
                 </div>
                 <div class="modal-body">
                     <c:url value="/profile/updateProfile" var="updateProfileUrl"/>
-                    <form:form action="${updateProfileUrl}" method="post" commandName="profile"
+                    <form:form action="${updateProfileUrl}" method="post" commandName="editedProfile"
                                id="profileSubmit" enctype="multipart/form-data">
                         <form:hidden path="id"/>
                         <form:hidden path="user"/>
@@ -158,35 +153,35 @@
                         </div>
                         <br><br>
 
+                        <form:errors path="firstName" cssClass="error" cssStyle="color:red"/>
                         <div class="row">
-                            <form:errors path="firstName" cssClass="error" cssStyle="color:red"/>
                             <spring:message code="profile.label.firstname" var="firstnamePlaceholder"/>
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                     ${firstnamePlaceholder}:
                                 </span>
-                            <form:input class="col-sm-4" type="text" value="${profile.firstName}"
+                            <form:input class="col-sm-4" type="text" value="${profile.firstName}" maxlength="35"
                                         placeholder="${firstnamePlaceholder}" path="firstName"/>
                         </div>
                         <br>
 
+                        <form:errors path="surname" cssClass="error" cssStyle="color:red"/>
                         <div class="row">
-                            <form:errors path="surname" cssClass="error" cssStyle="color:red"/>
                             <spring:message code="profile.label.surname" var="surnamePlaceholder"/>
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                    ${surnamePlaceholder}:
                                 </span>
-                            <form:input class="col-sm-4" type="text" value="${profile.surname}"
+                            <form:input class="col-sm-4" type="text" value="${profile.surname}" maxlength="35"
                                         placeholder="${surnamePlaceholder}" path="surname"/><br>
                         </div>
                         <br>
 
+                        <form:errors path="secondName" cssClass="error" cssStyle="color:red"/>
                         <div class="row">
-                            <form:errors path="secondName" cssClass="error" cssStyle="color:red"/>
                             <spring:message code="profile.label.secondname" var="secondnamePlaceholder"/>
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                     ${secondnamePlaceholder}:
                                 </span>
-                            <form:input class="col-sm-4" type="text" value="${profile.secondName}"
+                            <form:input class="col-sm-4" type="text" value="${profile.secondName}" maxlength="35"
                                         placeholder="${secondnamePlaceholder}" path="secondName"/><br>
                         </div>
                         <br>
@@ -196,18 +191,21 @@
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                    ${countryPlaceholder}:
                                 </span>
-                            <form:input class="col-sm-4" type="text"
-                                        placeholder="${countryPlaceholder}" value="${profile.country}"
-                                        path="country"/><br>
+                            <spring:message code="profile.checkbox.nullcountryvalue" var="nullCountryValue"/>
+                            <form:select path="countryID" class="col-sm-4" itemValue="${editedProfile.countryID}">
+                                <form:option value="0" label="${nullCountryValue}"/>
+                                <form:options items="${countryList}" />
+                            </form:select>
                         </div>
                         <br>
 
+                        <form:errors path="city" cssClass="error" cssStyle="color:red"/>
                         <div class="row">
                             <spring:message code="profile.label.city" var="cityPlaceholder"/>
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                     ${cityPlaceholder}:
                                 </span>
-                            <form:input class="col-sm-4" type="text" path="city"
+                            <form:input class="col-sm-4" type="text" path="city" maxlength="35"
                                         placeholder="${cityPlaceholder}" value="${profile.city}"/><br>
                         </div>
                         <br>
@@ -259,6 +257,11 @@
         </div>
     </div>
 
+    <c:if test="${isNotValid}">
+        <script>
+            $('#profileModal').modal('show');
+        </script>
+    </c:if>
 
     <%--avatar popup--%>
     <div id="profileAvatarModal" class="modal" role="dialog">

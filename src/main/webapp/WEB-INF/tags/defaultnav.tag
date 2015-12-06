@@ -5,8 +5,8 @@
 <nav class="navbar navbar-default bg-nav navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <c:url value="/admin" var="adminPageUrl"/>
-            <a class="navbar-brand" href="${adminPageUrl}"><span class="nav-comp">Instagram</span></a>
+            <c:url value="/" var="pageUrl"/>
+            <a class="navbar-brand" href="${pageUrl}"><span class="nav-comp">Instagram</span></a>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">

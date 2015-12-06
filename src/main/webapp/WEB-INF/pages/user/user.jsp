@@ -117,10 +117,10 @@
                 </div>
             </div>
         </c:forEach>
-        <div class="user-post-br" align="center">
-            <spring:message code="user.post.popup.head" var="showMore"/>
-            <input type="button" class="btn btn-primary" style="width: 39%" id="showMore" value="Show more"/>
-        </div>
+        <%--<div class="user-post-br" align="center">--%>
+            <%--<spring:message code="user.post.popup.head" var="showMore"/>--%>
+            <%--<input type="button" class="btn btn-primary" style="width: 39%" id="showMore" value="Show more"/>--%>
+        <%--</div>--%>
     </div>
 
     <div id="myModal" class="modal" role="dialog">

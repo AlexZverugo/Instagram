@@ -14,7 +14,7 @@
     <script src="<c:url value="/resources/js/admin.js"/>"></script>
 </head>
 <body class="bg-common">
-<toolkit:adminnav/>
+<toolkit:defaultnav/>
 <div class="container" align="center">
     <br><br>
     <br><br>

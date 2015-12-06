@@ -28,9 +28,6 @@ public class Profile {
     @Column(name = "secondname")
     private String secondName;
 
-    @Column(name = "country")
-    private String country;
-
     @Column(name = "city")
     private String city;
 
@@ -46,6 +43,10 @@ public class Profile {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
+    private Country country;
 
     public Long getId() {
         return id;
@@ -77,14 +78,6 @@ public class Profile {
 
     public void setSecondName(String secondName) {
         this.secondName = secondName;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getCity() {
@@ -125,5 +118,13 @@ public class Profile {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 }

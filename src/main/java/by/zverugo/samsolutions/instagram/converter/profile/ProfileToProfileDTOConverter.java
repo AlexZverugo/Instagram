@@ -1,5 +1,6 @@
 package by.zverugo.samsolutions.instagram.converter.profile;
 
+import by.zverugo.samsolutions.instagram.dto.CountryDTO;
 import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
 import by.zverugo.samsolutions.instagram.entity.Profile;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
@@ -25,7 +26,9 @@ public class ProfileToProfileDTOConverter implements Converter<Profile, ProfileD
         profileDTO.setFirstName(profile.getFirstName());
         profileDTO.setSurname(profile.getSurname());
         profileDTO.setSecondName(profile.getSecondName());
-        profileDTO.setCountry(profile.getCountry());
+
+        convertCountry(profileDTO, profile);
+
         profileDTO.setCity(profile.getCity());
         profileDTO.setSex(profile.getSex());
         profileDTO.setAvatar(profile.getAvatar());
@@ -49,6 +52,18 @@ public class ProfileToProfileDTOConverter implements Converter<Profile, ProfileD
             SimpleDateFormat viewDateFormat = new SimpleDateFormat(InstagramConstants.VIEW_BIRTHDAY_DATE_FORMAT);
             String viewDate = viewDateFormat.format(profile.getBirthday());
             profileDTO.setBirthday(viewDate);
+        }
+    }
+
+    private void convertCountry(ProfileDTO profileDTO, Profile profile) {
+        if (profile.getCountry() == null) {
+            profileDTO.setCountry(null);
+        } else {
+            CountryDTO countryDTO = new CountryDTO();
+            countryDTO.setCountryRu(profile.getCountry().getCountryRu());
+            countryDTO.setCountryEn(profile.getCountry().getCountryEn());
+            countryDTO.setCountryId(profile.getCountry().getCountryId());
+            profileDTO.setCountryDTO(countryDTO);
         }
     }
 }

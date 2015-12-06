@@ -9,7 +9,10 @@
 7. пустой пост, коммент +
 
 9. UTC +
-
+10. org.apache.jasper.JasperException: Unable to compile class for JSP
+	org.apache.jasper.JspCompilationContext.compile
+java.io.IOException: tmpFile.renameTo(classFile) failed
+	at org.apache.jasper.compiler.SmapUtil$SDEInstaller.install(SmapUtil.java:205)	
 
 8. лайки !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -22,8 +25,7 @@
 7)олег просил сделать справочник стран. создай енам на стран 20-30 и соответсвенно в коде. (как роль админа или лайк)
 8)поиск: сделай поиск не только по логину, по имени и фамилии тоже. просто додаь OR в dao
 9)на странице ошибки не работает переключение языка. надо бы еще посомтреть
-10) http://localhost:8080/profile/user=8 несущ. юзер вылетает ошибка
-11) Нет возможности просмотреть исходный код страницы (без интернета)
-12) Локализация для названия страниц +
-13) Записать логи в файл
-14) 
+10) http://localhost:8080/profile/user=8 несущ. юзер вылетает ошибка +
+11) Локализация для названия страниц +
+12) Записать логи в файл
+13) 
