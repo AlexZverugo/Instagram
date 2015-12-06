@@ -6,7 +6,8 @@
 
 <html>
 <head>
-    <toolkit:header title="Instagram admin page"/>
+    <spring:message code="pages.title.admin" var="title"/>
+    <toolkit:header title="${title}"/>
     <script type="text/javascript">
         var contextPath='${pageContext.request.contextPath}';
     </script>

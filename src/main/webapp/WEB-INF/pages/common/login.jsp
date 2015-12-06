@@ -5,7 +5,8 @@
 
 <html>
 <head>
-    <toolkit:header title="Instagram login page"/>
+    <spring:message code="pages.title.login" var="title"/>
+    <toolkit:header title="${title}"/>
 </head>
 <body class="bg-common">
 <toolkit:langnav/>

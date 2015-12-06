@@ -5,7 +5,8 @@
 <%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <toolkit:header title="Post adder page"/>
+    <spring:message code="pages.title.post" var="title"/>
+    <toolkit:header title="${title}"/>
 </head>
 <body class="bg-common">
 <toolkit:langnav/>

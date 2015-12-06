@@ -1,5 +1,9 @@
 $(document).ready(function () {
+    var locale = $('#datepickerBirthday').attr("locale");
+
     $('#birthdayDatepicker').datepicker({
-        language: 'ru'
+        language: locale,
+        format: 'dd.mm.yyyy',
+        orientation: 'bottom'
     });
 });

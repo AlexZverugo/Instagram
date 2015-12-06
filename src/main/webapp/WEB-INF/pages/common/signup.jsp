@@ -5,7 +5,8 @@
 <%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags" %>
 <html lang="en">
 <head>
-    <toolkit:header title="Instagram registration page"/>
+    <spring:message code="pages.title.signup" var="title"/>
+    <toolkit:header title="${title}"/>
 </head>
 <body class="bg-common">
 <toolkit:langnav/>

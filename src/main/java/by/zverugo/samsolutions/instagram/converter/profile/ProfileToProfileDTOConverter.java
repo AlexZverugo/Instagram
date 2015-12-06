@@ -48,7 +48,7 @@ public class ProfileToProfileDTOConverter implements Converter<Profile, ProfileD
             profileDTO.setBirthday(date);
             SimpleDateFormat viewDateFormat = new SimpleDateFormat(InstagramConstants.VIEW_BIRTHDAY_DATE_FORMAT);
             String viewDate = viewDateFormat.format(profile.getBirthday());
-            profileDTO.setViewBirthday(viewDate);
+            profileDTO.setBirthday(viewDate);
         }
     }
 }

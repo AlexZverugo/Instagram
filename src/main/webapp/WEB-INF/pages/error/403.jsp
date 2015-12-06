@@ -3,7 +3,8 @@
 <%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <toolkit:header title="403 access denied"/>
+    <spring:message code="pages.title.403" var="title"/>
+    <toolkit:header title="${title}"/>
 </head>
 <body class="bg-common">
 <toolkit:langnav/>

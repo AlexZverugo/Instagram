@@ -4,7 +4,8 @@
 <%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <toolkit:header title="Instagram"/>
+    <spring:message code="pages.title.welcome" var="title"/>
+    <toolkit:header title="${title}"/>
     <link href="<c:url value="/resources/css/welcome.css"/>" type="text/css" rel="stylesheet">
 </head>
 <body class="welcome-bg">

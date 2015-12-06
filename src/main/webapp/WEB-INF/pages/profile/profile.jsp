@@ -7,13 +7,14 @@
 
 <html>
 <head>
-    <toolkit:header title="User profile page"/>
+    <spring:message code="pages.title.profile" var="title"/>
+    <toolkit:header title="${title}"/>
     <link href="<c:url value="/resources/bootstrap/datepicher/css/bootstrap-datepicker.min.css"/>"
           type="text/css" rel="stylesheet">
     <script src="<c:url value="/resources/bootstrap/datepicher/js/bootstrap-datepicker.min.js"/>"></script>
     <script src="<c:url value="/resources/js/profile.js"/>"></script>
-    <script src="<c:url value="/resources/js/profile.js"/>"></script>
-
+    <spring:message code="profile.datepicker.locale" var="datepickerLocale"/>
+    <script src="<c:url value="/resources/bootstrap/datepicher/locales/bootstrap-datepicker.${datepickerLocale}.min.js"/>"></script>
 </head>
 <body class="bg-common">
 <toolkit:langnav/>
@@ -101,7 +102,7 @@
                 <b><spring:message code="profile.label.birthday"/>:</b>
             </h3>
 
-            <h3 class="col-sm-6 profile-text" align="left">${profile.viewBirthday}</h3>
+            <h3 class="col-sm-6 profile-text" align="left">${profile.birthday}</h3>
         </c:if>
     </div>
 
@@ -159,7 +160,7 @@
 
                         <div class="row">
                             <form:errors path="firstName" cssClass="error" cssStyle="color:red"/>
-                                <spring:message code="profile.label.firstname" var="firstnamePlaceholder"/>
+                            <spring:message code="profile.label.firstname" var="firstnamePlaceholder"/>
                                 <span class="col-sm-offset-2 col-sm-2" align="right">
                                     ${firstnamePlaceholder}:
                                 </span>
@@ -196,7 +197,8 @@
                                    ${countryPlaceholder}:
                                 </span>
                             <form:input class="col-sm-4" type="text"
-                                        placeholder="${countryPlaceholder}" value="${profile.country}" path="country"/><br>
+                                        placeholder="${countryPlaceholder}" value="${profile.country}"
+                                        path="country"/><br>
                         </div>
                         <br>
 
@@ -223,25 +225,24 @@
                         </div>
                         <br>
 
-                        <%--<div class="row">--%>
-                                <div class="row">
+                        <spring:message code="profile.placeholder.dateformat" var="dateFormat"/>
+                        <div class="row">
                                     <span class="col-sm-offset-2 col-sm-2" align="right">
-                                    <spring:message code="profile.label.birthday"/>:
+                                        <spring:message code="profile.label.birthday"/>:
                                     </span>
-                                    <div class='col-sm-3'>
-                                        <div class="form-group">
-                                            <div class='input-group date' id='birthdayDatepicker'>
-                                                <form:input path="viewBirthday" type='text' class="form-control" style="cursor: default" disabled="true"
-                                                       placeholder="dd/mm/yyyy" value="${profile.birthday}"/>
+                            <div class='col-sm-3'>
+                                <div class="form-group">
+                                    <div class='input-group date' id='birthdayDatepicker'>
+                                        <form:input path="birthday" id="datepickerBirthday" class="form-control"
+                                                    style="cursor: default" locale="${datepickerLocale}"
+                                                    placeholder="${dateFormat}" value="${profile.birthday}"/>
                                                     <span class="input-group-addon cursor-pointer">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
-                            <%--<form:input path="birthday" type="date" class="col-sm-4" value="${profile.birthday}"/>--%>
-                        <%--</div>--%>
+                            </div>
+                        </div>
                         <br>
 
                         <p>
@@ -257,7 +258,6 @@
             </div>
         </div>
     </div>
-
 
 
     <%--avatar popup--%>

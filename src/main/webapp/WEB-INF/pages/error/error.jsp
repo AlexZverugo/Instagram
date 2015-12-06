@@ -4,7 +4,8 @@
 <%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <toolkit:header title="Error page"/>
+    <spring:message code="pages.title.error" var="title"/>
+    <toolkit:header title="${title}"/>
 </head>
 <body class="bg-common">
 <toolkit:langnav/>

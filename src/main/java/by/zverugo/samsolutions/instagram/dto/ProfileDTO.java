@@ -2,8 +2,6 @@ package by.zverugo.samsolutions.instagram.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Date;
-
 public class ProfileDTO {
     private Long id;
     private String firstName;
@@ -13,7 +11,6 @@ public class ProfileDTO {
     private String city;
     private String sex;
     private String birthday;
-    private String viewBirthday;
     private MultipartFile picture;
     private byte[] avatar;
     private Long user;
@@ -76,14 +73,6 @@ public class ProfileDTO {
 
     public String getBirthday() {
         return birthday;
-    }
-
-    public String getViewBirthday() {
-        return viewBirthday;
-    }
-
-    public void setViewBirthday(String viewBirthday) {
-        this.viewBirthday = viewBirthday;
     }
 
     public void setBirthday(String birthday) {

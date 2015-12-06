@@ -4,7 +4,8 @@
 
 <html>
 <head>
-    <toolkit:header title="Not Found 404"/>
+    <spring:message code="pages.title.404" var="title"/>
+    <toolkit:header title="${title}"/>
 </head>
 <body class="bg-common">
 <toolkit:langnav/>
