@@ -16,7 +16,7 @@ import java.sql.Date;
 import java.util.Locale;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:config/application-context.xml"})
+@ContextConfiguration(locations = {"classpath:config/application-context.xml", "classpath:h2-config.xml"})
 @Transactional
 public class ProfileTest {
     private final Logger LOGGER = Logger.getLogger(getClass());
@@ -43,6 +43,14 @@ public class ProfileTest {
                 InstagramConstants.LOGGER_LOCALE));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFailSaveProfile() {
+        LOGGER.info(messageSource.getMessage("test.profile.saveFail", null,
+                InstagramConstants.LOGGER_LOCALE));
+
+        profileDao.saveProfile(null);
+    }
+
     @Test
     public void testSaveProfile() {
         profileDao.saveProfile(profile);
@@ -50,16 +58,6 @@ public class ProfileTest {
         Assert.assertNotNull(storedProfile);
 
         LOGGER.info(messageSource.getMessage("test.profile.save", new Object[]{profile, profile.getId()},
-                InstagramConstants.LOGGER_LOCALE));
-    }
-
-    @Test
-    public void testGetProfile() {
-        profileDao.saveProfile(profile);
-        profile = profileDao.getProfile(profile.getId());
-        Assert.assertNotNull(profile);
-
-        LOGGER.info(messageSource.getMessage("test.profile.get", new Object[]{profile},
                 InstagramConstants.LOGGER_LOCALE));
     }
 

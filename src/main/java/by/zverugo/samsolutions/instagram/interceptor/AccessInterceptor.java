@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class AccessInterceptor extends HandlerInterceptorAdapter {
-    //TODO deleting id checker
     private final Logger LOGGER = Logger.getLogger(getClass());
 
     @Override
@@ -23,10 +22,10 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         GrantedAuthority roleAuthority = (GrantedAuthority) authentication.getAuthorities().toArray()[0];
         if (UserRoleEnum.ADMIN.getRole().equals(roleAuthority.getAuthority())) {
-            httpServletResponse.sendRedirect("/admin");
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/admin");
             return false;
         } else if (UserRoleEnum.USER.getRole().equals(roleAuthority.getAuthority())) {
-            httpServletResponse.sendRedirect("/users/user");
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/users/user");
             return false;
         }
 

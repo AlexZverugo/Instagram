@@ -85,52 +85,28 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     @Transactional
-    public PostDTO saveOrDeleteRating(PostDTO postDTO, RatingDTO ratingDTO) {
+    public synchronized PostDTO saveOrDeleteRating(PostDTO postDTO, RatingDTO ratingDTO) {
         Rating returnedRating = ratingDao.getRatingBySenderAndPostId(ratingDTO.getSender(), ratingDTO.getPost());
         if (returnedRating == null) {
             ratingDao.saveRating(conversionService.convert(ratingDTO,Rating.class));
-            increaseRating(postDTO, ratingDTO);
+            setPostRatings(postDTO);
         } else if (returnedRating.getType().equals(ratingDTO.getType().getType())){
-            reduceRating(postDTO, ratingDTO);
             ratingDao.deleteRating(returnedRating.getRatingId());
+            setPostRatings(postDTO);
+
         } else {
-            changeRating(postDTO, ratingDTO);
             returnedRating.setType(ratingDTO.getType().getType());
             ratingDao.updateRating(returnedRating);
+            setPostRatings(postDTO);
         }
 
         return postDTO;
     }
 
-    private void increaseRating(PostDTO postDTO, RatingDTO ratingDTO) {
-        int like = postDTO.getLike();
-        int dislike = postDTO.getDislike();
-        if (ratingDTO.getType().getType().equals(RatingTypeEnum.LIKE.getType())) {
-            postDTO.setLike(++like);
-        } else {
-            postDTO.setDislike(++dislike);
-        }
-    }
-
-    private void reduceRating(PostDTO postDTO, RatingDTO ratingDTO) {
-        int like = postDTO.getLike();
-        int dislike = postDTO.getDislike();
-        if (ratingDTO.getType().getType().equals(RatingTypeEnum.LIKE.getType())) {
-            postDTO.setLike(--like);
-        } else {
-            postDTO.setDislike(--dislike);
-        }
-    }
-
-    private void changeRating(PostDTO postDTO, RatingDTO ratingDTO) {
-        int like = postDTO.getLike();
-        int dislike = postDTO.getDislike();
-        if (ratingDTO.getType().getType().equals(RatingTypeEnum.LIKE.getType())) {
-            postDTO.setLike(++like);
-            postDTO.setDislike(--dislike);
-        } else {
-            postDTO.setDislike(++dislike);
-            postDTO.setLike(--like);
-        }
+    @Override
+    @Transactional(readOnly = true)
+    public void setPostRatings(PostDTO postDTO) {
+        postDTO.setLike(ratingDao.getRatingCount(postDTO.getId(),RatingTypeEnum.LIKE.getType()));
+        postDTO.setDislike(ratingDao.getRatingCount(postDTO.getId(),RatingTypeEnum.DISLIKE.getType()));
     }
 }

@@ -53,6 +53,7 @@ public class RegistrationController {
         userDTO.setRole(UserRoleEnum.USER);
         String password = userDTO.getPassword();
         userDTO.setPassword(passwordEncoder.encode(password));
+        userDTO.setEnable(true);
         long userId = userService.saveUser(userDTO);
         ProfileDTO profile = new ProfileDTO();
         profile.setUser(userId);

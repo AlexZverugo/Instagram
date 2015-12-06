@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:config/application-context.xml"})
+@ContextConfiguration(locations = {"classpath:config/application-context.xml", "classpath:h2-config.xml"})
 @Transactional
 public class PostTest {
     private final Logger LOGGER = Logger.getLogger(getClass());
@@ -29,11 +29,19 @@ public class PostTest {
     public void init() {
         post = new Post();
         post.setImageBytes(null);
-        post.setDislike(10);
-        post.setLike(15);
+        post.setDislike(10L);
+        post.setLike(15L);
         post.setPostContent("Hello world!");
 
         LOGGER.info(messageSource.getMessage("test.post.init", new Object[]{post}, InstagramConstants.LOGGER_LOCALE));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFailSavePost() {
+        LOGGER.info(messageSource.getMessage("test.post.saveFail", null,
+                InstagramConstants.LOGGER_LOCALE));
+
+        postDao.savePost(null);
     }
 
     @Test
@@ -44,15 +52,6 @@ public class PostTest {
 
         LOGGER.info(messageSource.getMessage("test.post.save", new Object[]{post, storedPost},
                 InstagramConstants.LOGGER_LOCALE));
-    }
-
-    @Test
-    public void testGetPost() {
-        postDao.savePost(post);
-        Post storedPost = postDao.getPost(post.getPostId());
-        Assert.assertNotNull(storedPost);
-
-        LOGGER.info(messageSource.getMessage("test.post.get", new Object[]{storedPost}, InstagramConstants.LOGGER_LOCALE));
     }
 
     @Test

@@ -30,10 +30,10 @@ public class Post {
     private byte[] imageBytes;
 
     @Column(name = "likes")
-    private Integer like;
+    private Long like;
 
     @Column(name = "dislikes")
-    private Integer dislike;
+    private Long dislike;
 
     @Column(name = "post_send_date")
     private Timestamp dateDispatch;
@@ -100,19 +100,19 @@ public class Post {
         this.postContent = postContent;
     }
 
-    public Integer getLike() {
+    public Long getLike() {
         return like;
     }
 
-    public void setLike(Integer like) {
+    public void setLike(Long like) {
         this.like = like;
     }
 
-    public Integer getDislike() {
+    public Long getDislike() {
         return dislike;
     }
 
-    public void setDislike(Integer dislike) {
+    public void setDislike(Long dislike) {
         this.dislike = dislike;
     }
 

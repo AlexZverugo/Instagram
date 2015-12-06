@@ -14,10 +14,10 @@ public class PostDTO {
     private byte[] imageByte;
 
     @JsonView(Views.Rating.class)
-    private Integer like;
+    private Long like;
 
     @JsonView(Views.Rating.class)
-    private Integer dislike;
+    private Long dislike;
     private String senderName;
     private String dateDispatch;
     private byte[] senderAvatar;
@@ -41,11 +41,19 @@ public class PostDTO {
         this.imageByte = imageByte;
     }
 
-    public Integer getDislike() {
+    public void setLike(Long like) {
+        this.like = like;
+    }
+
+    public Long getLike() {
+        return like;
+    }
+
+    public Long getDislike() {
         return dislike;
     }
 
-    public void setDislike(Integer dislike) {
+    public void setDislike(Long dislike) {
         this.dislike = dislike;
     }
 
@@ -79,14 +87,6 @@ public class PostDTO {
 
     public void setPostContent(String postContent) {
         this.postContent = postContent;
-    }
-
-    public Integer getLike() {
-        return like;
-    }
-
-    public void setLike(Integer like) {
-        this.like = like;
     }
 
     public String getDateDispatch() {

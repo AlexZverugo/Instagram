@@ -21,7 +21,7 @@
 
         <access-denied-handler error-page="/403page"/>
         <form-login
-                always-use-default-target="true"
+                always-use-default-target="false"
                 login-page="/login"
                 default-target-url="/users/user"
                 authentication-failure-url="/login?fail"

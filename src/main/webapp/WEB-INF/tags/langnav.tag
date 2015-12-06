@@ -4,7 +4,8 @@
 <nav class="navbar navbar-default bg-nav">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/"><span class="nav-comp">Instagram</span></a>
+            <c:url value="/" var="defaultPageUrl"/>
+            <a class="navbar-brand" href="${defaultPageUrl}"><span class="nav-comp">Instagram</span></a>
         </div>
         <ul class="nav navbar-nav">
             <li class="dropdown">

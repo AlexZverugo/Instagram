@@ -43,7 +43,8 @@ public class ProfileDaoImpl implements ProfileDao {
 
     @Override
     public void updateProfile(Profile profile) {
-        sessionFactory.getCurrentSession().update(profile);
+        Profile mergedProfile = (Profile) sessionFactory.getCurrentSession().merge(profile);
+        sessionFactory.getCurrentSession().update(mergedProfile);
         LOGGER.info(messageSource.getMessage("dao.profile.update", new Object[]{profile}, InstagramConstants.LOGGER_LOCALE));
     }
 

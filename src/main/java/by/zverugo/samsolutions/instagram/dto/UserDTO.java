@@ -14,6 +14,7 @@ public class UserDTO {
     private String repeatedPassword;
     private String email;
     private UserRoleEnum role;
+    private boolean enable;
 
     public String getRepeatedPassword() {
         return repeatedPassword;
@@ -61,5 +62,13 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 }

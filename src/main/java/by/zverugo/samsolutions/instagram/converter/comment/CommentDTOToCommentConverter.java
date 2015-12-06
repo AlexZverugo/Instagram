@@ -23,7 +23,7 @@ public class CommentDTOToCommentConverter implements Converter<CommentDTO, Comme
     public Comment convert(CommentDTO commentDTO) {
         Comment comment = new Comment();
         comment.setCommentId(commentDTO.getId());
-        comment.setCommentContent(commentDTO.getCommentContent());
+        comment.setCommentContent(commentDTO.getCommentContent().trim());
 
         Post post = new Post();
         post.setPostId(commentDTO.getPost());

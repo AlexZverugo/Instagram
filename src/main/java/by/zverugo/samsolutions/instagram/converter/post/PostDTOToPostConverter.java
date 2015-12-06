@@ -11,7 +11,10 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Component
 public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
@@ -27,7 +30,7 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
         post.setPostId(postDTO.getId());
         post.setDislike(postDTO.getDislike());
         post.setLike(postDTO.getLike());
-        post.setPostContent(postDTO.getPostContent());
+        post.setPostContent(postDTO.getPostContent().trim());
 
         convertStringToTimestamp(post);
         convertPostImage(postDTO, post);
@@ -54,10 +57,8 @@ public class PostDTOToPostConverter implements Converter<PostDTO, Post> {
     }
 
     private void convertStringToTimestamp(Post post) {
-        //TODO normal timezone
-        int timezone = 21600000;
         Date date = new Date();
-        post.setDateDispatch(new Timestamp(date.getTime() + timezone));
+        post.setDateDispatch(new Timestamp(date.getTime()));
     }
 
 }

@@ -19,4 +19,5 @@ public interface UserService {
     void setCommentSendersNames(List<CommentDTO> comments);
     void setPostSendersUsernames(List<PostDTO> posts);
     List<UserDTO> findByPattern(String pattern);
+    UserDTO changeEnableField(long id);
 }

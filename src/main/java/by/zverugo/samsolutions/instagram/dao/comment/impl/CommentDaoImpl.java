@@ -44,7 +44,8 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public void updateComment(Comment comment) {
-        sessionFactory.getCurrentSession().update(comment);
+        Comment mergedComment = (Comment) sessionFactory.getCurrentSession().merge(comment);
+        sessionFactory.getCurrentSession().update(mergedComment);
         LOGGER.info(messageSource.getMessage("dao.comment.update", new Object[]{comment},
                 InstagramConstants.LOGGER_LOCALE));
     }

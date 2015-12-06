@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:config/application-context.xml"})
+@ContextConfiguration(locations = {"classpath:config/application-context.xml", "classpath:h2-config.xml"})
 @Transactional
 public class RatingTest {
     private final Logger LOGGER = Logger.getLogger(getClass());
@@ -34,8 +34,16 @@ public class RatingTest {
         LOGGER.info(messageSource.getMessage("test.rating.init", new Object[]{rating}, InstagramConstants.LOGGER_LOCALE));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testFailSaveRating() {
+        LOGGER.info(messageSource.getMessage("test.rating.saveFail", null,
+                InstagramConstants.LOGGER_LOCALE));
+
+        ratingDao.saveRating(null);
+    }
+
     @Test
-    public void testSaveProfile() {
+    public void testSaveRating() {
         ratingDao.saveRating(rating);
         Rating temp = ratingDao.getRating(rating.getRatingId());
         Assert.assertNotNull(temp);
@@ -45,17 +53,7 @@ public class RatingTest {
     }
 
     @Test
-    public void testGetProfile() {
-        ratingDao.saveRating(rating);
-        Rating temp = ratingDao.getRating(rating.getRatingId());
-        Assert.assertNotNull(temp);
-
-        LOGGER.info(messageSource.getMessage("test.rating.get.success", new Object[]{rating.getRatingId(), temp},
-                InstagramConstants.LOGGER_LOCALE));
-    }
-
-    @Test
-    public void testUpdateProfile() {
+    public void testUpdateRating() {
         ratingDao.saveRating(rating);
         rating.setType(RatingTypeEnum.DISLIKE.getType());
         ratingDao.updateRating(rating);
@@ -66,7 +64,7 @@ public class RatingTest {
     }
 
     @Test
-    public void testDeleteProfile() {
+    public void testDeleteRating() {
         ratingDao.saveRating(rating);
         ratingDao.deleteRating(rating.getRatingId());
         Rating deletedRating = ratingDao.getRating(rating.getRatingId());

@@ -9,6 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 
 @Component
@@ -43,6 +44,7 @@ public class PostToPostDTOConverter implements Converter<Post, PostDTO> {
 
     private void convertTimestampToString(Post post, PostDTO postDTO) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(InstagramConstants.DATE_FORMAT);
+        dateFormat.setTimeZone(TimeZone.getTimeZone(InstagramConstants.TIME_ZONE));
         String date = dateFormat.format(post.getDateDispatch());
         postDTO.setDateDispatch(date);
     }

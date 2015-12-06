@@ -6,12 +6,12 @@
 <html>
 <head>
     <toolkit:header title="Post adder page"/>
-    <script src="<c:url value="/resources/js/post.js"/>"></script>
 </head>
 <body class="bg-common">
 <toolkit:langnav/>
 <div class="container" align="center">
-    <form:form action="/post/addPost" method="post" commandName="postForm" id="postSubmit"
+    <c:url value="/post/addPost" var="addPostUrl"/>
+    <form:form action="${addPostUrl}" method="post" commandName="postForm" id="postSubmit"
                enctype="multipart/form-data">
         <form:hidden path="owner"/>
         <div class="form-group">
@@ -19,7 +19,9 @@
                     code="post.label.inputpost"/>:</span></label>
 
             <div class="post-textarea-border">
-                <form:textarea path="postContent" class="form-control" rows="5" id="comment"/>
+                <spring:message code="post.placeholder.sendpost" var="taPlaceholder"/>
+                <form:textarea path="postContent" class="form-control" rows="5" id="comment"
+                               placeholder="${taPlaceholder}" autofocus="autofocus"/>
             </div>
         </div>
         <span class="btn btn-primary btn-file">

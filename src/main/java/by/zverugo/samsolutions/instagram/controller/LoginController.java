@@ -14,11 +14,8 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String loginPage(@RequestParam(required = false) String fail, Model model) {
-        //TODO enable/disable
-        String message;
         if (fail != null) {
-            message = "Invalid login or password";
-            model.addAttribute("message", message);
+            model.addAttribute("message", true);
         }
         return "common/login";
     }

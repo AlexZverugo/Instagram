@@ -1,11 +1,13 @@
 package by.zverugo.samsolutions.instagram.service;
 
 import by.zverugo.samsolutions.instagram.dao.user.UserDao;
+import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,6 +38,9 @@ public class AuthorizationService implements UserDetailsService {
     private UserDao userDAO;
 
     @Autowired
+    private ConversionService conversionService;
+
+    @Autowired
     @Qualifier("authenticationManager")
     private AuthenticationManager authenticationManager;
 
@@ -51,7 +56,7 @@ public class AuthorizationService implements UserDetailsService {
             return new User(username,"password", authorities);
         }
 
-        boolean enabled = true;
+        boolean enabled = user.isEnable();
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
@@ -84,6 +89,13 @@ public class AuthorizationService implements UserDetailsService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         LOGGER.info(messageSource.getMessage("service.authorizationService.login",
                 new Object[]{username}, InstagramConstants.LOGGER_LOCALE));
+    }
+
+    public UserDTO getAuthUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDTO userDTO = conversionService.convert(userDAO.getUserByName(authentication.getName()),UserDTO.class);
+
+        return userDTO;
     }
 
 }

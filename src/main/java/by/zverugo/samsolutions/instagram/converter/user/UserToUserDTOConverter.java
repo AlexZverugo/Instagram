@@ -28,6 +28,7 @@ public class UserToUserDTOConverter implements Converter<User, UserDTO> {
         userDTO.setLogin(user.getLogin());
         userDTO.setPassword(user.getPassword());
         userDTO.setEmail(user.getEmail());
+        userDTO.setEnable(user.isEnable());
         if (user.getRole().equals(UserRoleEnum.ADMIN.getRole())) {
             userDTO.setRole(UserRoleEnum.ADMIN);
         } else {

@@ -5,11 +5,14 @@
 <nav class="navbar navbar-default bg-nav navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/"><span class="nav-comp">Instagram</span></a>
+            <c:url value="/users/user" var="ownPageUrl"/>
+            <a class="navbar-brand" href="${ownPageUrl}"><span class="nav-comp">Instagram</span></a>
         </div>
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <select id="navbarSearch" data-placeholder="Search"
+                <spring:message code="navbar.placeholder.search" var="search"/>
+                <spring:message code="select2.i18n.locale" var="locale"/>
+                <select id="navbarSearch" data-placeholder="${search}" locale="${locale}"
                          style="width:300px" onchange="window.location.href=this.value;"></select>
             </div>
         </form>

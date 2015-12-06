@@ -1,10 +1,10 @@
 .bg-common {
-    background: #b9b9b9 url(/resources/photo/melon.jpg) no-repeat fixed;
+    background: #b9b9b9 url(../../resources/photo/melon.jpg) no-repeat fixed;
     background-size: 100% 100%;
 }
 
 .welcome-bg {
-    background: #b9b9b9 url(/resources/photo/background.jpg) no-repeat fixed;
+    background: #b9b9b9 url(../../resources/photo/background.jpg) no-repeat fixed;
     background-size: 100% 100%;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .my-col-sm-10 {
-    width: 200px !important;
+    width: 300px !important;
     left: 47px !important;
 }
 
@@ -113,7 +113,12 @@
     border-radius: 10px;
 }
 
-#signup-main-label {
+.signup-main-label {
+    color: gray;
+}
+
+.signup-label {
+    text-align: left;
     color: gray;
 }
 

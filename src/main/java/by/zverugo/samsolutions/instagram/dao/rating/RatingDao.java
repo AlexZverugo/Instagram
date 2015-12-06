@@ -12,4 +12,5 @@ public interface RatingDao {
      Rating getRating(long id);
      List<Rating> getListOfRatings();
      Rating getRatingBySenderAndPostId(long sender, long postId);
+     long getRatingCount(long postId, String type);
 }

@@ -7,9 +7,13 @@
 <html>
 <head>
     <toolkit:header title="Instagram admin page"/>
+    <script type="text/javascript">
+        var contextPath='${pageContext.request.contextPath}';
+    </script>
+    <script src="<c:url value="/resources/js/admin.js"/>"></script>
 </head>
 <body class="bg-common">
-<toolkit:navbar/>
+<toolkit:adminnav/>
 <div class="container" align="center">
     <br><br>
     <br><br>
@@ -21,19 +25,59 @@
             <th><spring:message code="admin.tablehead.block"/></th>
         </tr>
         <c:forEach var="user" items="${users}">
-            <form:form action="/admin/deleteUser?id=${user.userId}" method="post" class="form-horizontal" role="form">
-                <tr>
-                    <td><c:out value="${user.login}"/></td>
-                    <td><c:out value="${user.email}"/></td>
-                    <td>
-                        <input type="submit" class="btn btn-danger"
-                               value="<spring:message code="admin.button.delete"/>">
-                    </td>
-                </tr>
+            <tr id="userInf${user.userId}">
+                <td><c:out value="${user.login}"/></td>
+                <td><c:out value="${user.email}"/></td>
+                <td>
+                    <input type="button" id="askedPopup${user.userId}" class="btn btn-danger"
+                           data-toggle="modal" data-target="#verification"
+                           value="<spring:message code="admin.button.delete"/>">
+                </td>
+                <td>
+                    <spring:message code="admin.button.ban" var="ban"/>
+                    <spring:message code="admin.button.unban" var="unban"/>
+                    <div id="banLabel" ban="${ban}"></div>
+                    <div id="unbanLabel" unban="${unban}"></div>
 
-            </form:form>
+                    <c:choose>
+                        <c:when test="${user.enable}">
+                            <input style="min-width: 100px" id="banBtn${user.userId}" type="button"
+                                   class="btn btn-success"
+                                   value="${ban}">
+                        </c:when>
+                        <c:otherwise>
+                            <input style="min-width: 100px" id="banBtn${user.userId}" type="button"
+                                   class="btn btn-warning"
+                                   value="${unban}">
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+            </tr>
         </c:forEach>
     </table>
+
+
+    <div id="verification" class="modal" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><spring:message code="admin.popup.label.question"/></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input id="popupDeleteBtn" style="min-width: 100px"
+                               class="btn btn-danger col-lg-offset-1 col-sm-3"
+                               data-dismiss="modal" value="<spring:message code="admin.button.delete"/>">
+                        <input id="popupCancelBtn" style="min-width: 100px"
+                               class="btn btn-default col-lg-offset-2 col-sm-3"
+                               data-dismiss="modal" value="<spring:message code="admin.popup.button.cancel"/>">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

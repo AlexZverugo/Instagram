@@ -4,19 +4,21 @@ import by.zverugo.samsolutions.instagram.hash.PasswordHashEncoder;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
 import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.apache.log4j.Logger;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:config/application-context.xml"})
+@ContextConfiguration(locations = {"classpath:config/application-context.xml", "classpath:h2-config.xml"})
 @Transactional
 public class UserTest {
     private final Logger LOGGER = Logger.getLogger(getClass());
@@ -42,6 +44,14 @@ public class UserTest {
         LOGGER.info(messageSource.getMessage("test.user.init", new Object[]{user}, InstagramConstants.LOGGER_LOCALE));
     }
 
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFailSaveUser() {
+        userDao.saveUser(null);
+
+        LOGGER.info(messageSource.getMessage("test.user.saveFail", null,
+                InstagramConstants.LOGGER_LOCALE));
+    }
 
     @Test
     public void testAddUser() {

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
@@ -26,10 +27,13 @@ public class AdminController {
         return "user/admin";
     }
 
-    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
-    public String deleteUser(@RequestParam(required = true) long id) {
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
+    public @ResponseBody void deleteUser(@RequestParam long id) {
         userService.deleteUser(id);
+    }
 
-        return "redirect:../admin";
+    @RequestMapping(value = "/banUser", method = RequestMethod.GET)
+    public @ResponseBody boolean banUser(@RequestParam long id) {
+        return userService.changeEnableField(id).isEnable();
     }
 }

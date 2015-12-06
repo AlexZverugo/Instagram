@@ -12,4 +12,5 @@ public interface RatingService {
    RatingDTO getRatingById(long id);
    List<RatingDTO> getListOfRatings();
    PostDTO saveOrDeleteRating(PostDTO postDTO,RatingDTO ratingDTO);
+   void setPostRatings(PostDTO postDTO);
 }

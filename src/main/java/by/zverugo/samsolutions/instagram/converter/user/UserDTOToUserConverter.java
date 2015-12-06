@@ -25,6 +25,7 @@ public class UserDTOToUserConverter implements Converter<UserDTO, User> {
         user.setPassword(userDTO.getPassword());
         user.setLogin(userDTO.getLogin());
         user.setRole(userDTO.getRole().getRole());
+        user.setEnable(userDTO.isEnable());
 
         LOGGER.info(messageSource.getMessage("converter.convert",
                 new Object[]{"UserDTO", "User", userDTO, user}, InstagramConstants.LOGGER_LOCALE));

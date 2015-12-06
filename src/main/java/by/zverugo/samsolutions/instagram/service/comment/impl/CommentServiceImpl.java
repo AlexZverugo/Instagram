@@ -5,6 +5,7 @@ import by.zverugo.samsolutions.instagram.dto.CommentDTO;
 import by.zverugo.samsolutions.instagram.entity.Comment;
 import by.zverugo.samsolutions.instagram.service.comment.CommentService;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

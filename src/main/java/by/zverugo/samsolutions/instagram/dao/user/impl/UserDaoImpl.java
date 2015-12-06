@@ -32,7 +32,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(User user) {
-        sessionFactory.getCurrentSession().update(user);
+        User mergedUser = (User) sessionFactory.getCurrentSession().merge(user);
+        sessionFactory.getCurrentSession().update(mergedUser);
         LOGGER.info(messageSource.getMessage("dao.user.update", new Object[]{user}, InstagramConstants.LOGGER_LOCALE));
     }
 

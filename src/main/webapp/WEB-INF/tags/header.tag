@@ -5,11 +5,9 @@
 
 <title>${title}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <script src="<c:url value="/resources/bootstrap/js/jquery.min.js"/>"></script>
 <script src="<c:url value="/resources/bootstrap/js/jquery-ui.min.js"/>"></script>
 <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
-<script src="<c:url value="/resources/js/common.js"/>"></script>
 <script src="<c:url value="/resources/select2/js/select2.js"/>"></script>
 <spring:message code="select2.i18n.locale" var="locale"/>
 <script src="<c:url value="/resources/select2/js/i18n/${locale}.js"/>"></script>

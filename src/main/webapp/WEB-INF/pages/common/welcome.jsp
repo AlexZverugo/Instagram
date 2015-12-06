@@ -9,12 +9,14 @@
 </head>
 <body class="welcome-bg">
 <toolkit:langnav/>
+<c:url value="/login" var="loginUrl"/>
+<c:url value="/registration" var="regUrl"/>
 <div class="container my-container" align="center">
     <div id="welcome-cont">
         <img src="<c:url value="/resources/photo/insta.png"/>"><br><br>
-        <a href="/login" class="btn btn-info btn-lg welcome-btn">
+        <a href="${loginUrl}" class="btn btn-info btn-lg welcome-btn">
             <spring:message code="welcome.label.signin"/></a><br><br>
-        <a href="/registration" class="btn btn-info btn-lg welcome-btn">
+        <a href="${regUrl}" class="btn btn-info btn-lg welcome-btn">
             <spring:message code="welcome.label.signup"/></a><br><br>
     </div>
 </div>

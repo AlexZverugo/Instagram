@@ -44,7 +44,8 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public void updatePost(Post post) {
-        sessionFactory.getCurrentSession().update(post);
+        Post mergedPost = (Post) sessionFactory.getCurrentSession().merge(post);
+        sessionFactory.getCurrentSession().update(mergedPost);
         LOGGER.info(messageSource.getMessage("dao.post.update", new Object[]{post}, InstagramConstants.LOGGER_LOCALE));
     }
 

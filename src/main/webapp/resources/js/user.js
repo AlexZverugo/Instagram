@@ -23,21 +23,25 @@ $(document).ready(function () {
     $('div[id^=likeButton]').click(function () {
         var likeButtonId = $(this)[0].id;
         var id = likeButtonId.substring('likeButton'.length);
-        setLike(id);
+        var url = "/rating/setLike";
+        setRating(id, url);
     });
 
     $('div[id^=dislikeButton]').click(function () {
         var dislikeButtonId = $(this)[0].id;
         var id = dislikeButtonId.substring('dislikeButton'.length);
-        setDislike(id);
+        var url = "/rating/setDislike";
+        setRating(id, url);
     });
+
+    var locale = $('#navbarSearch').attr("locale");
 
     $('#navbarSearch').select2({
         minimumInputLength: 1,
-        language: "ru",
+        language: locale,
         ajax: {
             type: "POST",
-            url: "/users/findUser",
+            url: contextPath + "/users/findUser",
             contentType: 'application/json',
             dataType: 'json',
             delay: 250,
@@ -66,45 +70,22 @@ $(document).ready(function () {
     });
 
     $('[data-toggle="tooltip"]').tooltip();
-
-
 });
 
-function setLike(postId) {
+function setRating(postId, url) {
     var rating = {};
     rating["post"] = postId;
     $.ajax({
         type: "POST",
-        url: "/rating/setLike",
+        url: contextPath + url,
         data: JSON.stringify(rating),
         dataType: 'json',
         contentType: 'application/json',
         mimeType: 'application/json',
 
         success: function (data) {
-            setRatingsCount(data);
-        }
-    });
-}
-
-function setRatingsCount(data) {
-    $('#likeCount' + data.id).html(data.like);
-    $('#dislikeCount' + data.id).html(data.dislike);
-}
-
-function setDislike(postId) {
-    var rating = {};
-    rating["post"] = postId;
-    $.ajax({
-        type: "POST",
-        url: "/rating/setDislike",
-        data: JSON.stringify(rating),
-        dataType: 'json',
-        contentType: 'application/json',
-        mimeType: 'application/json',
-
-        success: function (data) {
-            setRatingsCount(data);
+            $('#likeCount' + data.id).html(data.like);
+            $('#dislikeCount' + data.id).html(data.dislike);
         }
     });
 }
@@ -115,7 +96,7 @@ function deletePost(id) {
 
     $.ajax({
         type: "GET",
-        url: "/post/deletePost",
+        url: contextPath + "/post/deletePost",
         data: post,
         dataType: 'json',
         contentType: 'application/json',
@@ -135,7 +116,7 @@ function deleteComment(id) {
 
     $.ajax({
         type: "GET",
-        url: "/comment/deleteComment",
+        url: contextPath + "/comment/deleteComment",
         data: comment,
         dataType: 'json',
         contentType: 'application/json',
@@ -156,7 +137,7 @@ function showComments(id) {
 
     $.ajax({
         type: "GET",
-        url: "/comment/getCommentOfPost",
+        url: contextPath + "/comment/getCommentOfPost",
         data: post,
         dataType: 'json',
         contentType: 'application/json',
@@ -206,13 +187,16 @@ function addComment() {
     comment["owner"] = $('div[id^=authUser]').attr("current-user");
     $.ajax({
         type: "POST",
-        url: "/comment/addComment",
+        url: contextPath + "/comment/addComment",
         data: JSON.stringify(comment),
         dataType: 'json',
         contentType: 'application/json',
         mimeType: 'application/json',
 
         success: function (data) {
+            if (data == null) {
+                return;
+            }
             var fullComment = '<div id="fullComment' + data.id + '">';
             var divRemoveCross = '<div id="deleteComment' + data.id + '" class="post-del cursor-pointer">';
             var commentHeader = '<div align="left" style="border: 2px solid #b9b9b9"><b>' + data.senderName + '</b>';
@@ -232,40 +216,6 @@ function addComment() {
     });
 }
 
-function startDynamicSearch() {
-
-    var search = {};
-    search['login'] = $('#dynamicSearch').val();
-
-    $.ajax({
-        type: "POST",
-        url: "/users/findUser",
-        data: JSON.stringify(search),
-        dataType: 'json',
-        contentType: 'application/json',
-        cache: false,
-
-        success: function (response) {
-            var responseOptions = '';
-
-            for (var detectedUserIndex = 0; detectedUserIndex < response.length; detectedUserIndex++) {
-                responseOptions += '<option value="' + response[detectedUserIndex].userId
-                + '">' + response[detectedUserIndex].login + '</option>';
-            }
-
-            var responseHTML = '';
-
-            if (response.length > 0) {
-                responseHTML = '<select multiple class="col-lg-2 search-dropdown" onchange="window.location.href=this.value;">'
-                + responseOptions + '</select>';
-            } else {
-                responseHTML = responseOptions;
-            }
-
-            $("#searchResult").html(responseHTML);
-        }
-    });
-}
 
 
 

@@ -116,6 +116,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    public UserDTO changeEnableField(long id) {
+        UserDTO userDTO = getUserById(id);
+        if (userDTO.isEnable()) {
+            userDTO.setEnable(false);
+        } else {
+            userDTO.setEnable(true);
+        }
+        updateUser(userDTO);
+
+        return userDTO;
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public void setCommentSendersNames(List<CommentDTO> comments) {
         for (CommentDTO comment : comments) {

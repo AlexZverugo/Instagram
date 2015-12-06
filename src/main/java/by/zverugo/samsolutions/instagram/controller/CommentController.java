@@ -3,37 +3,47 @@ package by.zverugo.samsolutions.instagram.controller;
 import by.zverugo.samsolutions.instagram.dto.CommentDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.jsonview.Views;
+import by.zverugo.samsolutions.instagram.service.AuthorizationService;
 import by.zverugo.samsolutions.instagram.service.comment.CommentService;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
+import by.zverugo.samsolutions.instagram.validator.MessageContentValidator;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@SessionAttributes({"authorizedUser"})
 @RequestMapping(value = "/comment")
 public class CommentController {
 
     @Autowired
+    private MessageContentValidator messageContentValidator;
+
+    @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private AuthorizationService authorizationService;
 
     @Autowired
     private UserService userService;
 
     @JsonView(Views.Comment.class)
     @RequestMapping(value = "/addComment", method = RequestMethod.POST)
-    public CommentDTO addComment(@RequestBody CommentDTO comment,
-                                 @ModelAttribute("authorizedUser") UserDTO authUser) {
+    public CommentDTO addComment(@RequestBody CommentDTO comment) {
+        comment.setCommentContent(messageContentValidator.encodeMessage(comment.getCommentContent()));
+        comment.setCommentContent(messageContentValidator.findLink(comment.getCommentContent()));
+        UserDTO authUser = authorizationService.getAuthUser();
         comment.setSender(authUser.getUserId());
+        if (StringUtils.isBlank(comment.getCommentContent())) {
+            return null;
+        }
         comment = commentService.getComment(commentService.saveComment(comment));
         comment.setSenderName(authUser.getLogin());
 
@@ -51,8 +61,8 @@ public class CommentController {
 
     @JsonView(Views.Comment.class)
     @RequestMapping(value = "/deleteComment", method = RequestMethod.GET)
-    public void removePost(@RequestParam Long id,
-                              @ModelAttribute("authorizedUser") UserDTO authUser) {
+    public void removePost(@RequestParam Long id) {
+        UserDTO authUser = authorizationService.getAuthUser();
         CommentDTO comment = commentService.getComment(id);
 
         if (authUser.getUserId().equals(comment.getSender()) || authUser.getUserId().equals(comment.getOwner())) {

@@ -3,6 +3,7 @@ package by.zverugo.samsolutions.instagram.dao.rating.impl;
 import by.zverugo.samsolutions.instagram.dao.rating.RatingDao;
 import by.zverugo.samsolutions.instagram.entity.Rating;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
+import by.zverugo.samsolutions.instagram.util.enums.RatingTypeEnum;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -42,7 +43,8 @@ public class RatingDaoImpl implements RatingDao {
 
     @Override
     public void updateRating(Rating rating) {
-        sessionFactory.getCurrentSession().update(rating);
+        Rating mergedRating = (Rating) sessionFactory.getCurrentSession().merge(rating);
+        sessionFactory.getCurrentSession().update(mergedRating);
         LOGGER.info(messageSource.getMessage("dao.rating.update", new Object[]{rating}, InstagramConstants.LOGGER_LOCALE));
     }
 
@@ -77,6 +79,17 @@ public class RatingDaoImpl implements RatingDao {
                 InstagramConstants.LOGGER_LOCALE));
 
         return rating;
+    }
+
+    @Override
+    public long getRatingCount(long postId, String type) {
+        String posthql = "select count(*) FROM  by.zverugo.samsolutions.instagram.entity.Rating R " +
+                "WHERE R.post.postId = :postId and R.type = :ratingType";
+        Query query = sessionFactory.getCurrentSession().createQuery(posthql);
+        query.setParameter("postId", postId);
+        query.setParameter("ratingType", type);
+
+        return (Long)query.uniqueResult();
     }
 
 }

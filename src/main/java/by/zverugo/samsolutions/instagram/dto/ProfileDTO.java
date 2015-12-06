@@ -12,7 +12,8 @@ public class ProfileDTO {
     private String country;
     private String city;
     private String sex;
-    private Date birthday;
+    private String birthday;
+    private String viewBirthday;
     private MultipartFile picture;
     private byte[] avatar;
     private Long user;
@@ -73,11 +74,19 @@ public class ProfileDTO {
         this.sex = sex;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public String getViewBirthday() {
+        return viewBirthday;
+    }
+
+    public void setViewBirthday(String viewBirthday) {
+        this.viewBirthday = viewBirthday;
+    }
+
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

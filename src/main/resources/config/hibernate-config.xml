@@ -13,7 +13,7 @@
 
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="classpath:hibernate.properties"/>
+          p:location="classpath:property/postgresql.properties"/>
 
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
@@ -32,7 +32,7 @@
                   value="by.zverugo.samsolutions.instagram.entity"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="dialect">${hibernate.dialect}</prop>
+                <prop key="dialect">${db.dialect}</prop>
             </props>
         </property>
     </bean>
