@@ -7,7 +7,7 @@
             <c:url value="/" var="defaultPageUrl"/>
             <a class="navbar-brand" href="${defaultPageUrl}"><span class="nav-comp">Instagram</span></a>
         </div>
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                    aria-haspopup="true" aria-expanded="false"><span class="nav-comp">

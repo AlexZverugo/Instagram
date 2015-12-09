@@ -12,6 +12,11 @@ $(document).ready(function () {
     $('div[id^=remove]').click(function () {
         var removeId = $(this)[0].id;
         var id = removeId.substring('remove'.length);
+        $('#popupDeleteBtn').attr("id-parameter", id);
+    });
+
+    $('#popupDeleteBtn').click(function () {
+        var id = $('#popupDeleteBtn').attr("id-parameter");
         deletePost(id);
     });
 
@@ -56,7 +61,7 @@ $(document).ready(function () {
 
                 for (var responseIndex = 0; responseIndex < data.length; responseIndex++) {
                     var user = {};
-                    user["text"] = data[responseIndex].login;
+                    user["text"] = 'LOGIN: ' + data[responseIndex].login + ' | FULLNAME: ' + data[responseIndex].fullName;
                     user["id"] = data[responseIndex].userId;
                     users[responseIndex] = user;
                 }
@@ -176,6 +181,12 @@ function addDeleteCommentListeners() {
     $('div[id^=deleteComment]').click(function () {
         var removeId = $(this)[0].id;
         var id = removeId.substring('deleteComment'.length);
+        $('#sureQuestionComment').modal('show');
+        $('#popupDeleteCommentBtn').attr("id-parameter", id);
+    });
+
+    $('#popupDeleteCommentBtn').click(function () {
+        var id = $('#popupDeleteCommentBtn').attr("id-parameter");
         deleteComment(id);
     });
 }

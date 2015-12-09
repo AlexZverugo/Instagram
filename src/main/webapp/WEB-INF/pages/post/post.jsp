@@ -11,13 +11,17 @@
 <body class="bg-common">
 <toolkit:defaultnav/>
 <div class="container" align="center">
+    <br><br><br>
+    <br><br><br>
     <c:url value="/post/addPost" var="addPostUrl"/>
     <form:form action="${addPostUrl}" method="post" commandName="postForm" id="postSubmit"
                enctype="multipart/form-data">
         <form:hidden path="owner"/>
         <div class="form-group">
-            <label for="comment"><span style="color:#31b0d5"><spring:message
-                    code="post.label.inputpost"/>:</span></label>
+            <h1><label for="comment"><span style="color:#31b0d5"><spring:message
+                    code="post.label.inputpost"/>:</span>
+            </label>
+            </h1>
 
             <div class="post-textarea-border">
                 <spring:message code="post.placeholder.sendpost" var="taPlaceholder"/>

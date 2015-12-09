@@ -5,6 +5,7 @@
 
 <title>${title}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="<c:url value="/resources/photo/favicon.png"/>" type="image/png">
 <script src="<c:url value="/resources/bootstrap/js/jquery.min.js"/>"></script>
 <script src="<c:url value="/resources/bootstrap/js/jquery-ui.min.js"/>"></script>
 <script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>

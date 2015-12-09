@@ -98,7 +98,7 @@ public class ProfileDTOToProfileConverter implements Converter<ProfileDTO, Profi
     }
 
     private void convertCountry(ProfileDTO profileDTO, Profile profile) {
-        if (profileDTO.getCountryID() == null) {
+        if (profileDTO.getCountryDTO() == null) {
             profile.setCountry(null);
         } else {
             Country country = new Country();

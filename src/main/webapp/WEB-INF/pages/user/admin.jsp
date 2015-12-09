@@ -4,14 +4,19 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags" %>
 
+<%--i18n--%>
+<spring:message code="pages.title.admin" var="title"/>
+
+<%--URLs--%>
+<c:url value="/resources/js/admin.js" var="adminScript"/>
+
 <html>
 <head>
-    <spring:message code="pages.title.admin" var="title"/>
     <toolkit:header title="${title}"/>
     <script type="text/javascript">
         var contextPath='${pageContext.request.contextPath}';
     </script>
-    <script src="<c:url value="/resources/js/admin.js"/>"></script>
+    <script src="${adminScript}"></script>
 </head>
 <body class="bg-common">
 <toolkit:defaultnav/>

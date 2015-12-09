@@ -32,7 +32,12 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/pages/error/404.jsp</location>
+        <location>/404page</location>
+    </error-page>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500page</location>
     </error-page>
 
     <error-page>

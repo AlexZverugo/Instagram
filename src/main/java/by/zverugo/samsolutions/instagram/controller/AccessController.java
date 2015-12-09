@@ -12,6 +12,21 @@ public class AccessController {
     @RequestMapping("/403page")
     public String page403() {
         LOGGER.warn("ACCESS DENIED");
+
         return "error/403";
+    }
+
+    @RequestMapping("/404page")
+    public String page404() {
+        LOGGER.warn("Page not found");
+
+        return "error/404";
+    }
+
+    @RequestMapping("/500page")
+    public String page500() {
+        LOGGER.warn("Internal server error");
+
+        return "error/500";
     }
 }

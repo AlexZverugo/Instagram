@@ -61,6 +61,11 @@ public class UserController {
             return "redirect:/users/user";
         }
 
+        if (id == authUser.getUserId()) {
+            model.addAttribute("isEditable", true);
+        } else {
+            model.addAttribute("isEditable", false);
+        }
         List<PostDTO> posts = postService.getReversedListOfPostsByIdOfOwner(id);
         userService.setPostSendersUsernames(posts);
         ProfileDTO profile = profileService.getProfileByUserId(id);

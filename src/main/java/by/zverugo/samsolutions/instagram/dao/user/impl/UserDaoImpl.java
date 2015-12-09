@@ -81,7 +81,23 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> findByPattern(String pattern) {
-        String userhql = "FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE upper( U.login) like upper(:pattern)";
+        String userhql = "FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE " +
+                "upper( U.login) like upper(:pattern) " +
+                "or upper( U.profile.firstName) like upper(:pattern) " +
+                "or upper( U.profile.surname) like upper(:pattern) " +
+                "or upper( U.profile.secondName) like upper(:pattern) " +
+                "or upper(U.profile.firstName || ' ' || U.profile.surname) like upper(:pattern)" +
+                "or upper(U.profile.firstName || ' ' || U.profile.secondName) like upper(:pattern)" +
+                "or upper(U.profile.surname || ' ' || U.profile.firstName) like upper(:pattern)" +
+                "or upper(U.profile.surname || ' ' || U.profile.secondName) like upper(:pattern)" +
+                "or upper(U.profile.secondName || ' ' || U.profile.firstName) like upper(:pattern)" +
+                "or upper(U.profile.secondName || ' ' || U.profile.surname) like upper(:pattern)" +
+                "or upper(U.profile.secondName || ' ' || U.profile.surname || ' '|| U.profile.firstName) like upper(:pattern)" +
+                "or upper(U.profile.secondName || ' ' || U.profile.firstName || ' '|| U.profile.surname) like upper(:pattern)" +
+                "or upper(U.profile.surname || ' ' || U.profile.secondName || ' '|| U.profile.firstName) like upper(:pattern)" +
+                "or upper(U.profile.firstName || ' ' || U.profile.surname || ' '|| U.profile.secondName) like upper(:pattern)" +
+                "or upper(U.profile.firstName || ' ' || U.profile.secondName || ' '|| U.profile.surname) like upper(:pattern)" +
+                "or upper(U.profile.surname || ' ' || U.profile.firstName || ' '|| U.profile.secondName) like upper(:pattern)";
         Query query = sessionFactory.getCurrentSession().createQuery(userhql);
         query.setString("pattern", pattern + "%");
         List<User> users = query.list();

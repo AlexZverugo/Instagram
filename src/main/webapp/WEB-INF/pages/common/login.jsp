@@ -17,12 +17,9 @@
     </c:if>
     <c:url value="/j_spring_security_check" var="loginUrl"/>
 
-    <spring:message code="login.label.login" var="loginLabel"/>
-    <spring:message code="login.label.password" var="passwordLabel"/>
     <form action="${loginUrl}" method="post" class="form-horizontal">
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <h5 align="left"><span class="signup-label">${loginLabel}:</span></h5>
                 <input class="form-control" name="username" type="text"
                        placeholder="<spring:message code="login.placeholder.login"/>" autofocus/>
             </div>
@@ -30,7 +27,6 @@
 
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <h5 align="left"><span class="signup-label">${passwordLabel}:</span></h5>
                 <input class="form-control" name="password" type="password"
                        placeholder="<spring:message code="login.placeholder.password"/>"/>
             </div>
@@ -39,18 +35,21 @@
         <div class="form-group">
             <div class="col-sm-7">
                 <i><spring:message code="login.label.rememberme"/></i>
-                <input checked type="checkbox" name="remember-me"/>
+                <input type="checkbox" name="remember-me"/>
             </div>
         </div>
         <spring:message code="login.button.signin" var="SubmitLabel"/>
         <input type="submit" class="btn btn-info btn-bg my-btn-size" value="${SubmitLabel}"/>
     </form>
-
+    <hr>
     <c:url value="/registration" var="regUrl"/>
-    <form action="${regUrl}" method="get" class="form-horizontal">
-        <spring:message code="login.button.signup" var="SignUpButton"/>
-        <input type="submit" class="btn btn-info btn-bg my-btn-size" value="${SignUpButton}"/>
-    </form>
+    <spring:message code="login.label.donothaveaccountyet" var="donotHaveAccount"/>
+    <spring:message code="login.label.joinnow" var="joinNow"/>
+    <label for="signInLink" style="color:#808080">
+        ${donotHaveAccount}
+    </label>
+    <a href="${regUrl}" id="signInLink">${joinNow}</a>
+    <br><br>
 </div>
 
 </body>

@@ -2,7 +2,10 @@ package by.zverugo.samsolutions.instagram.validator;
 
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
+import by.zverugo.samsolutions.instagram.util.InstagramConstants;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -14,6 +17,11 @@ import java.util.regex.Pattern;
 
 @Component
 public class SignUpValidator implements Validator {
+
+    private final Logger LOGGER = Logger.getLogger(getClass());
+
+    @Autowired
+    private MessageSource messageSource;
 
     private Pattern pattern;
 
@@ -32,8 +40,12 @@ public class SignUpValidator implements Validator {
         UserDTO userDTO = (UserDTO) user;
 
         if (checkValidChars(userDTO.getLogin(), errors)) {
+            LOGGER.warn(messageSource.getMessage("signup.validator.invalidchars",
+                    new Object[]{LOGIN_PATTERN}, InstagramConstants.LOGGER_LOCALE));
             return;
         } else if (checkEmptyValue(userDTO, errors)) {
+            LOGGER.warn(messageSource.getMessage("signup.validator.isEmpty",
+                    null, InstagramConstants.LOGGER_LOCALE));
             return;
         } else {
             checkLoginRepeat(userDTO.getLogin(), errors);
@@ -65,7 +77,13 @@ public class SignUpValidator implements Validator {
     private void checkLoginRepeat(String login, Errors errors) {
         if (userService.getUserByLogin(login) != null) {
             errors.rejectValue("login", "validator.registration.loginalreadyexists");
+
+            LOGGER.warn(messageSource.getMessage("signup.validator.loginExists",
+                    null, InstagramConstants.LOGGER_LOCALE));
         }
+
+        LOGGER.info(messageSource.getMessage("signup.validator.loginNotExists",
+                null, InstagramConstants.LOGGER_LOCALE));
     }
 
     private boolean checkEmptyValue(UserDTO userDTO, Errors errors) {

@@ -45,6 +45,10 @@ public class RegistrationController {
 
     @RequestMapping(value = "/registerUser", method = {RequestMethod.POST, RequestMethod.GET})
     public String registerUser(@ModelAttribute("userForm") UserDTO userDTO, BindingResult result) {
+        if (userDTO.getLogin() == null) {
+
+            return "common/signup";
+        }
         signUpValidator.validate(userDTO, result);
         if (result.hasErrors()) {
 
@@ -55,11 +59,19 @@ public class RegistrationController {
         userDTO.setPassword(passwordEncoder.encode(password));
         userDTO.setEnable(true);
         long userId = userService.saveUser(userDTO);
-        ProfileDTO profile = new ProfileDTO();
-        profile.setUser(userId);
-        profileService.saveProfile(profile);
+        buildProfile(userId);
         authorizationService.login(userDTO.getLogin(), password);
 
         return "redirect:/users/user";
+    }
+
+    private void buildProfile(long userId) {
+        ProfileDTO profile = new ProfileDTO();
+        profile.setUser(userId);
+        profile.setFirstName("");
+        profile.setSurname("");
+        profile.setSecondName("");
+        profile.setCity("");
+        profileService.saveProfile(profile);
     }
 }

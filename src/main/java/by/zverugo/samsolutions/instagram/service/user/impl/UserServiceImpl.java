@@ -7,6 +7,7 @@ import by.zverugo.samsolutions.instagram.dto.UserDTO;
 import by.zverugo.samsolutions.instagram.entity.User;
 import by.zverugo.samsolutions.instagram.service.user.UserService;
 import by.zverugo.samsolutions.instagram.util.InstagramConstants;
+import by.zverugo.samsolutions.instagram.util.enums.UserRoleEnum;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -84,7 +85,9 @@ public class UserServiceImpl implements UserService {
         List<User> users = userDao.getListOfUsers();
         List<UserDTO> userDTOList = new ArrayList();
         for (User user : users) {
-            userDTOList.add(conversionService.convert(user, UserDTO.class));
+            if (user.getRole().equals(UserRoleEnum.USER.getRole())) {
+                userDTOList.add(conversionService.convert(user, UserDTO.class));
+            }
         }
         LOGGER.info(messageSource.getMessage("service.user.getList", new Object[]{userDTOList},
                 InstagramConstants.LOGGER_LOCALE));

@@ -2,7 +2,7 @@
 id serial PRIMARY KEY,
 login varchar(20) NOT NULL UNIQUE,
 password varchar(144) NOT NULL,
-email varchar(255) NOT NULL,
+email varchar(255) NOT NULL UNIQUE,
 user_role varchar(255) NOT NULL,
 user_enable boolean DEFAULT true 
 );
@@ -24,14 +24,13 @@ comment_id serial PRIMARY KEY,
 post_id int references post(post_id) ON UPDATE CASCADE ON DELETE CASCADE,
 sender int references users(id) ON UPDATE CASCADE ON DELETE CASCADE,
 owner int references users(id) ON UPDATE CASCADE ON DELETE CASCADE,
-comment_content varchar,
-comment_send_date timestamp without time zone
+comment_content varchar
 );
 
 CREATE TABLE  profile (
 id serial PRIMARY KEY,
 user_id int references users(id) ON UPDATE CASCADE ON DELETE CASCADE,
-country_id varchar(150) references country(country_id) ON UPDATE CASCADE ON DELETE CASCADE,
+country_id int references country(country_id) ON UPDATE CASCADE ON DELETE CASCADE,
 firstname varchar(125),
 surname varchar(125),
 secondname varchar(125),

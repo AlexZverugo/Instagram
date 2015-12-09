@@ -10,11 +10,22 @@ public class UserDTO {
     private Long userId;
     @JsonView(Views.Search.class)
     private String login;
+    @JsonView(Views.Search.class)
+    private String fullName;
     private String password;
     private String repeatedPassword;
     private String email;
     private UserRoleEnum role;
     private boolean enable;
+
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public String getRepeatedPassword() {
         return repeatedPassword;

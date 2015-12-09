@@ -107,7 +107,7 @@
     position: absolute;
     top: 40%;
     left: 54%;
-    width: 300px;
+    width: 400px;
     background: lavender;
     border: 3px solid #fff;
     border-radius: 10px;
@@ -140,6 +140,10 @@
     color: #000000;
 }
 
+.table-search-stl {
+    color: #000000;
+    border: #000000;
+}
 .tr-stl {
     color: gray;
 }
@@ -211,6 +215,11 @@
     max-width: 350px;
 }
 
+.profile-default-img {
+    max-height: 350px;
+    max-width: 350px;
+}
+
 .profile-layer {
     overflow-x: auto;
     overflow-clip: 100%;
@@ -241,4 +250,20 @@
     top: 6%;
     left: 4%;
     z-index: 1;
+}
+
+.search-icon {
+    border: 2px solid #000000;
+    cursor: pointer;
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.search-container {
+    position: relative;
+    top: 10%;
+    width: 800px;
+    background: lavender;
+    border: 3px solid #fff;
+    border-radius: 10px;
 }

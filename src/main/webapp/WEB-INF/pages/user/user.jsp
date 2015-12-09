@@ -7,33 +7,56 @@
 <%@ taglib prefix="toolkit" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="/taglib/postimage" prefix="pi" %>
 
+<%--i18n--%>
+<spring:message code="pages.title.user" var="title"/>
+<spring:message code="user.button.addpost" var="addPostButton"/>
+<spring:message code="user.label.username" var="usernameLabel"/>
+<spring:message code="user.tooltip.delete" var="deleteTooltip"/>
+<spring:message code="user.post.popup.head" var="postPopupHead"/>
+<spring:message code="user.placeholder.sendcomment" var="commentPlaceholder"/>
+<spring:message code="user.button.send" var="saveButton"/>
+<spring:message code="user.button.delete" var="deleteButton"/>
+<spring:message code="user.button.cancel" var="cancelButton"/>
+<spring:message code="user.popup.label.question" var="questionLabel"/>
+
+<%--URLs--%>
+<c:url value="/resources/js/user.js" var="userScripts"/>
+<c:url value="/post?postOwnerId=${profile.user}" var="addPostUrl"/>
+<c:url value="/profile/user=${profile.user}" var="showProfileUrl"/>
+<c:url value="/resources/photo/default_avatar.png" var="defaultAvatar"/>
+
+
 <html>
 <head>
-    <spring:message code="pages.title.user" var="title"/>
     <toolkit:header title="${title}"/>
     <script type="text/javascript">
         var contextPath='${pageContext.request.contextPath}';
     </script>
-    <script src="<c:url value="/resources/js/user.js"/>"></script>
+    <script src="${userScripts}"></script>
 </head>
 
 <body class="bg-common">
 <toolkit:navbar/>
 
+<c:choose>
+    <c:when test="${isEditable}">
+        <spring:message code="user.button.myshowprofile" var="showProfileButton"/>
+    </c:when>
+    <c:otherwise>
+        <spring:message code="user.button.showprofile" var="showProfileButton"/>
+    </c:otherwise>
+</c:choose>
+
 <h2 class="user-label-fixed">${username}</h2>
-<c:url value="/post?postOwnerId=${profile.user}" var="addPostUrl"/>
 <a href="${addPostUrl}">
     <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-add-btn-position"
-           value="<spring:message code="user.button.addpost"/>">
+           value="${addPostButton}">
 </a>
 
-<c:url value="/profile/user=${profile.user}" var="showProfileUrl"/>
 <a href="${showProfileUrl}">
     <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-profile-btn-position"
-           value="<spring:message code="user.button.showprofile"/>">
+           value="${showProfileButton}">
 </a>
-
-<div id="searchResult" class="row"></div>
 
 <div class="container user-layer" align="center">
     <br><br>
@@ -44,15 +67,14 @@
             <div id="fullPostContent${post.id}" class="user-post-br" align="center">
                 <div class="col-sm-1 user-post-position">
                     <div class="thumbnail">
-                        <a href="/profile/user=${post.sender}">
+                        <c:url value="/profile/user=${post.sender}" var="userProfile"/>
+                        <a href="${userProfile}">
                             <c:choose>
                                 <c:when test="${post.senderAvatar != null}">
-
                                     <img class="img-responsive user-photo"
                                          src="<pi:image imageByte="${post.senderAvatar}"/>">
                                 </c:when>
                                 <c:otherwise>
-                                    <c:url value="/resources/photo/default_avatar.png" var="defaultAvatar"/>
                                     <img class="img-responsive user-photo"
                                          src="${defaultAvatar}">
                                 </c:otherwise>
@@ -64,13 +86,13 @@
                     <div class="panel panel-default">
                         <div class="left panel-heading">
                             <div align="left">
-                                <span class="text-muted"><spring:message code="user.label.username"/>:</span>
+                                <span class="text-muted">${usernameLabel}:</span>
                                 <strong>${post.senderName}</strong>
 
-                                <div id="remove${post.id}" class="post-del cursor-pointer">
-
+                                <div id="remove${post.id}" class="post-del cursor-pointer"
+                                     data-toggle="modal" data-target="#sureQuestion">
                                     <c:if test="${authUser.userId eq post.sender or authUser.userId eq post.owner}">
-                                        <span data-toggle="tooltip" title="<spring:message code="user.tooltip.delete"/>"
+                                        <span data-toggle="tooltip" title="${deleteTooltip}"
                                               class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                     </c:if>
 
@@ -117,10 +139,6 @@
                 </div>
             </div>
         </c:forEach>
-        <%--<div class="user-post-br" align="center">--%>
-            <%--<spring:message code="user.post.popup.head" var="showMore"/>--%>
-            <%--<input type="button" class="btn btn-primary" style="width: 39%" id="showMore" value="Show more"/>--%>
-        <%--</div>--%>
     </div>
 
     <div id="myModal" class="modal" role="dialog">
@@ -129,7 +147,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"><spring:message code="user.post.popup.head"/></h4>
+                    <h4 class="modal-title">${postPopupHead}</h4>
                 </div>
                 <div class="modal-body">
                     <div id="popupContent">
@@ -147,16 +165,61 @@
                 <div id="authUser${authUser.userId}" current-user="${profile.user}"></div>
                 <div class="row">
                     <form id="commentInput">
-                        <textarea id="commentContent" placeholder="<spring:message code="user.placeholder.sendcomment"/>"
-                                  class="form-control comment-textarea col-sm-offset-1 col-sm-5" rows="4"></textarea>
+                        <textarea id="commentContent" placeholder="${commentPlaceholder}" rows="4"
+                                  class="form-control comment-textarea col-sm-offset-1 col-sm-5"></textarea>
 
                         <p>
-                            <input type="submit" class="btn btn-primary col-sm-3 comment-btn"
-                                   value="<spring:message code="user.button.send"/>">
+                            <input id="sendComment" type="submit"
+                                   class="btn btn-primary col-sm-3 comment-btn"
+                                   value="${saveButton}">
                         </p>
                     </form>
                 </div>
                 <br>
+            </div>
+        </div>
+    </div>
+
+    <div id="sureQuestion" class="modal" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>${questionLabel}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input id="popupDeleteBtn" style="min-width: 100px"
+                               class="btn btn-danger col-lg-offset-1 col-sm-3"
+                               data-dismiss="modal" value="${deleteButton}" id-parameter="">
+                        <input id="popupCancelBtn" style="min-width: 100px"
+                               class="btn btn-default col-lg-offset-2 col-sm-3"
+                               data-dismiss="modal" value="${cancelButton}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sureQuestionComment" class="modal" role="dialog" style="top:5%">
+        <div class="modal-dialog modal-sm">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4>${questionLabel}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input id="popupDeleteCommentBtn" style="min-width: 100px"
+                               class="btn btn-danger col-lg-offset-1 col-sm-3"
+                               data-dismiss="modal" value="${deleteButton}" id-parameter="">
+                        <input id="popupCancelCommentBtn" style="min-width: 100px"
+                               class="btn btn-default col-lg-offset-2 col-sm-3"
+                               data-dismiss="modal" value="${cancelButton}">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
