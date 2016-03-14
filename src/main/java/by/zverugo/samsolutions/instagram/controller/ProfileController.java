@@ -2,7 +2,6 @@ package by.zverugo.samsolutions.instagram.controller;
 
 import by.zverugo.samsolutions.instagram.dto.ProfileDTO;
 import by.zverugo.samsolutions.instagram.dto.UserDTO;
-import by.zverugo.samsolutions.instagram.entity.Profile;
 import by.zverugo.samsolutions.instagram.service.AuthorizationService;
 import by.zverugo.samsolutions.instagram.service.country.CountryService;
 import by.zverugo.samsolutions.instagram.service.profile.ProfileService;

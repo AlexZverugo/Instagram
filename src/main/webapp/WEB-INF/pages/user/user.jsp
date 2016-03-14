@@ -37,7 +37,6 @@
 
 <body class="bg-common">
 <toolkit:navbar/>
-
 <c:choose>
     <c:when test="${isEditable}">
         <spring:message code="user.button.myshowprofile" var="showProfileButton"/>
@@ -46,8 +45,7 @@
         <spring:message code="user.button.showprofile" var="showProfileButton"/>
     </c:otherwise>
 </c:choose>
-
-<h2 class="user-label-fixed">${username}</h2>
+<%--<div style="margin:0 auto">--%>
 <a href="${addPostUrl}">
     <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-add-btn-position"
            value="${addPostButton}">
@@ -57,11 +55,12 @@
     <input type="button" class="user-btn-size btn btn-primary user-btn-fixed user-profile-btn-position"
            value="${showProfileButton}">
 </a>
+<%--</div>--%>
 
 <div class="container user-layer" align="center">
     <br><br>
     <br><br>
-
+    <h2 class="user-label-fixed">${username}</h2>
     <div id="allPosts">
         <c:forEach var="post" items="${posts}">
             <div id="fullPostContent${post.id}" class="user-post-br" align="center">

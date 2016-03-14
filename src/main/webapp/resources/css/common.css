@@ -46,10 +46,10 @@
 }
 
 .user-label-fixed {
-    position: fixed;
-    color: gray;
-    top: 8%;
-    left: 12%;
+    /*position: fixed;*/
+    color: #ffffff;
+    /*top: 8%;*/
+    /*left: 4%;*/
 }
 
 .user-btn-fixed {
@@ -71,12 +71,12 @@
 
 
 .profile-user-return-btn-position {
-    top: 8%;
+    top: 12%;
     left: 4%;
 }
 
 .profile-edit-btn-position {
-    top: 20%;
+    top: 25%;
     left: 4%;
 }
 

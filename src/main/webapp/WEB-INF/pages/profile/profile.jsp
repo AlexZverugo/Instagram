@@ -75,13 +75,14 @@
         <c:when test="${not empty profile.avatar}">
             <img class="profile-img" src="<pi:image imageByte="${profile.avatar}"/>"
                  data-toggle="modal" data-target="#profileAvatarModal">
-            <hr>
         </c:when>
         <c:otherwise>
             <img class="profile-default-img" src="${defaultAvatar}">
-            <hr>
         </c:otherwise>
     </c:choose>
+    <c:if test="${not empty profile.sex}">
+        <hr>
+    </c:if>
     <div class="row">
         <c:if test="${not empty profile.firstName}">
             <h3 class="col-sm-3 profile-header-text" align="right">
@@ -93,7 +94,6 @@
             </h3>
         </c:if>
     </div>
-
     <div class="row">
         <c:if test="${not empty profile.surname}">
             <h3 class="col-sm-3 profile-header-text" align="right">
@@ -177,7 +177,10 @@
             </c:choose>
         </c:if>
     </div>
-    <hr>
+    <c:if test="${not empty profile.sex}">
+        <hr>
+    </c:if>
+
 
     <div id="profileModal" class="modal" role="dialog">
         <div class="modal-dialog modal-lg">

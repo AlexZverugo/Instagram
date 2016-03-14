@@ -30,12 +30,12 @@ java.io.IOException: tmpFile.renameTo(classFile) failed
 12) Записать логи в файл
 13) Read me
 14) http://localhost:8080/profile/user=2 если не цифры, а текст, то ошибка сервера (не надо исправлять)+
-15) email validation
+15) email validation +
 
 
+валидация города
 
 
-поменял бд
 
 
 
@@ -46,7 +46,7 @@ java.io.IOException: tmpFile.renameTo(classFile) failed
 5) input data -> посмотри как другие чуваки называют такие формы +
 6) на форме sign up для кнопки sign in сделать лейбу already have an account? +
 7) на форме sign in для кнопки sign up сделать лейбу "don't have an account?" +
-8) logout при наведении курсора подчеркивать
+8) logout при наведении курсора подчеркивать -
 9) убрать палец с дефолтной фотки +
 10) User page -> Activity Feed +
 11) Edit -> Edit My Profile +
@@ -56,7 +56,7 @@ java.io.IOException: tmpFile.renameTo(classFile) failed
 15) Send -> Save +
 16) добавить кнопку cancel на попап редактирования профиля +
 17) ШРИФТЫ ВНУТРИ БОЛЬШЕ +
-18) перед удалением ЧЕГО БЫ ТО НИ БЫЛО спращивать
+18) перед удалением ЧЕГО БЫ ТО НИ БЫЛО спращивать +
 19) вместо крестика мусорку для удаления -
 20) http://localhost:8080/Instagram/profile/user= +
 21) список пользователей - must have +

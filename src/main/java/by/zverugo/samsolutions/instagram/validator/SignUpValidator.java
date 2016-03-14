@@ -49,6 +49,7 @@ public class SignUpValidator implements Validator {
             return;
         } else {
             checkLoginRepeat(userDTO.getLogin(), errors);
+            checkEmailRepeat(userDTO.getEmail(), errors);
             checkEqualPassword(userDTO.getPassword(), userDTO.getRepeatedPassword(), errors);
         }
 
@@ -83,6 +84,18 @@ public class SignUpValidator implements Validator {
         }
 
         LOGGER.info(messageSource.getMessage("signup.validator.loginNotExists",
+                null, InstagramConstants.LOGGER_LOCALE));
+    }
+
+    private void checkEmailRepeat(String email, Errors errors) {
+        if (userService.getUserByEmail(email) != null) {
+            errors.rejectValue("email", "validator.registration.emailalreadyexits");
+
+            LOGGER.warn(messageSource.getMessage("signup.validator.emailExists",
+                    null, InstagramConstants.LOGGER_LOCALE));
+        }
+
+        LOGGER.info(messageSource.getMessage("signup.validator.emailNotExists",
                 null, InstagramConstants.LOGGER_LOCALE));
     }
 

@@ -18,7 +18,6 @@ public class AccessController {
 
     @RequestMapping("/404page")
     public String page404() {
-        LOGGER.warn("Page not found");
 
         return "error/404";
     }

@@ -60,6 +60,18 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        String userhql = "FROM  by.zverugo.samsolutions.instagram.entity.User U WHERE U.email = :email";
+        Query query = sessionFactory.getCurrentSession().createQuery(userhql);
+        query.setParameter("email", email);
+        User user = (User) query.uniqueResult();
+        LOGGER.info(messageSource.getMessage("dao.user.getUserByEmail", new Object[]{email, user},
+                InstagramConstants.LOGGER_LOCALE));
+
+        return user;
+    }
+
+    @Override
     public List<User> getListOfUsers() {
         List<User> users;
         users = sessionFactory.getCurrentSession().createCriteria(User.class).list();

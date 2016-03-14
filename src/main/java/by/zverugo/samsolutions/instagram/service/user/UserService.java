@@ -14,6 +14,7 @@ public interface UserService {
     void deleteUser(long id);
     void updateUser(UserDTO userDTO);
     UserDTO getUserByLogin(String login);
+    UserDTO getUserByEmail(String email);
     UserDTO getUserById(long id);
     List<UserDTO> getListOfUsers();
     void setCommentSendersNames(List<CommentDTO> comments);

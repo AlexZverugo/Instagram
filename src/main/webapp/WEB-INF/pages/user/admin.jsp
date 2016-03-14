@@ -25,15 +25,15 @@
     <br><br>
     <table class="table table-stl">
         <tr class="tr-stl">
-            <th><spring:message code="admin.label.username"/></th>
-            <th><spring:message code="admin.label.email"/></th>
-            <th><spring:message code="admin.tablehead.delete"/></th>
-            <th><spring:message code="admin.tablehead.block"/></th>
+            <th style="color: #ffffff;"><spring:message code="admin.label.username"/></th>
+            <th style="color: #ffffff;"><spring:message code="admin.label.email"/></th>
+            <th style="color: #ffffff;"><spring:message code="admin.tablehead.delete"/></th>
+            <th style="color: #ffffff;"><spring:message code="admin.tablehead.block"/></th>
         </tr>
         <c:forEach var="user" items="${users}">
             <tr id="userInf${user.userId}">
-                <td><c:out value="${user.login}"/></td>
-                <td><c:out value="${user.email}"/></td>
+                <td style="color: #ffffff;"><c:out value="${user.login}"/></td>
+                <td style="color: #ffffff;"><c:out value="${user.email}"/></td>
                 <td>
                     <input type="button" id="askedPopup${user.userId}" class="btn btn-danger"
                            data-toggle="modal" data-target="#verification"

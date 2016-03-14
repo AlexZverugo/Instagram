@@ -71,6 +71,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
+    public UserDTO getUserByEmail(String email) {
+        UserDTO userDTO = conversionService.convert(userDao.getUserByEmail(email), UserDTO.class);
+        LOGGER.info(messageSource.getMessage("service.user.getUserByEmail",
+                new Object[]{email, userDTO}, InstagramConstants.LOGGER_LOCALE));
+
+        return userDTO;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public UserDTO getUserById(long id) {
         UserDTO userDTO = conversionService.convert(userDao.getUser(id), UserDTO.class);
         LOGGER.info(messageSource.getMessage("service.user.getUserById", new Object[]{id, userDTO},
